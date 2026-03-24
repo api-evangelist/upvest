@@ -1,0 +1,4351 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment API
+  description: >-
+    The Upvest Investment API provides a unified interface for building embedded
+    investment experiences. It supports placing and managing orders, creating
+    portfolios, configuring savings plans, handling securities transfers, and
+    managing user accounts and positions. The API covers the full order lifecycle
+    with asynchronous processing and webhook notifications for real-time event
+    handling. Financial institutions can use the API to offer fractional
+    investing, automated portfolio management, and localized investment products
+    across European and UK markets.
+  version: '1.0.0'
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/
+servers:
+  - url: https://api.upvest.co
+    description: Production Server
+  - url: https://sandbox.upvest.co
+    description: Sandbox Server
+tags:
+  - name: Authentication
+    description: >-
+      OAuth 2.0 token management for API access using client credentials flow.
+  - name: Users
+    description: >-
+      Manage end users including onboarding, identity verification, and profile
+      management.
+  - name: User Identifiers
+    description: >-
+      Manage external identifiers associated with users.
+  - name: User Checks
+    description: >-
+      Compliance and verification checks on users.
+  - name: Tax Residencies
+    description: >-
+      Manage tax residency information for users.
+  - name: Accounts
+    description: >-
+      Investment accounts that hold positions and track balances for users.
+  - name: Instruments
+    description: >-
+      Query available financial instruments and their metadata.
+  - name: Instrument Prices
+    description: >-
+      Retrieve real-time and historical price data for instruments.
+  - name: Orders
+    description: >-
+      Place, manage, and track buy and sell orders for instruments.
+  - name: Order Cancellations
+    description: >-
+      Cancel pending orders before execution.
+  - name: Executions
+    description: >-
+      Track order execution details and fills.
+  - name: Portfolios
+    description: >-
+      Create and manage portfolios with custom asset allocations.
+  - name: Portfolio Allocations
+    description: >-
+      Define and update target allocations within portfolios.
+  - name: Portfolio Orders
+    description: >-
+      Place orders against portfolio allocations.
+  - name: Portfolios Rebalancing
+    description: >-
+      Trigger and track portfolio rebalancing operations.
+  - name: Savings Plans
+    description: >-
+      Configure automated recurring investments into portfolios or instruments.
+  - name: Positions
+    description: >-
+      View current holdings and position details for accounts.
+  - name: Valuations
+    description: >-
+      Retrieve account and position valuations.
+  - name: Returns
+    description: >-
+      Calculate account-level investment returns.
+  - name: Cash Balances
+    description: >-
+      View cash balance information for accounts.
+  - name: Direct Debits
+    description: >-
+      Manage direct debit funding operations.
+  - name: Mandates
+    description: >-
+      Manage direct debit mandates for accounts.
+  - name: Withdrawals
+    description: >-
+      Process cash withdrawals from investment accounts.
+  - name: Reference Accounts
+    description: >-
+      Manage reference bank accounts linked to investment accounts.
+  - name: Virtual Cash Balances
+    description: >-
+      View virtual cash balance details.
+  - name: Fees
+    description: >-
+      Track and manage fee charges on accounts.
+  - name: Fee Configurations
+    description: >-
+      Configure fee structures and schedules.
+  - name: Reports
+    description: >-
+      Generate and retrieve user-facing investment reports and statements.
+  - name: Treasury Reports
+    description: >-
+      Access treasury-level reporting for institutional oversight.
+  - name: Transactions
+    description: >-
+      View transaction history for accounts.
+  - name: Files
+    description: >-
+      Access and download generated files such as reports and statements.
+  - name: Liquidations
+    description: >-
+      Manage full or partial account liquidations.
+  - name: Securities Transfers
+    description: >-
+      Transfer securities between accounts or providers.
+  - name: Account Transfers
+    description: >-
+      Transfer accounts between entities.
+  - name: Corporate Actions
+    description: >-
+      View and manage corporate action events on held securities.
+  - name: Webhook Subscriptions
+    description: >-
+      Register, update, and manage webhook subscriptions for event notifications.
+security:
+  - oauth2ClientCredentials: []
+paths:
+  /auth/token:
+    post:
+      operationId: createAccessToken
+      summary: Create an access token
+      description: >-
+        Obtain an OAuth 2.0 access token using client credentials. The returned
+        opaque access token is used to authenticate subsequent API requests. You
+        must specify the required scopes for the endpoints you intend to call.
+      tags:
+        - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - grant_type
+                - client_id
+                - client_secret
+                - scope
+              properties:
+                grant_type:
+                  type: string
+                  enum:
+                    - client_credentials
+                  description: >-
+                    The OAuth 2.0 grant type. Must be client_credentials.
+                client_id:
+                  type: string
+                  description: >-
+                    The client identifier issued during onboarding.
+                client_secret:
+                  type: string
+                  description: >-
+                    The client secret issued during onboarding.
+                scope:
+                  type: string
+                  description: >-
+                    A space-separated list of scopes to request.
+      responses:
+        '200':
+          description: Access token successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+        '401':
+          description: Invalid client credentials or missing scopes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users:
+    get:
+      operationId: listUsers
+      summary: List users
+      description: >-
+        Retrieve a paginated list of all onboarded users. Supports filtering
+        and pagination parameters.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createUser
+      summary: Create a user
+      description: >-
+        Onboard a new user to the investment platform. The user must pass
+        identity verification and compliance checks before trading is enabled.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{user_id}:
+    get:
+      operationId: retrieveUser
+      summary: Retrieve a user
+      description: >-
+        Retrieve details for a specific user by their unique identifier.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      operationId: updateUser
+      summary: Update a user
+      description: >-
+        Update profile information for an existing user.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: User successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{user_id}/identifiers:
+    get:
+      operationId: listUserIdentifiers
+      summary: List user identifiers
+      description: >-
+        Retrieve all external identifiers associated with a user.
+      tags:
+        - User Identifiers
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: List of user identifiers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserIdentifier'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createUserIdentifier
+      summary: Create a user identifier
+      description: >-
+        Add an external identifier to a user record.
+      tags:
+        - User Identifiers
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserIdentifierCreate'
+      responses:
+        '201':
+          description: Identifier created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIdentifier'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{user_id}/identifiers/{identifier_id}:
+    get:
+      operationId: retrieveUserIdentifier
+      summary: Retrieve a user identifier
+      description: >-
+        Retrieve a specific external identifier for a user.
+      tags:
+        - User Identifiers
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/IdentifierId'
+      responses:
+        '200':
+          description: User identifier details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIdentifier'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Identifier not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      operationId: updateUserIdentifier
+      summary: Update a user identifier
+      description: >-
+        Update an existing external identifier for a user.
+      tags:
+        - User Identifiers
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/IdentifierId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserIdentifierUpdate'
+      responses:
+        '200':
+          description: Identifier updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIdentifier'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{user_id}/checks:
+    get:
+      operationId: listUserChecks
+      summary: List user checks
+      description: >-
+        Retrieve compliance and verification checks performed on a user.
+      tags:
+        - User Checks
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: List of user checks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserCheck'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{user_id}/tax_residencies:
+    get:
+      operationId: listTaxResidencies
+      summary: List tax residencies
+      description: >-
+        Retrieve tax residency information for a user.
+      tags:
+        - Tax Residencies
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: List of tax residencies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TaxResidency'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createTaxResidency
+      summary: Create a tax residency
+      description: >-
+        Add a tax residency record for a user.
+      tags:
+        - Tax Residencies
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaxResidencyCreate'
+      responses:
+        '201':
+          description: Tax residency created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxResidency'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{user_id}/accounts:
+    get:
+      operationId: listUserAccounts
+      summary: List accounts for a user
+      description: >-
+        Retrieve all investment accounts belonging to a specific user.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: List of user accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List accounts
+      description: >-
+        Retrieve a paginated list of all investment accounts.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createAccount
+      summary: Create an account
+      description: >-
+        Open a new investment account for a user.
+      tags:
+        - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountCreate'
+      responses:
+        '201':
+          description: Account successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}:
+    get:
+      operationId: retrieveAccount
+      summary: Retrieve an account
+      description: >-
+        Retrieve details for a specific investment account.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      operationId: updateAccount
+      summary: Update an account
+      description: >-
+        Update metadata or settings for an existing investment account.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountUpdate'
+      responses:
+        '200':
+          description: Account updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: closeAccount
+      summary: Close an account
+      description: >-
+        Close an investment account. The account must have no open positions
+        or pending orders.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '204':
+          description: Account successfully closed
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instruments:
+    get:
+      operationId: listInstruments
+      summary: List instruments
+      description: >-
+        Retrieve a paginated list of available financial instruments including
+        equities, ETFs, and other tradeable securities.
+      tags:
+        - Instruments
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - name: isin
+          in: query
+          description: >-
+            Filter instruments by ISIN code.
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: >-
+            Filter instruments by type.
+          schema:
+            type: string
+            enum:
+              - EQUITY
+              - ETF
+              - BOND
+              - FUND
+      responses:
+        '200':
+          description: A paginated list of instruments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Instrument'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instruments/{instrument_id}:
+    get:
+      operationId: retrieveInstrument
+      summary: Retrieve an instrument
+      description: >-
+        Retrieve details for a specific financial instrument.
+      tags:
+        - Instruments
+      parameters:
+        - $ref: '#/components/parameters/InstrumentId'
+      responses:
+        '200':
+          description: Instrument details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instrument'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Instrument not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instruments/{instrument_id}/prices:
+    get:
+      operationId: listInstrumentPrices
+      summary: List instrument prices
+      description: >-
+        Retrieve price data for a specific instrument. Prices are linked to
+        exchanges so you can track where prices are available.
+      tags:
+        - Instrument Prices
+      parameters:
+        - $ref: '#/components/parameters/InstrumentId'
+      responses:
+        '200':
+          description: Instrument price data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InstrumentPrice'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Instrument not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /orders:
+    get:
+      operationId: listOrders
+      summary: List orders
+      description: >-
+        Retrieve a paginated list of orders. Supports filtering by account,
+        status, and other criteria.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - name: account_id
+          in: query
+          description: >-
+            Filter orders by account identifier.
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          description: >-
+            Filter orders by status.
+          schema:
+            type: string
+            enum:
+              - NEW
+              - PROCESSING
+              - FILLED
+              - CANCELLED
+              - REJECTED
+      responses:
+        '200':
+          description: A paginated list of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createOrder
+      summary: Place an order
+      description: >-
+        Place a new buy or sell order for a financial instrument. Orders are
+        processed asynchronously and their status can be tracked via webhooks
+        or polling.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '201':
+          description: Order successfully placed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid order request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /orders/{order_id}:
+    get:
+      operationId: retrieveOrder
+      summary: Retrieve an order
+      description: >-
+        Retrieve details for a specific order including current status and
+        execution information.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /orders/{order_id}/cancellation:
+    post:
+      operationId: cancelOrder
+      summary: Cancel an order
+      description: >-
+        Request cancellation of a pending order. Cancellation may not be
+        possible if the order is already in execution.
+      tags:
+        - Order Cancellations
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Cancellation request accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderCancellation'
+        '400':
+          description: Order cannot be cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /orders/{order_id}/executions:
+    get:
+      operationId: listOrderExecutions
+      summary: List order executions
+      description: >-
+        Retrieve execution details for a specific order. Each execution
+        represents a fill against the order.
+      tags:
+        - Executions
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: List of order executions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Execution'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /portfolios:
+    get:
+      operationId: listPortfolios
+      summary: List portfolios
+      description: >-
+        Retrieve a paginated list of portfolios.
+      tags:
+        - Portfolios
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of portfolios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Portfolio'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createPortfolio
+      summary: Create a portfolio
+      description: >-
+        Create a new portfolio with a defined set of target allocations across
+        instruments.
+      tags:
+        - Portfolios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioCreate'
+      responses:
+        '201':
+          description: Portfolio created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Portfolio'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /portfolios/{portfolio_id}:
+    get:
+      operationId: retrievePortfolio
+      summary: Retrieve a portfolio
+      description: >-
+        Retrieve details for a specific portfolio including its allocations
+        and current state.
+      tags:
+        - Portfolios
+      parameters:
+        - $ref: '#/components/parameters/PortfolioId'
+      responses:
+        '200':
+          description: Portfolio details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Portfolio'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Portfolio not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      operationId: updatePortfolio
+      summary: Update a portfolio
+      description: >-
+        Update portfolio settings or metadata.
+      tags:
+        - Portfolios
+      parameters:
+        - $ref: '#/components/parameters/PortfolioId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioUpdate'
+      responses:
+        '200':
+          description: Portfolio updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Portfolio'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /portfolios/{portfolio_id}/allocations:
+    get:
+      operationId: listPortfolioAllocations
+      summary: List portfolio allocations
+      description: >-
+        Retrieve target allocations for a specific portfolio.
+      tags:
+        - Portfolio Allocations
+      parameters:
+        - $ref: '#/components/parameters/PortfolioId'
+      responses:
+        '200':
+          description: List of portfolio allocations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PortfolioAllocation'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updatePortfolioAllocations
+      summary: Update portfolio allocations
+      description: >-
+        Replace the target allocation set for a portfolio.
+      tags:
+        - Portfolio Allocations
+      parameters:
+        - $ref: '#/components/parameters/PortfolioId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - allocations
+              properties:
+                allocations:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PortfolioAllocationCreate'
+      responses:
+        '200':
+          description: Allocations updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PortfolioAllocation'
+        '400':
+          description: Invalid allocations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /portfolios/{portfolio_id}/orders:
+    post:
+      operationId: createPortfolioOrder
+      summary: Place a portfolio order
+      description: >-
+        Place an order against a portfolio allocation. The order amount is
+        distributed across the portfolio's instruments according to the
+        target allocations.
+      tags:
+        - Portfolio Orders
+      parameters:
+        - $ref: '#/components/parameters/PortfolioId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioOrderCreate'
+      responses:
+        '201':
+          description: Portfolio order placed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioOrder'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /portfolios/{portfolio_id}/rebalancing:
+    post:
+      operationId: triggerPortfolioRebalancing
+      summary: Trigger portfolio rebalancing
+      description: >-
+        Initiate a rebalancing operation to realign current holdings with
+        target allocations.
+      tags:
+        - Portfolios Rebalancing
+      parameters:
+        - $ref: '#/components/parameters/PortfolioId'
+      responses:
+        '201':
+          description: Rebalancing initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RebalancingExecution'
+        '400':
+          description: Rebalancing not possible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listRebalancingExecutions
+      summary: List rebalancing executions
+      description: >-
+        Retrieve a list of rebalancing executions for a portfolio.
+      tags:
+        - Portfolios Rebalancing
+      parameters:
+        - $ref: '#/components/parameters/PortfolioId'
+      responses:
+        '200':
+          description: List of rebalancing executions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RebalancingExecution'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /savings_plans:
+    get:
+      operationId: listSavingsPlans
+      summary: List savings plans
+      description: >-
+        Retrieve a paginated list of automated savings plans.
+      tags:
+        - Savings Plans
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of savings plans
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SavingsPlan'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createSavingsPlan
+      summary: Create a savings plan
+      description: >-
+        Create an automated recurring investment plan. Savings plans execute
+        on a defined schedule, investing a specified amount into an instrument
+        or portfolio.
+      tags:
+        - Savings Plans
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SavingsPlanCreate'
+      responses:
+        '201':
+          description: Savings plan created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavingsPlan'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /savings_plans/{savings_plan_id}:
+    get:
+      operationId: retrieveSavingsPlan
+      summary: Retrieve a savings plan
+      description: >-
+        Retrieve details for a specific savings plan.
+      tags:
+        - Savings Plans
+      parameters:
+        - $ref: '#/components/parameters/SavingsPlanId'
+      responses:
+        '200':
+          description: Savings plan details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavingsPlan'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Savings plan not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      operationId: updateSavingsPlan
+      summary: Update a savings plan
+      description: >-
+        Update the configuration of an existing savings plan.
+      tags:
+        - Savings Plans
+      parameters:
+        - $ref: '#/components/parameters/SavingsPlanId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SavingsPlanUpdate'
+      responses:
+        '200':
+          description: Savings plan updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavingsPlan'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteSavingsPlan
+      summary: Delete a savings plan
+      description: >-
+        Cancel and remove an automated savings plan.
+      tags:
+        - Savings Plans
+      parameters:
+        - $ref: '#/components/parameters/SavingsPlanId'
+      responses:
+        '204':
+          description: Savings plan deleted
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Savings plan not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/positions:
+    get:
+      operationId: listPositions
+      summary: List positions
+      description: >-
+        Retrieve current holdings and position details for an account.
+      tags:
+        - Positions
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of positions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/positions/{position_id}:
+    get:
+      operationId: retrievePosition
+      summary: Retrieve a position
+      description: >-
+        Retrieve details for a specific position within an account.
+      tags:
+        - Positions
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/PositionId'
+      responses:
+        '200':
+          description: Position details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Position not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/valuations:
+    get:
+      operationId: listValuations
+      summary: List account valuations
+      description: >-
+        Retrieve valuation history for an account.
+      tags:
+        - Valuations
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of valuations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Valuation'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/returns:
+    get:
+      operationId: listAccountReturns
+      summary: List account returns
+      description: >-
+        Retrieve investment return calculations for an account.
+      tags:
+        - Returns
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Account returns data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AccountReturn'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/cash_balances:
+    get:
+      operationId: listCashBalances
+      summary: List cash balances
+      description: >-
+        Retrieve cash balance information for an account.
+      tags:
+        - Cash Balances
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Cash balance details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CashBalance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /direct_debits:
+    post:
+      operationId: createDirectDebit
+      summary: Create a direct debit
+      description: >-
+        Submit a direct debit funding request to transfer funds into an
+        investment account.
+      tags:
+        - Direct Debits
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectDebitCreate'
+      responses:
+        '201':
+          description: Direct debit created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectDebit'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listDirectDebits
+      summary: List direct debits
+      description: >-
+        Retrieve a list of direct debit funding requests.
+      tags:
+        - Direct Debits
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of direct debits
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DirectDebit'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mandates:
+    get:
+      operationId: listMandates
+      summary: List mandates
+      description: >-
+        Retrieve a list of direct debit mandates.
+      tags:
+        - Mandates
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of mandates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Mandate'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /mandates/{mandate_id}:
+    get:
+      operationId: retrieveMandate
+      summary: Retrieve a mandate
+      description: >-
+        Retrieve details for a specific direct debit mandate.
+      tags:
+        - Mandates
+      parameters:
+        - $ref: '#/components/parameters/MandateId'
+      responses:
+        '200':
+          description: Mandate details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mandate'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Mandate not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /withdrawals:
+    post:
+      operationId: createWithdrawal
+      summary: Create a withdrawal
+      description: >-
+        Process a cash withdrawal from an investment account to a linked
+        reference account.
+      tags:
+        - Withdrawals
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawalCreate'
+      responses:
+        '201':
+          description: Withdrawal created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Withdrawal'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listWithdrawals
+      summary: List withdrawals
+      description: >-
+        Retrieve a list of cash withdrawals.
+      tags:
+        - Withdrawals
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of withdrawals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Withdrawal'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/reference_accounts:
+    get:
+      operationId: listReferenceAccounts
+      summary: List reference accounts
+      description: >-
+        Retrieve linked reference bank accounts for an investment account.
+      tags:
+        - Reference Accounts
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of reference accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ReferenceAccount'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/fees:
+    get:
+      operationId: listFees
+      summary: List fees
+      description: >-
+        Retrieve fees charged on an account.
+      tags:
+        - Fees
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of fees
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Fee'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /fee_configurations:
+    get:
+      operationId: listFeeConfigurations
+      summary: List fee configurations
+      description: >-
+        Retrieve available fee configuration templates.
+      tags:
+        - Fee Configurations
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: List of fee configurations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FeeConfiguration'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /reports:
+    get:
+      operationId: listReports
+      summary: List reports
+      description: >-
+        Retrieve a paginated list of generated user-facing reports and
+        statements.
+      tags:
+        - Reports
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of reports
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Report'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /treasury_reports:
+    get:
+      operationId: listTreasuryReports
+      summary: List treasury reports
+      description: >-
+        Retrieve treasury-level reports for institutional oversight and
+        reconciliation.
+      tags:
+        - Treasury Reports
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of treasury reports
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TreasuryReport'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/transactions:
+    get:
+      operationId: listTransactions
+      summary: List transactions
+      description: >-
+        Retrieve transaction history for an account including order executions,
+        fees, dividends, and transfers.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: List of transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Transaction'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /files/{file_id}:
+    get:
+      operationId: retrieveFile
+      summary: Retrieve a file
+      description: >-
+        Download a generated file such as a report or statement.
+      tags:
+        - Files
+      parameters:
+        - $ref: '#/components/parameters/FileId'
+      responses:
+        '200':
+          description: File content
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: File not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/{account_id}/liquidations:
+    post:
+      operationId: createLiquidation
+      summary: Create a liquidation
+      description: >-
+        Initiate a full or partial liquidation of an account's holdings.
+      tags:
+        - Liquidations
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LiquidationCreate'
+      responses:
+        '201':
+          description: Liquidation initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Liquidation'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listLiquidations
+      summary: List liquidations
+      description: >-
+        Retrieve liquidation operations for an account.
+      tags:
+        - Liquidations
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of liquidations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Liquidation'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /securities_transfers:
+    post:
+      operationId: createSecuritiesTransfer
+      summary: Create a securities transfer
+      description: >-
+        Initiate a transfer of securities between accounts or providers.
+      tags:
+        - Securities Transfers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecuritiesTransferCreate'
+      responses:
+        '201':
+          description: Securities transfer initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuritiesTransfer'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listSecuritiesTransfers
+      summary: List securities transfers
+      description: >-
+        Retrieve a list of securities transfer operations.
+      tags:
+        - Securities Transfers
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: List of securities transfers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SecuritiesTransfer'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /account_transfers:
+    post:
+      operationId: createAccountTransfer
+      summary: Create an account transfer
+      description: >-
+        Transfer an account between entities.
+      tags:
+        - Account Transfers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountTransferCreate'
+      responses:
+        '201':
+          description: Account transfer initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountTransfer'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listAccountTransfers
+      summary: List account transfers
+      description: >-
+        Retrieve a list of account transfer operations.
+      tags:
+        - Account Transfers
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: List of account transfers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AccountTransfer'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /corporate_actions:
+    get:
+      operationId: listCorporateActions
+      summary: List corporate actions
+      description: >-
+        Retrieve corporate action events affecting held securities such as
+        dividends, splits, and mergers.
+      tags:
+        - Corporate Actions
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: List of corporate actions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CorporateAction'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks:
+    get:
+      operationId: listWebhookSubscriptions
+      summary: List webhook subscriptions
+      description: >-
+        Retrieve all registered webhook subscriptions.
+      tags:
+        - Webhook Subscriptions
+      responses:
+        '200':
+          description: List of webhook subscriptions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookSubscription'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: createWebhookSubscription
+      summary: Create a webhook subscription
+      description: >-
+        Register a new webhook endpoint to receive event notifications. The
+        URL must use HTTPS and support TLS 1.2 or higher.
+      tags:
+        - Webhook Subscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionCreate'
+      responses:
+        '201':
+          description: Webhook subscription created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/{webhook_id}:
+    get:
+      operationId: retrieveWebhookSubscription
+      summary: Retrieve a webhook subscription
+      description: >-
+        Retrieve details for a specific webhook subscription.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '200':
+          description: Webhook subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Webhook subscription not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      operationId: updateWebhookSubscription
+      summary: Update a webhook subscription
+      description: >-
+        Update the configuration of an existing webhook subscription.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/WebhookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionUpdate'
+      responses:
+        '200':
+          description: Webhook subscription updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteWebhookSubscription
+      summary: Delete a webhook subscription
+      description: >-
+        Remove a webhook subscription. Events will no longer be delivered to
+        this endpoint.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '204':
+          description: Webhook subscription deleted
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Webhook subscription not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: >-
+        OAuth 2.0 client credentials flow. Obtain an access token by
+        providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+  parameters:
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the user.
+      schema:
+        type: string
+        format: uuid
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the account.
+      schema:
+        type: string
+        format: uuid
+    InstrumentId:
+      name: instrument_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the instrument.
+      schema:
+        type: string
+        format: uuid
+    OrderId:
+      name: order_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the order.
+      schema:
+        type: string
+        format: uuid
+    PortfolioId:
+      name: portfolio_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the portfolio.
+      schema:
+        type: string
+        format: uuid
+    SavingsPlanId:
+      name: savings_plan_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the savings plan.
+      schema:
+        type: string
+        format: uuid
+    PositionId:
+      name: position_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the position.
+      schema:
+        type: string
+        format: uuid
+    WebhookId:
+      name: webhook_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the webhook subscription.
+      schema:
+        type: string
+        format: uuid
+    MandateId:
+      name: mandate_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the mandate.
+      schema:
+        type: string
+        format: uuid
+    FileId:
+      name: file_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the file.
+      schema:
+        type: string
+        format: uuid
+    IdentifierId:
+      name: identifier_id
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the user identifier.
+      schema:
+        type: string
+        format: uuid
+    Offset:
+      name: offset
+      in: query
+      description: >-
+        The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: >-
+        The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  schemas:
+    AccessToken:
+      type: object
+      description: >-
+        An OAuth 2.0 access token for authenticating API requests.
+      properties:
+        access_token:
+          type: string
+          description: >-
+            The opaque access token string.
+        token_type:
+          type: string
+          enum:
+            - bearer
+          description: >-
+            The type of token issued.
+        expires_in:
+          type: integer
+          description: >-
+            The lifetime of the access token in seconds.
+        scope:
+          type: string
+          description: >-
+            The scopes granted to the access token.
+    User:
+      type: object
+      description: >-
+        An end user on the investment platform.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the user.
+        first_name:
+          type: string
+          description: >-
+            The user's first name.
+        last_name:
+          type: string
+          description: >-
+            The user's last name.
+        email:
+          type: string
+          format: email
+          description: >-
+            The user's email address.
+        date_of_birth:
+          type: string
+          format: date
+          description: >-
+            The user's date of birth.
+        nationality:
+          type: string
+          description: >-
+            The user's nationality as an ISO 3166-1 alpha-2 country code.
+          pattern: '^[A-Z]{2}$'
+        address:
+          $ref: '#/components/schemas/Address'
+        status:
+          type: string
+          enum:
+            - PENDING
+            - ACTIVE
+            - BLOCKED
+            - CLOSED
+          description: >-
+            The current status of the user.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time when the user was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            The date and time when the user was last updated.
+    UserCreate:
+      type: object
+      description: >-
+        Request body for creating a new user.
+      required:
+        - first_name
+        - last_name
+        - email
+        - date_of_birth
+        - nationality
+        - address
+      properties:
+        first_name:
+          type: string
+          description: >-
+            The user's first name.
+        last_name:
+          type: string
+          description: >-
+            The user's last name.
+        email:
+          type: string
+          format: email
+          description: >-
+            The user's email address.
+        date_of_birth:
+          type: string
+          format: date
+          description: >-
+            The user's date of birth.
+        nationality:
+          type: string
+          description: >-
+            The user's nationality as an ISO 3166-1 alpha-2 country code.
+          pattern: '^[A-Z]{2}$'
+        address:
+          $ref: '#/components/schemas/Address'
+    UserUpdate:
+      type: object
+      description: >-
+        Request body for updating user information.
+      properties:
+        first_name:
+          type: string
+          description: >-
+            The user's first name.
+        last_name:
+          type: string
+          description: >-
+            The user's last name.
+        email:
+          type: string
+          format: email
+          description: >-
+            The user's email address.
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      description: >-
+        A postal address.
+      required:
+        - street
+        - city
+        - postal_code
+        - country
+      properties:
+        street:
+          type: string
+          description: >-
+            The street name and number.
+        additional_line:
+          type: string
+          description: >-
+            Additional address line.
+        city:
+          type: string
+          description: >-
+            The city name.
+        postal_code:
+          type: string
+          description: >-
+            The postal or ZIP code.
+        state:
+          type: string
+          description: >-
+            The state or province.
+        country:
+          type: string
+          description: >-
+            The country as an ISO 3166-1 alpha-2 code.
+          pattern: '^[A-Z]{2}$'
+    UserIdentifier:
+      type: object
+      description: >-
+        An external identifier associated with a user.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier.
+        type:
+          type: string
+          description: >-
+            The type of external identifier.
+        value:
+          type: string
+          description: >-
+            The identifier value.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the identifier was created.
+    UserIdentifierCreate:
+      type: object
+      description: >-
+        Request body for creating a user identifier.
+      required:
+        - type
+        - value
+      properties:
+        type:
+          type: string
+          description: >-
+            The type of external identifier.
+        value:
+          type: string
+          description: >-
+            The identifier value.
+    UserIdentifierUpdate:
+      type: object
+      description: >-
+        Request body for updating a user identifier.
+      properties:
+        value:
+          type: string
+          description: >-
+            The updated identifier value.
+    UserCheck:
+      type: object
+      description: >-
+        A compliance or verification check on a user.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the check.
+        type:
+          type: string
+          description: >-
+            The type of check performed.
+        status:
+          type: string
+          enum:
+            - PENDING
+            - PASSED
+            - FAILED
+          description: >-
+            The current status of the check.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the check was created.
+        completed_at:
+          type: string
+          format: date-time
+          description: >-
+            When the check was completed.
+    TaxResidency:
+      type: object
+      description: >-
+        A tax residency record for a user.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier.
+        country:
+          type: string
+          description: >-
+            The country of tax residency as an ISO 3166-1 alpha-2 code.
+          pattern: '^[A-Z]{2}$'
+        tax_identification_number:
+          type: string
+          description: >-
+            The tax identification number in the given country.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the record was created.
+    TaxResidencyCreate:
+      type: object
+      description: >-
+        Request body for creating a tax residency record.
+      required:
+        - country
+      properties:
+        country:
+          type: string
+          description: >-
+            The country of tax residency as an ISO 3166-1 alpha-2 code.
+          pattern: '^[A-Z]{2}$'
+        tax_identification_number:
+          type: string
+          description: >-
+            The tax identification number in the given country.
+    Account:
+      type: object
+      description: >-
+        An investment account that holds positions and tracks balances.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the account.
+        user_id:
+          type: string
+          format: uuid
+          description: >-
+            The user who owns this account.
+        account_group_id:
+          type: string
+          format: uuid
+          description: >-
+            The account group this account belongs to.
+        type:
+          type: string
+          description: >-
+            The type of investment account.
+        status:
+          type: string
+          enum:
+            - PENDING
+            - OPEN
+            - CLOSING
+            - CLOSED
+          description: >-
+            The current status of the account.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the account was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            When the account was last updated.
+    AccountCreate:
+      type: object
+      description: >-
+        Request body for creating an investment account.
+      required:
+        - user_id
+        - account_group_id
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          description: >-
+            The user to create the account for.
+        account_group_id:
+          type: string
+          format: uuid
+          description: >-
+            The account group to assign the account to.
+        type:
+          type: string
+          description: >-
+            The type of investment account.
+    AccountUpdate:
+      type: object
+      description: >-
+        Request body for updating an investment account.
+      properties:
+        type:
+          type: string
+          description: >-
+            The type of investment account.
+    Instrument:
+      type: object
+      description: >-
+        A tradeable financial instrument such as a stock, ETF, or bond.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the instrument.
+        isin:
+          type: string
+          description: >-
+            The International Securities Identification Number.
+          pattern: '^[A-Z]{2}[A-Z0-9]{9}[0-9]$'
+        wkn:
+          type: string
+          description: >-
+            The Wertpapierkennnummer (German securities ID).
+        name:
+          type: string
+          description: >-
+            The name of the instrument.
+        type:
+          type: string
+          enum:
+            - EQUITY
+            - ETF
+            - BOND
+            - FUND
+          description: >-
+            The instrument type.
+        currency:
+          type: string
+          description: >-
+            The trading currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+        exchanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exchange'
+          description: >-
+            Exchanges where the instrument is traded.
+        tradeable:
+          type: boolean
+          description: >-
+            Whether the instrument is currently tradeable.
+        fractional_trading_enabled:
+          type: boolean
+          description: >-
+            Whether fractional shares are supported for this instrument.
+    Exchange:
+      type: object
+      description: >-
+        A securities exchange where instruments are traded.
+      properties:
+        id:
+          type: string
+          description: >-
+            The exchange identifier.
+        name:
+          type: string
+          description: >-
+            The exchange name.
+        mic:
+          type: string
+          description: >-
+            The Market Identifier Code (ISO 10383).
+    InstrumentPrice:
+      type: object
+      description: >-
+        Price data for an instrument on a specific exchange.
+      properties:
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument identifier.
+        exchange_id:
+          type: string
+          description: >-
+            The exchange identifier.
+        price:
+          type: string
+          description: >-
+            The current price as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The price currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+        timestamp:
+          type: string
+          format: date-time
+          description: >-
+            When this price was recorded.
+    Order:
+      type: object
+      description: >-
+        A buy or sell order for a financial instrument.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the order.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account the order belongs to.
+        user_id:
+          type: string
+          format: uuid
+          description: >-
+            The user who placed the order.
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument being traded.
+        side:
+          type: string
+          enum:
+            - BUY
+            - SELL
+          description: >-
+            Whether this is a buy or sell order.
+        type:
+          type: string
+          enum:
+            - MARKET
+            - LIMIT
+            - STOP
+          description: >-
+            The order type.
+        status:
+          type: string
+          enum:
+            - NEW
+            - PROCESSING
+            - FILLED
+            - CANCELLED
+            - REJECTED
+          description: >-
+            The current status of the order.
+        quantity:
+          type: string
+          description: >-
+            The quantity of shares to trade as a decimal string.
+        cash_amount:
+          type: string
+          description: >-
+            The cash amount to invest as a decimal string.
+        limit_price:
+          type: string
+          description: >-
+            The limit price for limit orders as a decimal string.
+        stop_price:
+          type: string
+          description: >-
+            The stop price for stop orders as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The order currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the order was placed.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            When the order was last updated.
+    OrderCreate:
+      type: object
+      description: >-
+        Request body for placing an order.
+      required:
+        - account_id
+        - instrument_id
+        - side
+        - type
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account to place the order for.
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument to trade.
+        side:
+          type: string
+          enum:
+            - BUY
+            - SELL
+          description: >-
+            Whether to buy or sell.
+        type:
+          type: string
+          enum:
+            - MARKET
+            - LIMIT
+            - STOP
+          description: >-
+            The order type.
+        quantity:
+          type: string
+          description: >-
+            The quantity of shares to trade as a decimal string.
+        cash_amount:
+          type: string
+          description: >-
+            The cash amount to invest as a decimal string.
+        limit_price:
+          type: string
+          description: >-
+            The limit price for limit orders as a decimal string.
+        stop_price:
+          type: string
+          description: >-
+            The stop price for stop orders as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The order currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+    OrderCancellation:
+      type: object
+      description: >-
+        A cancellation request for an order.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The cancellation identifier.
+        order_id:
+          type: string
+          format: uuid
+          description: >-
+            The order being cancelled.
+        status:
+          type: string
+          enum:
+            - PENDING
+            - CONFIRMED
+            - REJECTED
+          description: >-
+            The status of the cancellation request.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the cancellation was requested.
+    Execution:
+      type: object
+      description: >-
+        An execution fill for an order.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The execution identifier.
+        order_id:
+          type: string
+          format: uuid
+          description: >-
+            The order this execution belongs to.
+        status:
+          type: string
+          enum:
+            - NEW
+            - SETTLED
+            - CANCELLED
+          description: >-
+            The execution status.
+        quantity:
+          type: string
+          description: >-
+            The executed quantity as a decimal string.
+        price:
+          type: string
+          description: >-
+            The execution price as a decimal string.
+        executed_at:
+          type: string
+          format: date-time
+          description: >-
+            When the execution occurred.
+    Portfolio:
+      type: object
+      description: >-
+        A portfolio with defined target allocations across instruments.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the portfolio.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account this portfolio belongs to.
+        name:
+          type: string
+          description: >-
+            The portfolio name.
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - CLOSED
+          description: >-
+            The portfolio status.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the portfolio was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            When the portfolio was last updated.
+    PortfolioCreate:
+      type: object
+      description: >-
+        Request body for creating a portfolio.
+      required:
+        - account_id
+        - name
+        - allocations
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account to create the portfolio for.
+        name:
+          type: string
+          description: >-
+            The portfolio name.
+        allocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioAllocationCreate'
+          description: >-
+            The initial target allocations.
+    PortfolioUpdate:
+      type: object
+      description: >-
+        Request body for updating a portfolio.
+      properties:
+        name:
+          type: string
+          description: >-
+            The updated portfolio name.
+    PortfolioAllocation:
+      type: object
+      description: >-
+        A target allocation within a portfolio.
+      properties:
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument identifier.
+        weight:
+          type: string
+          description: >-
+            The target weight as a decimal string between 0 and 1.
+    PortfolioAllocationCreate:
+      type: object
+      description: >-
+        Request body for defining a portfolio allocation.
+      required:
+        - instrument_id
+        - weight
+      properties:
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument to allocate to.
+        weight:
+          type: string
+          description: >-
+            The target weight as a decimal string between 0 and 1.
+    PortfolioOrder:
+      type: object
+      description: >-
+        An order placed against a portfolio's allocations.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The portfolio order identifier.
+        portfolio_id:
+          type: string
+          format: uuid
+          description: >-
+            The portfolio the order was placed for.
+        cash_amount:
+          type: string
+          description: >-
+            The total cash amount invested.
+        currency:
+          type: string
+          description: >-
+            The order currency.
+        status:
+          type: string
+          enum:
+            - NEW
+            - PROCESSING
+            - COMPLETED
+            - CANCELLED
+          description: >-
+            The portfolio order status.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the order was created.
+    PortfolioOrderCreate:
+      type: object
+      description: >-
+        Request body for placing a portfolio order.
+      required:
+        - cash_amount
+        - currency
+      properties:
+        cash_amount:
+          type: string
+          description: >-
+            The total cash amount to invest, distributed across allocations.
+        currency:
+          type: string
+          description: >-
+            The order currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+    RebalancingExecution:
+      type: object
+      description: >-
+        A portfolio rebalancing operation.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The rebalancing execution identifier.
+        portfolio_id:
+          type: string
+          format: uuid
+          description: >-
+            The portfolio being rebalanced.
+        status:
+          type: string
+          enum:
+            - NEW
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+          description: >-
+            The rebalancing status.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the rebalancing was initiated.
+    SavingsPlan:
+      type: object
+      description: >-
+        An automated recurring investment plan.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the savings plan.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account the savings plan belongs to.
+        portfolio_id:
+          type: string
+          format: uuid
+          description: >-
+            The portfolio to invest into, if applicable.
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument to invest into, if applicable.
+        cash_amount:
+          type: string
+          description: >-
+            The recurring investment amount as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The savings plan currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+        frequency:
+          type: string
+          enum:
+            - WEEKLY
+            - BIWEEKLY
+            - MONTHLY
+            - QUARTERLY
+          description: >-
+            How often the savings plan executes.
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - PAUSED
+            - CANCELLED
+          description: >-
+            The savings plan status.
+        next_execution_date:
+          type: string
+          format: date
+          description: >-
+            The next scheduled execution date.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the savings plan was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            When the savings plan was last updated.
+    SavingsPlanCreate:
+      type: object
+      description: >-
+        Request body for creating a savings plan.
+      required:
+        - account_id
+        - cash_amount
+        - currency
+        - frequency
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account to create the plan for.
+        portfolio_id:
+          type: string
+          format: uuid
+          description: >-
+            The portfolio to invest into.
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument to invest into.
+        cash_amount:
+          type: string
+          description: >-
+            The recurring investment amount.
+        currency:
+          type: string
+          description: >-
+            The currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+        frequency:
+          type: string
+          enum:
+            - WEEKLY
+            - BIWEEKLY
+            - MONTHLY
+            - QUARTERLY
+          description: >-
+            The execution frequency.
+    SavingsPlanUpdate:
+      type: object
+      description: >-
+        Request body for updating a savings plan.
+      properties:
+        cash_amount:
+          type: string
+          description: >-
+            The updated investment amount.
+        frequency:
+          type: string
+          enum:
+            - WEEKLY
+            - BIWEEKLY
+            - MONTHLY
+            - QUARTERLY
+          description: >-
+            The updated execution frequency.
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - PAUSED
+          description: >-
+            Activate or pause the savings plan.
+    Position:
+      type: object
+      description: >-
+        A holding of a financial instrument within an account.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the position.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account the position belongs to.
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument held.
+        quantity:
+          type: string
+          description: >-
+            The quantity of shares held as a decimal string.
+        average_buy_in_price:
+          type: string
+          description: >-
+            The average buy-in price as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The position currency.
+          pattern: '^[A-Z]{3}$'
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the position was first established.
+        updated_at:
+          type: string
+          format: date-time
+          description: >-
+            When the position was last updated.
+    Valuation:
+      type: object
+      description: >-
+        A point-in-time valuation of an account or position.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The valuation identifier.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account being valued.
+        total_value:
+          type: string
+          description: >-
+            The total account value as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The valuation currency.
+          pattern: '^[A-Z]{3}$'
+        valued_at:
+          type: string
+          format: date-time
+          description: >-
+            The valuation timestamp.
+    AccountReturn:
+      type: object
+      description: >-
+        Investment return calculation for an account.
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account identifier.
+        total_return:
+          type: string
+          description: >-
+            The total return as a decimal string.
+        total_return_percentage:
+          type: string
+          description: >-
+            The total return as a percentage string.
+        period_start:
+          type: string
+          format: date
+          description: >-
+            The start of the return period.
+        period_end:
+          type: string
+          format: date
+          description: >-
+            The end of the return period.
+        currency:
+          type: string
+          description: >-
+            The return currency.
+          pattern: '^[A-Z]{3}$'
+    CashBalance:
+      type: object
+      description: >-
+        Cash balance information for an account.
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account identifier.
+        available:
+          type: string
+          description: >-
+            The available cash balance as a decimal string.
+        pending:
+          type: string
+          description: >-
+            The pending cash amount as a decimal string.
+        total:
+          type: string
+          description: >-
+            The total cash balance as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The balance currency.
+          pattern: '^[A-Z]{3}$'
+    DirectDebit:
+      type: object
+      description: >-
+        A direct debit funding request.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The direct debit identifier.
+        user_id:
+          type: string
+          format: uuid
+          description: >-
+            The user initiating the direct debit.
+        account_group_id:
+          type: string
+          format: uuid
+          description: >-
+            The account group to fund.
+        mandate_id:
+          type: string
+          format: uuid
+          description: >-
+            The mandate authorizing the debit.
+        cash_amount:
+          type: string
+          description: >-
+            The debit amount as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The currency of the debit.
+          pattern: '^[A-Z]{3}$'
+        remittance_information:
+          type: string
+          description: >-
+            Optional remittance information for the debit.
+        status:
+          type: string
+          enum:
+            - NEW
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+            - REVERSED
+          description: >-
+            The status of the direct debit.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the direct debit was created.
+    DirectDebitCreate:
+      type: object
+      description: >-
+        Request body for creating a direct debit.
+      required:
+        - user_id
+        - account_group_id
+        - mandate_id
+        - cash_amount
+        - currency
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          description: >-
+            The user initiating the debit.
+        account_group_id:
+          type: string
+          format: uuid
+          description: >-
+            The account group to fund.
+        mandate_id:
+          type: string
+          format: uuid
+          description: >-
+            The mandate authorizing the debit.
+        cash_amount:
+          type: string
+          description: >-
+            The debit amount.
+        currency:
+          type: string
+          description: >-
+            The currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+        remittance_information:
+          type: string
+          description: >-
+            Optional remittance information.
+    Mandate:
+      type: object
+      description: >-
+        A direct debit mandate authorizing fund collection.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The mandate identifier.
+        account_group_id:
+          type: string
+          format: uuid
+          description: >-
+            The account group the mandate belongs to.
+        iban:
+          type: string
+          description: >-
+            The IBAN of the bank account.
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - REVOKED
+          description: >-
+            The mandate status.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the mandate was created.
+    Withdrawal:
+      type: object
+      description: >-
+        A cash withdrawal from an investment account.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The withdrawal identifier.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account to withdraw from.
+        cash_amount:
+          type: string
+          description: >-
+            The withdrawal amount.
+        currency:
+          type: string
+          description: >-
+            The currency of the withdrawal.
+          pattern: '^[A-Z]{3}$'
+        status:
+          type: string
+          enum:
+            - NEW
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+          description: >-
+            The withdrawal status.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the withdrawal was created.
+    WithdrawalCreate:
+      type: object
+      description: >-
+        Request body for creating a withdrawal.
+      required:
+        - account_id
+        - cash_amount
+        - currency
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account to withdraw from.
+        cash_amount:
+          type: string
+          description: >-
+            The withdrawal amount.
+        currency:
+          type: string
+          description: >-
+            The currency as an ISO 4217 code.
+          pattern: '^[A-Z]{3}$'
+    ReferenceAccount:
+      type: object
+      description: >-
+        A linked reference bank account for transfers.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The reference account identifier.
+        iban:
+          type: string
+          description: >-
+            The IBAN of the reference bank account.
+        bic:
+          type: string
+          description: >-
+            The BIC/SWIFT code.
+        account_holder:
+          type: string
+          description: >-
+            The name of the account holder.
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+          description: >-
+            The reference account status.
+    Fee:
+      type: object
+      description: >-
+        A fee charged on an account.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The fee identifier.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account the fee was charged on.
+        type:
+          type: string
+          description: >-
+            The fee type.
+        amount:
+          type: string
+          description: >-
+            The fee amount as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The fee currency.
+          pattern: '^[A-Z]{3}$'
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the fee was charged.
+    FeeConfiguration:
+      type: object
+      description: >-
+        A fee configuration template defining fee structures.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The fee configuration identifier.
+        name:
+          type: string
+          description: >-
+            The name of the fee configuration.
+        type:
+          type: string
+          description: >-
+            The fee type this configuration applies to.
+        rate:
+          type: string
+          description: >-
+            The fee rate as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The fee currency.
+          pattern: '^[A-Z]{3}$'
+    Report:
+      type: object
+      description: >-
+        A generated user-facing report or statement.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The report identifier.
+        type:
+          type: string
+          description: >-
+            The report type.
+        status:
+          type: string
+          enum:
+            - PENDING
+            - READY
+            - FAILED
+          description: >-
+            The report generation status.
+        file_id:
+          type: string
+          format: uuid
+          description: >-
+            The file identifier for downloading the report.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the report was generated.
+    TreasuryReport:
+      type: object
+      description: >-
+        A treasury-level report for institutional oversight.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The treasury report identifier.
+        type:
+          type: string
+          description: >-
+            The report type.
+        file_id:
+          type: string
+          format: uuid
+          description: >-
+            The file identifier for downloading the report.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the report was generated.
+    Transaction:
+      type: object
+      description: >-
+        A transaction record within an account.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The transaction identifier.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account the transaction belongs to.
+        type:
+          type: string
+          enum:
+            - ORDER_EXECUTION
+            - FEE
+            - DIVIDEND
+            - TRANSFER
+            - DIRECT_DEBIT
+            - WITHDRAWAL
+          description: >-
+            The transaction type.
+        amount:
+          type: string
+          description: >-
+            The transaction amount as a decimal string.
+        currency:
+          type: string
+          description: >-
+            The transaction currency.
+          pattern: '^[A-Z]{3}$'
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the transaction occurred.
+    Liquidation:
+      type: object
+      description: >-
+        A liquidation of account holdings.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The liquidation identifier.
+        account_id:
+          type: string
+          format: uuid
+          description: >-
+            The account being liquidated.
+        type:
+          type: string
+          enum:
+            - FULL
+            - PARTIAL
+          description: >-
+            Whether this is a full or partial liquidation.
+        status:
+          type: string
+          enum:
+            - NEW
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+          description: >-
+            The liquidation status.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the liquidation was initiated.
+    LiquidationCreate:
+      type: object
+      description: >-
+        Request body for creating a liquidation.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - FULL
+            - PARTIAL
+          description: >-
+            Whether to fully or partially liquidate.
+    SecuritiesTransfer:
+      type: object
+      description: >-
+        A securities transfer between accounts or providers.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The transfer identifier.
+        status:
+          type: string
+          enum:
+            - NEW
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+          description: >-
+            The transfer status.
+        direction:
+          type: string
+          enum:
+            - INBOUND
+            - OUTBOUND
+          description: >-
+            Whether securities are coming in or going out.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the transfer was initiated.
+    SecuritiesTransferCreate:
+      type: object
+      description: >-
+        Request body for creating a securities transfer.
+      required:
+        - direction
+      properties:
+        direction:
+          type: string
+          enum:
+            - INBOUND
+            - OUTBOUND
+          description: >-
+            The transfer direction.
+    AccountTransfer:
+      type: object
+      description: >-
+        An account transfer between entities.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The transfer identifier.
+        status:
+          type: string
+          enum:
+            - NEW
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+          description: >-
+            The transfer status.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the transfer was initiated.
+    AccountTransferCreate:
+      type: object
+      description: >-
+        Request body for creating an account transfer.
+      properties:
+        source_account_id:
+          type: string
+          format: uuid
+          description: >-
+            The source account.
+        target_account_id:
+          type: string
+          format: uuid
+          description: >-
+            The target account.
+    CorporateAction:
+      type: object
+      description: >-
+        A corporate action event such as a dividend, split, or merger.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The corporate action identifier.
+        instrument_id:
+          type: string
+          format: uuid
+          description: >-
+            The instrument affected.
+        type:
+          type: string
+          enum:
+            - DIVIDEND
+            - SPLIT
+            - MERGER
+            - RIGHTS_ISSUE
+          description: >-
+            The type of corporate action.
+        status:
+          type: string
+          enum:
+            - ANNOUNCED
+            - PROCESSED
+          description: >-
+            The corporate action status.
+        record_date:
+          type: string
+          format: date
+          description: >-
+            The record date for the corporate action.
+        ex_date:
+          type: string
+          format: date
+          description: >-
+            The ex-date for the corporate action.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the event was recorded.
+    WebhookSubscription:
+      type: object
+      description: >-
+        A webhook subscription for receiving event notifications.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The webhook subscription identifier.
+        url:
+          type: string
+          format: uri
+          description: >-
+            The HTTPS endpoint URL to deliver events to.
+        event_categories:
+          type: array
+          items:
+            type: string
+            enum:
+              - ALL
+              - USER
+              - USER_CHECK
+              - ORDER
+              - ORDER_CANCELLATION
+              - EXECUTION
+              - POSITION
+              - CASH_BALANCE
+              - ACCOUNT
+              - ACCOUNT_GROUP
+              - PORTFOLIO
+              - SAVINGS_PLAN
+              - DIRECT_DEBIT
+              - WITHDRAWAL
+              - MANDATE
+              - SECURITIES_TRANSFER
+              - ACCOUNT_TRANSFER
+              - CORPORATE_ACTION
+              - LIQUIDATION
+              - REPORT
+              - FEE
+              - REBALANCING
+          description: >-
+            The event categories to subscribe to.
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+          description: >-
+            The subscription status.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the subscription was created.
+    WebhookSubscriptionCreate:
+      type: object
+      description: >-
+        Request body for creating a webhook subscription.
+      required:
+        - url
+        - event_categories
+      properties:
+        url:
+          type: string
+          format: uri
+          description: >-
+            The HTTPS endpoint URL. Must use TLS 1.2 or higher.
+        event_categories:
+          type: array
+          items:
+            type: string
+          description: >-
+            The event categories to subscribe to.
+    WebhookSubscriptionUpdate:
+      type: object
+      description: >-
+        Request body for updating a webhook subscription.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: >-
+            The updated endpoint URL.
+        event_categories:
+          type: array
+          items:
+            type: string
+          description: >-
+            The updated event categories.
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+          description: >-
+            Activate or deactivate the subscription.
+    PaginationMeta:
+      type: object
+      description: >-
+        Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: >-
+            The current offset.
+        limit:
+          type: integer
+          description: >-
+            The page size.
+        count:
+          type: integer
+          description: >-
+            The total number of items in the current page.
+        total:
+          type: integer
+          description: >-
+            The total number of items available.
+    Error:
+      type: object
+      description: >-
+        An API error response.
+      properties:
+        type:
+          type: string
+          description: >-
+            The error type identifier.
+        status:
+          type: integer
+          description: >-
+            The HTTP status code.
+        title:
+          type: string
+          description: >-
+            A short human-readable summary of the error.
+        detail:
+          type: string
+          description: >-
+            A detailed human-readable explanation of the error.

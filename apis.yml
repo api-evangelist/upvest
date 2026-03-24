@@ -1,0 +1,73 @@
+aid: upvest
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/apis.yml
+name: Upvest
+type: Index
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Investments
+  - Securities
+  - Banking Infrastructure
+  - Fintech
+description: >-
+  Upvest is a Berlin-based API-first investment infrastructure provider that
+  enables banks, brokers, and wealth managers to build and launch investment
+  experiences through a single modular API. Founded in 2017, Upvest is a
+  regulated securities institution in Europe and the UK, covering trading,
+  custody, and back-office operations. Their platform allows financial
+  institutions to bypass legacy monoliths and rapidly deploy localized
+  investment products including fractional shares, portfolios, savings plans,
+  and roundups. Upvest secured $125 million in funding to further modernize
+  banking infrastructure and power AI-supported investment engines for
+  autonomous advisory.
+created: '2026-03-24'
+modified: '2026-03-24'
+specificationVersion: '0.19'
+apis:
+  - aid: upvest:investment-api
+    name: Upvest Investment API
+    tags:
+      - Investments
+      - Securities
+      - Orders
+      - Portfolios
+      - Trading
+      - Custody
+    humanURL: https://docs.upvest.co/
+    baseURL: https://api.upvest.co
+    properties:
+      - url: https://docs.upvest.co/api
+        type: Documentation
+      - type: OpenAPI
+        url: openapi/upvest-investment-api-openapi.yml
+      - type: AsyncAPI
+        url: asyncapi/upvest-investment-events-asyncapi.yml
+    description: >-
+      The Upvest Investment API provides a unified interface for building
+      embedded investment experiences. It supports placing and managing orders,
+      creating portfolios, configuring savings plans, handling securities
+      transfers, and managing user accounts and positions. The API covers the
+      full order lifecycle with asynchronous processing and webhook
+      notifications for real-time event handling. Financial institutions can use
+      the API to offer fractional investing, automated portfolio management, and
+      localized investment products across European and UK markets.
+common:
+  - type: Website
+    url: https://upvest.co/
+  - type: Portal
+    url: https://upvest.co/developers
+  - type: Documentation
+    url: https://docs.upvest.co/
+  - type: Blog
+    url: https://upvest.co/blog/investment-api-docs
+  - type: Sign Up
+    url: https://upvest.co/
+  - type: JSON-LD
+    url: json-ld/upvest-context.jsonld
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

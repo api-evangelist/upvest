@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://upvest.co/schemas/upvest/order.json",
+  "title": "Upvest Order",
+  "description": "Schema for validating Upvest Investment API order request payloads. Orders represent buy or sell instructions for financial instruments, processed asynchronously with status updates delivered via webhooks.",
+  "type": "object",
+  "required": ["account_id", "instrument_id", "side", "type"],
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the investment account to place the order for."
+    },
+    "instrument_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the financial instrument to trade."
+    },
+    "side": {
+      "type": "string",
+      "enum": ["BUY", "SELL"],
+      "description": "Whether to buy or sell the instrument."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["MARKET", "LIMIT", "STOP"],
+      "description": "The order type. MARKET orders execute at the current market price. LIMIT orders execute at or better than the specified limit price. STOP orders become market orders when the stop price is reached."
+    },
+    "quantity": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "The quantity of shares to trade as a decimal string. Either quantity or cash_amount must be provided."
+    },
+    "cash_amount": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "The cash amount to invest as a decimal string. Used for fractional investing. Either quantity or cash_amount must be provided."
+    },
+    "limit_price": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "The limit price as a decimal string. Required for LIMIT orders."
+    },
+    "stop_price": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "The stop trigger price as a decimal string. Required for STOP orders."
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "The order currency as an ISO 4217 three-letter currency code.",
+      "examples": ["EUR", "GBP", "USD"]
+    }
+  },
+  "$defs": {
+    "OrderResponse": {
+      "type": "object",
+      "description": "The full order object returned by the API after creation or retrieval.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the order."
+        },
+        "account_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The account the order belongs to."
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The user who placed the order."
+        },
+        "instrument_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The instrument being traded."
+        },
+        "side": {
+          "type": "string",
+          "enum": ["BUY", "SELL"],
+          "description": "Whether this is a buy or sell order."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["MARKET", "LIMIT", "STOP"],
+          "description": "The order type."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["NEW", "PROCESSING", "FILLED", "CANCELLED", "REJECTED"],
+          "description": "The current order status."
+        },
+        "quantity": {
+          "type": "string",
+          "description": "The order quantity as a decimal string."
+        },
+        "cash_amount": {
+          "type": "string",
+          "description": "The cash amount as a decimal string."
+        },
+        "limit_price": {
+          "type": "string",
+          "description": "The limit price as a decimal string."
+        },
+        "stop_price": {
+          "type": "string",
+          "description": "The stop price as a decimal string."
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "The order currency."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the order was placed."
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the order was last updated."
+        }
+      }
+    }
+  }
+}

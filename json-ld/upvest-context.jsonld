@@ -1,0 +1,237 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "upvest": "https://upvest.co/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+
+    "User": {
+      "@id": "upvest:User",
+      "@context": {
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "email": "schema:email",
+        "dateOfBirth": {
+          "@id": "schema:birthDate",
+          "@type": "xsd:date"
+        },
+        "nationality": "schema:nationality",
+        "address": "schema:address",
+        "status": "upvest:userStatus",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Account": {
+      "@id": "upvest:InvestmentAccount",
+      "@context": {
+        "userId": {
+          "@id": "upvest:accountHolder",
+          "@type": "@id"
+        },
+        "accountGroupId": {
+          "@id": "upvest:accountGroup",
+          "@type": "@id"
+        },
+        "type": "upvest:accountType",
+        "status": "upvest:accountStatus",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Instrument": {
+      "@id": "upvest:FinancialInstrument",
+      "@context": {
+        "isin": "upvest:isin",
+        "wkn": "upvest:wkn",
+        "name": "schema:name",
+        "type": "upvest:instrumentType",
+        "currency": "schema:currency",
+        "exchanges": {
+          "@id": "upvest:tradedOn",
+          "@container": "@set"
+        },
+        "tradeable": "upvest:isTradeable",
+        "fractionalTradingEnabled": "upvest:fractionalTradingEnabled"
+      }
+    },
+
+    "Order": {
+      "@id": "upvest:Order",
+      "@context": {
+        "accountId": {
+          "@id": "upvest:orderAccount",
+          "@type": "@id"
+        },
+        "instrumentId": {
+          "@id": "upvest:orderInstrument",
+          "@type": "@id"
+        },
+        "side": "upvest:orderSide",
+        "type": "upvest:orderType",
+        "status": "upvest:orderStatus",
+        "quantity": {
+          "@id": "upvest:orderQuantity",
+          "@type": "xsd:decimal"
+        },
+        "cashAmount": {
+          "@id": "upvest:cashAmount",
+          "@type": "xsd:decimal"
+        },
+        "limitPrice": {
+          "@id": "upvest:limitPrice",
+          "@type": "xsd:decimal"
+        },
+        "currency": "schema:currency",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Portfolio": {
+      "@id": "upvest:Portfolio",
+      "@context": {
+        "accountId": {
+          "@id": "upvest:portfolioAccount",
+          "@type": "@id"
+        },
+        "name": "schema:name",
+        "status": "upvest:portfolioStatus",
+        "allocations": {
+          "@id": "upvest:targetAllocations",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Position": {
+      "@id": "upvest:Position",
+      "@context": {
+        "accountId": {
+          "@id": "upvest:positionAccount",
+          "@type": "@id"
+        },
+        "instrumentId": {
+          "@id": "upvest:positionInstrument",
+          "@type": "@id"
+        },
+        "quantity": {
+          "@id": "upvest:holdingQuantity",
+          "@type": "xsd:decimal"
+        },
+        "averageBuyInPrice": {
+          "@id": "upvest:averageCostBasis",
+          "@type": "xsd:decimal"
+        },
+        "currency": "schema:currency"
+      }
+    },
+
+    "SavingsPlan": {
+      "@id": "upvest:SavingsPlan",
+      "@context": {
+        "accountId": {
+          "@id": "upvest:savingsAccount",
+          "@type": "@id"
+        },
+        "portfolioId": {
+          "@id": "upvest:savingsPortfolio",
+          "@type": "@id"
+        },
+        "instrumentId": {
+          "@id": "upvest:savingsInstrument",
+          "@type": "@id"
+        },
+        "cashAmount": {
+          "@id": "upvest:recurringAmount",
+          "@type": "xsd:decimal"
+        },
+        "currency": "schema:currency",
+        "frequency": "schema:repeatFrequency",
+        "status": "upvest:savingsPlanStatus",
+        "nextExecutionDate": {
+          "@id": "upvest:nextExecution",
+          "@type": "xsd:date"
+        }
+      }
+    },
+
+    "Execution": {
+      "@id": "upvest:Execution",
+      "@context": {
+        "orderId": {
+          "@id": "upvest:executionOrder",
+          "@type": "@id"
+        },
+        "quantity": {
+          "@id": "upvest:executedQuantity",
+          "@type": "xsd:decimal"
+        },
+        "price": {
+          "@id": "upvest:executionPrice",
+          "@type": "xsd:decimal"
+        },
+        "executedAt": {
+          "@id": "upvest:executionTimestamp",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "CorporateAction": {
+      "@id": "upvest:CorporateAction",
+      "@context": {
+        "instrumentId": {
+          "@id": "upvest:affectedInstrument",
+          "@type": "@id"
+        },
+        "type": "upvest:corporateActionType",
+        "recordDate": {
+          "@id": "upvest:recordDate",
+          "@type": "xsd:date"
+        },
+        "exDate": {
+          "@id": "upvest:exDate",
+          "@type": "xsd:date"
+        }
+      }
+    },
+
+    "WebhookEvent": {
+      "@id": "upvest:WebhookEvent",
+      "@context": {
+        "eventType": "upvest:eventType",
+        "object": {
+          "@id": "upvest:affectedResource",
+          "@type": "@id"
+        },
+        "webhookId": {
+          "@id": "upvest:webhookSubscription",
+          "@type": "@id"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

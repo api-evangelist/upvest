@@ -1,0 +1,392 @@
+asyncapi: 2.6.0
+info:
+  title: Upvest Investment Events
+  description: >-
+    The Upvest Investment API uses an asynchronous, event-driven architecture
+    where events represent state changes within the system. Webhook
+    subscriptions allow your application to receive real-time notifications
+    about user onboarding, order lifecycle changes, portfolio rebalancing,
+    payment processing, and other investment operations. Events are delivered
+    via HTTPS POST requests with at-least-once delivery semantics, meaning
+    your handler must be idempotent.
+  version: '1.0.0'
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  externalDocs:
+    description: Upvest Webhooks Documentation
+    url: https://docs.upvest.co/documentation/concepts/api_concepts/webhooks
+servers:
+  production:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      Your registered webhook endpoint. Must use HTTPS with TLS 1.2 or
+      higher. The host must be a DNS name, not an IP address.
+    variables:
+      webhookUrl:
+        description: >-
+          The HTTPS URL registered as your webhook endpoint.
+    security:
+      - httpSignature: []
+channels:
+  /webhook:
+    description: >-
+      The webhook delivery channel. Upvest sends HTTPS POST requests to your
+      registered endpoint containing one or more events. Events within a
+      single request are ordered by created_at in ascending order. There are
+      no ordering guarantees across separate requests.
+    publish:
+      operationId: receiveWebhookEvents
+      summary: Receive webhook event notifications
+      description: >-
+        Receive one or more event notifications from the Upvest Investment
+        API. Each request contains a payload array with event objects. Your
+        handler should return a 2xx status code to acknowledge receipt.
+        Events may be delivered more than once, so implement idempotent
+        processing using the event id field.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/UserEvent'
+          - $ref: '#/components/messages/UserCheckEvent'
+          - $ref: '#/components/messages/AccountEvent'
+          - $ref: '#/components/messages/AccountGroupEvent'
+          - $ref: '#/components/messages/OrderEvent'
+          - $ref: '#/components/messages/OrderCancellationEvent'
+          - $ref: '#/components/messages/ExecutionEvent'
+          - $ref: '#/components/messages/PositionEvent'
+          - $ref: '#/components/messages/CashBalanceEvent'
+          - $ref: '#/components/messages/PortfolioEvent'
+          - $ref: '#/components/messages/RebalancingEvent'
+          - $ref: '#/components/messages/SavingsPlanEvent'
+          - $ref: '#/components/messages/DirectDebitEvent'
+          - $ref: '#/components/messages/WithdrawalEvent'
+          - $ref: '#/components/messages/MandateEvent'
+          - $ref: '#/components/messages/SecuritiesTransferEvent'
+          - $ref: '#/components/messages/AccountTransferEvent'
+          - $ref: '#/components/messages/CorporateActionEvent'
+          - $ref: '#/components/messages/LiquidationEvent'
+          - $ref: '#/components/messages/ReportEvent'
+          - $ref: '#/components/messages/FeeEvent'
+components:
+  securitySchemes:
+    httpSignature:
+      type: httpApiKey
+      name: Signature
+      in: header
+      description: >-
+        Upvest signs webhook requests using HTTP message signatures. Your
+        handler should verify the signature to ensure the request originated
+        from Upvest and was not tampered with in transit.
+  messages:
+    UserEvent:
+      name: UserEvent
+      title: User Event
+      summary: >-
+        Events related to user lifecycle changes including creation, updates,
+        and status transitions.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+      examples:
+        - name: UserCreated
+          payload:
+            payload:
+              - id: fbecea50-2f35-4969-96af-342271da9eca
+                created_at: '2024-01-15T14:10:00.000Z'
+                event_type: USER.CREATED
+                object:
+                  id: 83d83ec2-d2ca-49ff-bbea-b92b5c3be202
+                  type: USER
+                webhook_id: 091915d8-7b4b-4d25-8208-f8e2d4b30070
+    UserCheckEvent:
+      name: UserCheckEvent
+      title: User Check Event
+      summary: >-
+        Events related to user compliance and verification check outcomes.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    AccountEvent:
+      name: AccountEvent
+      title: Account Event
+      summary: >-
+        Events related to investment account lifecycle changes including
+        opening, closing, and status updates.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    AccountGroupEvent:
+      name: AccountGroupEvent
+      title: Account Group Event
+      summary: >-
+        Events related to account group changes.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    OrderEvent:
+      name: OrderEvent
+      title: Order Event
+      summary: >-
+        Events related to the order lifecycle including placement, processing,
+        filling, and rejection. Every order status change emits a webhook
+        event.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    OrderCancellationEvent:
+      name: OrderCancellationEvent
+      title: Order Cancellation Event
+      summary: >-
+        Events related to order cancellation requests and their outcomes.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    ExecutionEvent:
+      name: ExecutionEvent
+      title: Execution Event
+      summary: >-
+        Events related to order execution fills. Every execution associated
+        with an order has its own set of statuses, and every status change
+        emits a webhook event.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    PositionEvent:
+      name: PositionEvent
+      title: Position Event
+      summary: >-
+        Events related to changes in holdings and positions within accounts.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CashBalanceEvent:
+      name: CashBalanceEvent
+      title: Cash Balance Event
+      summary: >-
+        Events related to changes in account cash balances.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    PortfolioEvent:
+      name: PortfolioEvent
+      title: Portfolio Event
+      summary: >-
+        Events related to portfolio creation, updates, and allocation changes.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    RebalancingEvent:
+      name: RebalancingEvent
+      title: Rebalancing Event
+      summary: >-
+        Events related to portfolio rebalancing execution and completion.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    SavingsPlanEvent:
+      name: SavingsPlanEvent
+      title: Savings Plan Event
+      summary: >-
+        Events related to savings plan creation, execution, and status changes.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    DirectDebitEvent:
+      name: DirectDebitEvent
+      title: Direct Debit Event
+      summary: >-
+        Events related to direct debit funding operations and their status
+        transitions.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    WithdrawalEvent:
+      name: WithdrawalEvent
+      title: Withdrawal Event
+      summary: >-
+        Events related to cash withdrawal processing and completion.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    MandateEvent:
+      name: MandateEvent
+      title: Mandate Event
+      summary: >-
+        Events related to direct debit mandate creation and revocation.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    SecuritiesTransferEvent:
+      name: SecuritiesTransferEvent
+      title: Securities Transfer Event
+      summary: >-
+        Events related to inbound and outbound securities transfer operations.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    AccountTransferEvent:
+      name: AccountTransferEvent
+      title: Account Transfer Event
+      summary: >-
+        Events related to account transfer operations between entities.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CorporateActionEvent:
+      name: CorporateActionEvent
+      title: Corporate Action Event
+      summary: >-
+        Events related to corporate actions on held securities such as
+        dividends, splits, and mergers.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    LiquidationEvent:
+      name: LiquidationEvent
+      title: Liquidation Event
+      summary: >-
+        Events related to account liquidation operations.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    ReportEvent:
+      name: ReportEvent
+      title: Report Event
+      summary: >-
+        Events related to report generation completion.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    FeeEvent:
+      name: FeeEvent
+      title: Fee Event
+      summary: >-
+        Events related to fee charges on accounts.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+  schemas:
+    WebhookPayload:
+      type: object
+      description: >-
+        The top-level webhook request payload containing a list of event
+        objects. Events within a request are ordered by created_at in
+        ascending order.
+      required:
+        - payload
+      properties:
+        payload:
+          type: array
+          description: >-
+            A list of event objects, each representing a state change.
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+    WebhookEvent:
+      type: object
+      description: >-
+        An individual event record representing a state change within the
+        Upvest Investment API.
+      required:
+        - id
+        - created_at
+        - event_type
+        - object
+        - webhook_id
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the event. Use this for idempotent
+            processing.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            The timestamp when the event occurred.
+        event_type:
+          type: string
+          description: >-
+            The event type in CATEGORY.ACTION format. The category corresponds
+            to the resource type, and the action describes what changed.
+          examples:
+            - USER.CREATED
+            - USER.UPDATED
+            - USER_CHECK.PASSED
+            - USER_CHECK.FAILED
+            - ACCOUNT.OPENED
+            - ACCOUNT.CLOSED
+            - ORDER.NEW
+            - ORDER.PROCESSING
+            - ORDER.FILLED
+            - ORDER.CANCELLED
+            - ORDER.REJECTED
+            - ORDER_CANCELLATION.CONFIRMED
+            - ORDER_CANCELLATION.REJECTED
+            - EXECUTION.NEW
+            - EXECUTION.SETTLED
+            - EXECUTION.CANCELLED
+            - POSITION.UPDATED
+            - CASH_BALANCE.UPDATED
+            - PORTFOLIO.CREATED
+            - PORTFOLIO.UPDATED
+            - REBALANCING.COMPLETED
+            - REBALANCING.FAILED
+            - SAVINGS_PLAN.EXECUTED
+            - DIRECT_DEBIT.COMPLETED
+            - DIRECT_DEBIT.FAILED
+            - WITHDRAWAL.COMPLETED
+            - WITHDRAWAL.FAILED
+            - SECURITIES_TRANSFER.COMPLETED
+            - CORPORATE_ACTION.PROCESSED
+            - LIQUIDATION.COMPLETED
+            - REPORT.READY
+            - FEE.CHARGED
+        object:
+          $ref: '#/components/schemas/EventObject'
+        webhook_id:
+          type: string
+          format: uuid
+          description: >-
+            The identifier of the webhook subscription that triggered this
+            delivery.
+    EventObject:
+      type: object
+      description: >-
+        A reference to the resource that changed.
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the affected resource.
+        type:
+          type: string
+          description: >-
+            The resource type.
+          enum:
+            - USER
+            - USER_CHECK
+            - ACCOUNT
+            - ACCOUNT_GROUP
+            - ORDER
+            - ORDER_CANCELLATION
+            - EXECUTION
+            - POSITION
+            - CASH_BALANCE
+            - PORTFOLIO
+            - REBALANCING
+            - SAVINGS_PLAN
+            - DIRECT_DEBIT
+            - WITHDRAWAL
+            - MANDATE
+            - SECURITIES_TRANSFER
+            - ACCOUNT_TRANSFER
+            - CORPORATE_ACTION
+            - LIQUIDATION
+            - REPORT
+            - FEE
