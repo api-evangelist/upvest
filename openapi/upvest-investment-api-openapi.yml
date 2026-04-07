@@ -139,7 +139,7 @@ paths:
   /auth/token:
     post:
       operationId: createAccessToken
-      summary: Create an access token
+      summary: Upvest Create an access token
       description: >-
         Obtain an OAuth 2.0 access token using client credentials. The returned
         opaque access token is used to authenticate subsequent API requests. You
@@ -193,7 +193,7 @@ paths:
   /users:
     get:
       operationId: listUsers
-      summary: List users
+      summary: Upvest List users
       description: >-
         Retrieve a paginated list of all onboarded users. Supports filtering
         and pagination parameters.
@@ -224,7 +224,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createUser
-      summary: Create a user
+      summary: Upvest Create a user
       description: >-
         Onboard a new user to the investment platform. The user must pass
         identity verification and compliance checks before trading is enabled.
@@ -258,7 +258,7 @@ paths:
   /users/{user_id}:
     get:
       operationId: retrieveUser
-      summary: Retrieve a user
+      summary: Upvest Retrieve a user
       description: >-
         Retrieve details for a specific user by their unique identifier.
       tags:
@@ -286,7 +286,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       operationId: updateUser
-      summary: Update a user
+      summary: Upvest Update a user
       description: >-
         Update profile information for an existing user.
       tags:
@@ -327,7 +327,7 @@ paths:
   /users/{user_id}/identifiers:
     get:
       operationId: listUserIdentifiers
-      summary: List user identifiers
+      summary: Upvest List user identifiers
       description: >-
         Retrieve all external identifiers associated with a user.
       tags:
@@ -360,7 +360,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createUserIdentifier
-      summary: Create a user identifier
+      summary: Upvest Create a user identifier
       description: >-
         Add an external identifier to a user record.
       tags:
@@ -395,7 +395,7 @@ paths:
   /users/{user_id}/identifiers/{identifier_id}:
     get:
       operationId: retrieveUserIdentifier
-      summary: Retrieve a user identifier
+      summary: Upvest Retrieve a user identifier
       description: >-
         Retrieve a specific external identifier for a user.
       tags:
@@ -424,7 +424,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       operationId: updateUserIdentifier
-      summary: Update a user identifier
+      summary: Upvest Update a user identifier
       description: >-
         Update an existing external identifier for a user.
       tags:
@@ -460,7 +460,7 @@ paths:
   /users/{user_id}/checks:
     get:
       operationId: listUserChecks
-      summary: List user checks
+      summary: Upvest List user checks
       description: >-
         Retrieve compliance and verification checks performed on a user.
       tags:
@@ -488,7 +488,7 @@ paths:
   /users/{user_id}/tax_residencies:
     get:
       operationId: listTaxResidencies
-      summary: List tax residencies
+      summary: Upvest List tax residencies
       description: >-
         Retrieve tax residency information for a user.
       tags:
@@ -515,7 +515,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createTaxResidency
-      summary: Create a tax residency
+      summary: Upvest Create a tax residency
       description: >-
         Add a tax residency record for a user.
       tags:
@@ -550,7 +550,7 @@ paths:
   /users/{user_id}/accounts:
     get:
       operationId: listUserAccounts
-      summary: List accounts for a user
+      summary: Upvest List accounts for a user
       description: >-
         Retrieve all investment accounts belonging to a specific user.
       tags:
@@ -580,7 +580,7 @@ paths:
   /accounts:
     get:
       operationId: listAccounts
-      summary: List accounts
+      summary: Upvest List accounts
       description: >-
         Retrieve a paginated list of all investment accounts.
       tags:
@@ -610,7 +610,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createAccount
-      summary: Create an account
+      summary: Upvest Create an account
       description: >-
         Open a new investment account for a user.
       tags:
@@ -643,7 +643,7 @@ paths:
   /accounts/{account_id}:
     get:
       operationId: retrieveAccount
-      summary: Retrieve an account
+      summary: Upvest Retrieve an account
       description: >-
         Retrieve details for a specific investment account.
       tags:
@@ -671,7 +671,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       operationId: updateAccount
-      summary: Update an account
+      summary: Upvest Update an account
       description: >-
         Update metadata or settings for an existing investment account.
       tags:
@@ -711,7 +711,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: closeAccount
-      summary: Close an account
+      summary: Upvest Close an account
       description: >-
         Close an investment account. The account must have no open positions
         or pending orders.
@@ -737,7 +737,7 @@ paths:
   /instruments:
     get:
       operationId: listInstruments
-      summary: List instruments
+      summary: Upvest List instruments
       description: >-
         Retrieve a paginated list of available financial instruments including
         equities, ETFs, and other tradeable securities.
@@ -786,7 +786,7 @@ paths:
   /instruments/{instrument_id}:
     get:
       operationId: retrieveInstrument
-      summary: Retrieve an instrument
+      summary: Upvest Retrieve an instrument
       description: >-
         Retrieve details for a specific financial instrument.
       tags:
@@ -815,7 +815,7 @@ paths:
   /instruments/{instrument_id}/prices:
     get:
       operationId: listInstrumentPrices
-      summary: List instrument prices
+      summary: Upvest List instrument prices
       description: >-
         Retrieve price data for a specific instrument. Prices are linked to
         exchanges so you can track where prices are available.
@@ -850,7 +850,7 @@ paths:
   /orders:
     get:
       operationId: listOrders
-      summary: List orders
+      summary: Upvest List orders
       description: >-
         Retrieve a paginated list of orders. Supports filtering by account,
         status, and other criteria.
@@ -900,7 +900,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createOrder
-      summary: Place an order
+      summary: Upvest Place an order
       description: >-
         Place a new buy or sell order for a financial instrument. Orders are
         processed asynchronously and their status can be tracked via webhooks
@@ -935,7 +935,7 @@ paths:
   /orders/{order_id}:
     get:
       operationId: retrieveOrder
-      summary: Retrieve an order
+      summary: Upvest Retrieve an order
       description: >-
         Retrieve details for a specific order including current status and
         execution information.
@@ -965,7 +965,7 @@ paths:
   /orders/{order_id}/cancellation:
     post:
       operationId: cancelOrder
-      summary: Cancel an order
+      summary: Upvest Cancel an order
       description: >-
         Request cancellation of a pending order. Cancellation may not be
         possible if the order is already in execution.
@@ -1001,7 +1001,7 @@ paths:
   /orders/{order_id}/executions:
     get:
       operationId: listOrderExecutions
-      summary: List order executions
+      summary: Upvest List order executions
       description: >-
         Retrieve execution details for a specific order. Each execution
         represents a fill against the order.
@@ -1036,7 +1036,7 @@ paths:
   /portfolios:
     get:
       operationId: listPortfolios
-      summary: List portfolios
+      summary: Upvest List portfolios
       description: >-
         Retrieve a paginated list of portfolios.
       tags:
@@ -1066,7 +1066,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createPortfolio
-      summary: Create a portfolio
+      summary: Upvest Create a portfolio
       description: >-
         Create a new portfolio with a defined set of target allocations across
         instruments.
@@ -1100,7 +1100,7 @@ paths:
   /portfolios/{portfolio_id}:
     get:
       operationId: retrievePortfolio
-      summary: Retrieve a portfolio
+      summary: Upvest Retrieve a portfolio
       description: >-
         Retrieve details for a specific portfolio including its allocations
         and current state.
@@ -1129,7 +1129,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       operationId: updatePortfolio
-      summary: Update a portfolio
+      summary: Upvest Update a portfolio
       description: >-
         Update portfolio settings or metadata.
       tags:
@@ -1164,7 +1164,7 @@ paths:
   /portfolios/{portfolio_id}/allocations:
     get:
       operationId: listPortfolioAllocations
-      summary: List portfolio allocations
+      summary: Upvest List portfolio allocations
       description: >-
         Retrieve target allocations for a specific portfolio.
       tags:
@@ -1191,7 +1191,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     put:
       operationId: updatePortfolioAllocations
-      summary: Update portfolio allocations
+      summary: Upvest Update portfolio allocations
       description: >-
         Replace the target allocation set for a portfolio.
       tags:
@@ -1238,7 +1238,7 @@ paths:
   /portfolios/{portfolio_id}/orders:
     post:
       operationId: createPortfolioOrder
-      summary: Place a portfolio order
+      summary: Upvest Place a portfolio order
       description: >-
         Place an order against a portfolio allocation. The order amount is
         distributed across the portfolio's instruments according to the
@@ -1275,7 +1275,7 @@ paths:
   /portfolios/{portfolio_id}/rebalancing:
     post:
       operationId: triggerPortfolioRebalancing
-      summary: Trigger portfolio rebalancing
+      summary: Upvest Trigger portfolio rebalancing
       description: >-
         Initiate a rebalancing operation to realign current holdings with
         target allocations.
@@ -1304,7 +1304,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     get:
       operationId: listRebalancingExecutions
-      summary: List rebalancing executions
+      summary: Upvest List rebalancing executions
       description: >-
         Retrieve a list of rebalancing executions for a portfolio.
       tags:
@@ -1332,7 +1332,7 @@ paths:
   /savings_plans:
     get:
       operationId: listSavingsPlans
-      summary: List savings plans
+      summary: Upvest List savings plans
       description: >-
         Retrieve a paginated list of automated savings plans.
       tags:
@@ -1362,7 +1362,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createSavingsPlan
-      summary: Create a savings plan
+      summary: Upvest Create a savings plan
       description: >-
         Create an automated recurring investment plan. Savings plans execute
         on a defined schedule, investing a specified amount into an instrument
@@ -1397,7 +1397,7 @@ paths:
   /savings_plans/{savings_plan_id}:
     get:
       operationId: retrieveSavingsPlan
-      summary: Retrieve a savings plan
+      summary: Upvest Retrieve a savings plan
       description: >-
         Retrieve details for a specific savings plan.
       tags:
@@ -1425,7 +1425,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       operationId: updateSavingsPlan
-      summary: Update a savings plan
+      summary: Upvest Update a savings plan
       description: >-
         Update the configuration of an existing savings plan.
       tags:
@@ -1459,7 +1459,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteSavingsPlan
-      summary: Delete a savings plan
+      summary: Upvest Delete a savings plan
       description: >-
         Cancel and remove an automated savings plan.
       tags:
@@ -1484,7 +1484,7 @@ paths:
   /accounts/{account_id}/positions:
     get:
       operationId: listPositions
-      summary: List positions
+      summary: Upvest List positions
       description: >-
         Retrieve current holdings and position details for an account.
       tags:
@@ -1518,7 +1518,7 @@ paths:
   /accounts/{account_id}/positions/{position_id}:
     get:
       operationId: retrievePosition
-      summary: Retrieve a position
+      summary: Upvest Retrieve a position
       description: >-
         Retrieve details for a specific position within an account.
       tags:
@@ -1548,7 +1548,7 @@ paths:
   /accounts/{account_id}/valuations:
     get:
       operationId: listValuations
-      summary: List account valuations
+      summary: Upvest List account valuations
       description: >-
         Retrieve valuation history for an account.
       tags:
@@ -1576,7 +1576,7 @@ paths:
   /accounts/{account_id}/returns:
     get:
       operationId: listAccountReturns
-      summary: List account returns
+      summary: Upvest List account returns
       description: >-
         Retrieve investment return calculations for an account.
       tags:
@@ -1604,7 +1604,7 @@ paths:
   /accounts/{account_id}/cash_balances:
     get:
       operationId: listCashBalances
-      summary: List cash balances
+      summary: Upvest List cash balances
       description: >-
         Retrieve cash balance information for an account.
       tags:
@@ -1632,7 +1632,7 @@ paths:
   /direct_debits:
     post:
       operationId: createDirectDebit
-      summary: Create a direct debit
+      summary: Upvest Create a direct debit
       description: >-
         Submit a direct debit funding request to transfer funds into an
         investment account.
@@ -1665,7 +1665,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     get:
       operationId: listDirectDebits
-      summary: List direct debits
+      summary: Upvest List direct debits
       description: >-
         Retrieve a list of direct debit funding requests.
       tags:
@@ -1696,7 +1696,7 @@ paths:
   /mandates:
     get:
       operationId: listMandates
-      summary: List mandates
+      summary: Upvest List mandates
       description: >-
         Retrieve a list of direct debit mandates.
       tags:
@@ -1727,7 +1727,7 @@ paths:
   /mandates/{mandate_id}:
     get:
       operationId: retrieveMandate
-      summary: Retrieve a mandate
+      summary: Upvest Retrieve a mandate
       description: >-
         Retrieve details for a specific direct debit mandate.
       tags:
@@ -1756,7 +1756,7 @@ paths:
   /withdrawals:
     post:
       operationId: createWithdrawal
-      summary: Create a withdrawal
+      summary: Upvest Create a withdrawal
       description: >-
         Process a cash withdrawal from an investment account to a linked
         reference account.
@@ -1789,7 +1789,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     get:
       operationId: listWithdrawals
-      summary: List withdrawals
+      summary: Upvest List withdrawals
       description: >-
         Retrieve a list of cash withdrawals.
       tags:
@@ -1820,7 +1820,7 @@ paths:
   /accounts/{account_id}/reference_accounts:
     get:
       operationId: listReferenceAccounts
-      summary: List reference accounts
+      summary: Upvest List reference accounts
       description: >-
         Retrieve linked reference bank accounts for an investment account.
       tags:
@@ -1848,7 +1848,7 @@ paths:
   /accounts/{account_id}/fees:
     get:
       operationId: listFees
-      summary: List fees
+      summary: Upvest List fees
       description: >-
         Retrieve fees charged on an account.
       tags:
@@ -1876,7 +1876,7 @@ paths:
   /fee_configurations:
     get:
       operationId: listFeeConfigurations
-      summary: List fee configurations
+      summary: Upvest List fee configurations
       description: >-
         Retrieve available fee configuration templates.
       tags:
@@ -1907,7 +1907,7 @@ paths:
   /reports:
     get:
       operationId: listReports
-      summary: List reports
+      summary: Upvest List reports
       description: >-
         Retrieve a paginated list of generated user-facing reports and
         statements.
@@ -1939,7 +1939,7 @@ paths:
   /treasury_reports:
     get:
       operationId: listTreasuryReports
-      summary: List treasury reports
+      summary: Upvest List treasury reports
       description: >-
         Retrieve treasury-level reports for institutional oversight and
         reconciliation.
@@ -1971,7 +1971,7 @@ paths:
   /accounts/{account_id}/transactions:
     get:
       operationId: listTransactions
-      summary: List transactions
+      summary: Upvest List transactions
       description: >-
         Retrieve transaction history for an account including order executions,
         fees, dividends, and transfers.
@@ -2004,7 +2004,7 @@ paths:
   /files/{file_id}:
     get:
       operationId: retrieveFile
-      summary: Retrieve a file
+      summary: Upvest Retrieve a file
       description: >-
         Download a generated file such as a report or statement.
       tags:
@@ -2038,7 +2038,7 @@ paths:
   /accounts/{account_id}/liquidations:
     post:
       operationId: createLiquidation
-      summary: Create a liquidation
+      summary: Upvest Create a liquidation
       description: >-
         Initiate a full or partial liquidation of an account's holdings.
       tags:
@@ -2072,7 +2072,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     get:
       operationId: listLiquidations
-      summary: List liquidations
+      summary: Upvest List liquidations
       description: >-
         Retrieve liquidation operations for an account.
       tags:
@@ -2100,7 +2100,7 @@ paths:
   /securities_transfers:
     post:
       operationId: createSecuritiesTransfer
-      summary: Create a securities transfer
+      summary: Upvest Create a securities transfer
       description: >-
         Initiate a transfer of securities between accounts or providers.
       tags:
@@ -2132,7 +2132,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     get:
       operationId: listSecuritiesTransfers
-      summary: List securities transfers
+      summary: Upvest List securities transfers
       description: >-
         Retrieve a list of securities transfer operations.
       tags:
@@ -2163,7 +2163,7 @@ paths:
   /account_transfers:
     post:
       operationId: createAccountTransfer
-      summary: Create an account transfer
+      summary: Upvest Create an account transfer
       description: >-
         Transfer an account between entities.
       tags:
@@ -2195,7 +2195,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     get:
       operationId: listAccountTransfers
-      summary: List account transfers
+      summary: Upvest List account transfers
       description: >-
         Retrieve a list of account transfer operations.
       tags:
@@ -2226,7 +2226,7 @@ paths:
   /corporate_actions:
     get:
       operationId: listCorporateActions
-      summary: List corporate actions
+      summary: Upvest List corporate actions
       description: >-
         Retrieve corporate action events affecting held securities such as
         dividends, splits, and mergers.
@@ -2258,7 +2258,7 @@ paths:
   /webhooks:
     get:
       operationId: listWebhookSubscriptions
-      summary: List webhook subscriptions
+      summary: Upvest List webhook subscriptions
       description: >-
         Retrieve all registered webhook subscriptions.
       tags:
@@ -2283,7 +2283,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       operationId: createWebhookSubscription
-      summary: Create a webhook subscription
+      summary: Upvest Create a webhook subscription
       description: >-
         Register a new webhook endpoint to receive event notifications. The
         URL must use HTTPS and support TLS 1.2 or higher.
@@ -2317,7 +2317,7 @@ paths:
   /webhooks/{webhook_id}:
     get:
       operationId: retrieveWebhookSubscription
-      summary: Retrieve a webhook subscription
+      summary: Upvest Retrieve a webhook subscription
       description: >-
         Retrieve details for a specific webhook subscription.
       tags:
@@ -2345,7 +2345,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       operationId: updateWebhookSubscription
-      summary: Update a webhook subscription
+      summary: Upvest Update a webhook subscription
       description: >-
         Update the configuration of an existing webhook subscription.
       tags:
@@ -2379,7 +2379,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteWebhookSubscription
-      summary: Delete a webhook subscription
+      summary: Upvest Delete a webhook subscription
       description: >-
         Remove a webhook subscription. Events will no longer be delivered to
         this endpoint.
