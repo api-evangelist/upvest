@@ -24,115 +24,112 @@ servers:
   - url: https://sandbox.upvest.co
     description: Sandbox Server
 tags:
-  - name: Authentication
+  - name: Account Transfers
     description: >-
-      OAuth 2.0 token management for API access using client credentials flow.
-  - name: Users
-    description: >-
-      Manage end users including onboarding, identity verification, and profile
-      management.
-  - name: User Identifiers
-    description: >-
-      Manage external identifiers associated with users.
-  - name: User Checks
-    description: >-
-      Compliance and verification checks on users.
-  - name: Tax Residencies
-    description: >-
-      Manage tax residency information for users.
+      Transfer accounts between entities.
   - name: Accounts
     description: >-
       Investment accounts that hold positions and track balances for users.
-  - name: Instruments
+  - name: Authentication
     description: >-
-      Query available financial instruments and their metadata.
-  - name: Instrument Prices
+      OAuth 2.0 token management for API access using client credentials flow.
+  - name: Cash Balances
     description: >-
-      Retrieve real-time and historical price data for instruments.
-  - name: Orders
+      View cash balance information for accounts.
+  - name: Corporate Actions
     description: >-
-      Place, manage, and track buy and sell orders for instruments.
-  - name: Order Cancellations
+      View and manage corporate action events on held securities.
+  - name: Direct Debits
     description: >-
-      Cancel pending orders before execution.
+      Manage direct debit funding operations.
   - name: Executions
     description: >-
       Track order execution details and fills.
-  - name: Portfolios
+  - name: Fee Configurations
     description: >-
-      Create and manage portfolios with custom asset allocations.
+      Configure fee structures and schedules.
+  - name: Fees
+    description: >-
+      Track and manage fee charges on accounts.
+  - name: Files
+    description: >-
+      Access and download generated files such as reports and statements.
+  - name: Instrument Prices
+    description: >-
+      Retrieve real-time and historical price data for instruments.
+  - name: Instruments
+    description: >-
+      Query available financial instruments and their metadata.
+  - name: Liquidations
+    description: >-
+      Manage full or partial account liquidations.
+  - name: Mandates
+    description: >-
+      Manage direct debit mandates for accounts.
+  - name: Order Cancellations
+    description: >-
+      Cancel pending orders before execution.
+  - name: Orders
+    description: >-
+      Place, manage, and track buy and sell orders for instruments.
   - name: Portfolio Allocations
     description: >-
       Define and update target allocations within portfolios.
   - name: Portfolio Orders
     description: >-
       Place orders against portfolio allocations.
+  - name: Portfolios
+    description: >-
+      Create and manage portfolios with custom asset allocations.
   - name: Portfolios Rebalancing
     description: >-
       Trigger and track portfolio rebalancing operations.
-  - name: Savings Plans
-    description: >-
-      Configure automated recurring investments into portfolios or instruments.
   - name: Positions
     description: >-
       View current holdings and position details for accounts.
-  - name: Valuations
-    description: >-
-      Retrieve account and position valuations.
-  - name: Returns
-    description: >-
-      Calculate account-level investment returns.
-  - name: Cash Balances
-    description: >-
-      View cash balance information for accounts.
-  - name: Direct Debits
-    description: >-
-      Manage direct debit funding operations.
-  - name: Mandates
-    description: >-
-      Manage direct debit mandates for accounts.
-  - name: Withdrawals
-    description: >-
-      Process cash withdrawals from investment accounts.
   - name: Reference Accounts
     description: >-
       Manage reference bank accounts linked to investment accounts.
-  - name: Virtual Cash Balances
-    description: >-
-      View virtual cash balance details.
-  - name: Fees
-    description: >-
-      Track and manage fee charges on accounts.
-  - name: Fee Configurations
-    description: >-
-      Configure fee structures and schedules.
   - name: Reports
     description: >-
       Generate and retrieve user-facing investment reports and statements.
-  - name: Treasury Reports
+  - name: Returns
     description: >-
-      Access treasury-level reporting for institutional oversight.
-  - name: Transactions
+      Calculate account-level investment returns.
+  - name: Savings Plans
     description: >-
-      View transaction history for accounts.
-  - name: Files
-    description: >-
-      Access and download generated files such as reports and statements.
-  - name: Liquidations
-    description: >-
-      Manage full or partial account liquidations.
+      Configure automated recurring investments into portfolios or instruments.
   - name: Securities Transfers
     description: >-
       Transfer securities between accounts or providers.
-  - name: Account Transfers
+  - name: Tax Residencies
     description: >-
-      Transfer accounts between entities.
-  - name: Corporate Actions
+      Manage tax residency information for users.
+  - name: Transactions
     description: >-
-      View and manage corporate action events on held securities.
+      View transaction history for accounts.
+  - name: Treasury Reports
+    description: >-
+      Access treasury-level reporting for institutional oversight.
+  - name: User Checks
+    description: >-
+      Compliance and verification checks on users.
+  - name: User Identifiers
+    description: >-
+      Manage external identifiers associated with users.
+  - name: Users
+    description: >-
+      Manage end users including onboarding, identity verification, and profile
+      management.
+  - name: Valuations
+    description: >-
+      Retrieve account and position valuations.
   - name: Webhook Subscriptions
     description: >-
       Register, update, and manage webhook subscriptions for event notifications.
+  - name: Withdrawals
+    description: >-
+      Process cash withdrawals from investment accounts.
 security:
   - oauth2ClientCredentials: []
 paths:

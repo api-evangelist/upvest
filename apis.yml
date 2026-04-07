@@ -3,13 +3,12 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/apis.yml
 name: Upvest
 type: Index
-image: 
-  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Investments
-  - Securities
   - Banking Infrastructure
   - Fintech
+  - Investments
+  - Securities
 description: >-
   Upvest is a Berlin-based API-first investment infrastructure provider that enables
   banks, brokers, and wealth managers to build and launch investment experiences through
@@ -22,12 +21,12 @@ apis:
   - aid: upvest:investment-api
     name: Upvest Investment API
     tags:
+      - Custody
       - Investments
-      - Securities
       - Orders
       - Portfolios
+      - Securities
       - Trading
-      - Custody
     humanURL: https://docs.upvest.co/
     baseURL: https://api.upvest.co
     properties:
