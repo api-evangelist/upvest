@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/upvest-webhook-event-structure.json",
+  "name": "Upvest Webhook Event",
+  "description": "Schema for validating Upvest Investment API webhook delivery payloads. Each webhook request contains a payload array with one or more event objects representing state changes in the system.",
+  "type": "object",
+  "required": [
+    "payload"
+  ],
+  "properties": {
+    "payload": {
+      "type": "array",
+      "description": "A list of event objects delivered in this webhook request, ordered by created_at ascending.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/WebhookEvent"
+      }
+    }
+  },
+  "definitions": {
+    "WebhookEvent": {
+      "type": "object",
+      "description": "An individual event representing a state change within the Upvest Investment API.",
+      "required": [
+        "id",
+        "created_at",
+        "event_type",
+        "object",
+        "webhook_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "uuid",
+          "description": "The unique identifier of the event. Use for idempotent processing to avoid handling duplicate deliveries."
+        },
+        "created_at": {
+          "type": "datetime",
+          "description": "The ISO 8601 timestamp when the event occurred."
+        },
+        "event_type": {
+          "type": "string",
+          "description": "The event type in CATEGORY.ACTION format identifying the resource and state change.",
+          "pattern": "^[A-Z_]+\\.[A-Z_]+$",
+          "enum": [
+            "USER.CREATED",
+            "USER.UPDATED",
+            "USER.BLOCKED",
+            "USER.CLOSED",
+            "USER_CHECK.PASSED",
+            "USER_CHECK.FAILED",
+            "ACCOUNT.OPENED",
+            "ACCOUNT.CLOSING",
+            "ACCOUNT.CLOSED",
+            "ACCOUNT.UPDATED",
+            "ACCOUNT_GROUP.CREATED",
+            "ACCOUNT_GROUP.UPDATED",
+            "ORDER.NEW",
+            "ORDER.PROCESSING",
+            "ORDER.FILLED",
+            "ORDER.CANCELLED",
+            "ORDER.REJECTED",
+            "ORDER_CANCELLATION.PENDING",
+            "ORDER_CANCELLATION.CONFIRMED",
+            "ORDER_CANCELLATION.REJECTED",
+            "EXECUTION.NEW",
+            "EXECUTION.SETTLED",
+            "EXECUTION.CANCELLED",
+            "POSITION.CREATED",
+            "POSITION.UPDATED",
+            "POSITION.CLOSED",
+            "CASH_BALANCE.UPDATED",
+            "PORTFOLIO.CREATED",
+            "PORTFOLIO.UPDATED",
+            "PORTFOLIO.CLOSED",
+            "REBALANCING.PROCESSING",
+            "REBALANCING.COMPLETED",
+            "REBALANCING.FAILED",
+            "SAVINGS_PLAN.CREATED",
+            "SAVINGS_PLAN.EXECUTED",
+            "SAVINGS_PLAN.PAUSED",
+            "SAVINGS_PLAN.CANCELLED",
+            "DIRECT_DEBIT.PROCESSING",
+            "DIRECT_DEBIT.COMPLETED",
+            "DIRECT_DEBIT.FAILED",
+            "DIRECT_DEBIT.REVERSED",
+            "WITHDRAWAL.PROCESSING",
+            "WITHDRAWAL.COMPLETED",
+            "WITHDRAWAL.FAILED",
+            "MANDATE.CREATED",
+            "MANDATE.REVOKED",
+            "SECURITIES_TRANSFER.PROCESSING",
+            "SECURITIES_TRANSFER.COMPLETED",
+            "SECURITIES_TRANSFER.FAILED",
+            "ACCOUNT_TRANSFER.PROCESSING",
+            "ACCOUNT_TRANSFER.COMPLETED",
+            "ACCOUNT_TRANSFER.FAILED",
+            "CORPORATE_ACTION.ANNOUNCED",
+            "CORPORATE_ACTION.PROCESSED",
+            "LIQUIDATION.PROCESSING",
+            "LIQUIDATION.COMPLETED",
+            "LIQUIDATION.FAILED",
+            "REPORT.READY",
+            "REPORT.FAILED",
+            "FEE.CHARGED"
+          ]
+        },
+        "object": {
+          "$ref": "#/$defs/EventObject"
+        },
+        "webhook_id": {
+          "type": "uuid",
+          "description": "The identifier of the webhook subscription that triggered this delivery."
+        }
+      },
+      "name": "WebhookEvent"
+    },
+    "EventObject": {
+      "type": "object",
+      "description": "A reference to the resource affected by the event.",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "uuid",
+          "description": "The unique identifier of the affected resource."
+        },
+        "type": {
+          "type": "string",
+          "description": "The resource type that changed.",
+          "enum": [
+            "USER",
+            "USER_CHECK",
+            "ACCOUNT",
+            "ACCOUNT_GROUP",
+            "ORDER",
+            "ORDER_CANCELLATION",
+            "EXECUTION",
+            "POSITION",
+            "CASH_BALANCE",
+            "PORTFOLIO",
+            "REBALANCING",
+            "SAVINGS_PLAN",
+            "DIRECT_DEBIT",
+            "WITHDRAWAL",
+            "MANDATE",
+            "SECURITIES_TRANSFER",
+            "ACCOUNT_TRANSFER",
+            "CORPORATE_ACTION",
+            "LIQUIDATION",
+            "REPORT",
+            "FEE"
+          ]
+        }
+      },
+      "name": "EventObject"
+    }
+  }
+}

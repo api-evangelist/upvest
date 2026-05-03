@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-cash-balance-structure.json",
+  "name": "CashBalance",
+  "description": "Cash balance information for an account.",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "uuid",
+      "description": "The account identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "available": {
+      "type": "string",
+      "description": "The available cash balance as a decimal string.",
+      "example": "example-value"
+    },
+    "pending": {
+      "type": "string",
+      "description": "The pending cash amount as a decimal string.",
+      "example": "example-value"
+    },
+    "total": {
+      "type": "string",
+      "description": "The total cash balance as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The balance currency.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    }
+  }
+}

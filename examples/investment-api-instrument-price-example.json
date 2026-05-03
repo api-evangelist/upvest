@@ -1,0 +1,7 @@
+{
+  "instrument_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "exchange_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "price": "example-string",
+  "currency": "EUR",
+  "timestamp": "2025-03-15T14:30:00Z"
+}

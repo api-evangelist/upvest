@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-position-schema.json",
+  "title": "Position",
+  "description": "A holding of a financial instrument within an account.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the position.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The account the position belongs to.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "instrument_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The instrument held.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "quantity": {
+      "type": "string",
+      "description": "The quantity of shares held as a decimal string.",
+      "example": "example-value"
+    },
+    "average_buy_in_price": {
+      "type": "string",
+      "description": "The average buy-in price as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The position currency.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the position was first established.",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the position was last updated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

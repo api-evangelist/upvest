@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-account-transfer-structure.json",
+  "name": "AccountTransfer",
+  "description": "An account transfer between entities.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "uuid",
+      "description": "The transfer identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED"
+      ],
+      "description": "The transfer status.",
+      "example": "NEW"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "When the transfer was initiated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-user-identifier-create-structure.json",
+  "name": "UserIdentifierCreate",
+  "description": "Request body for creating a user identifier.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of external identifier.",
+      "example": "standard"
+    },
+    "value": {
+      "type": "string",
+      "description": "The identifier value.",
+      "example": "example-value"
+    }
+  },
+  "required": [
+    "type",
+    "value"
+  ]
+}

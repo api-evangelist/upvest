@@ -1,0 +1,11 @@
+{
+  "account_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "instrument_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "side": "BUY",
+  "type": "MARKET",
+  "quantity": "example-string",
+  "cash_amount": "example-string",
+  "limit_price": "example-string",
+  "stop_price": "example-string",
+  "currency": "EUR"
+}

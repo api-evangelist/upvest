@@ -1,0 +1,8 @@
+{
+  "street": "Unter den Linden 1",
+  "additional_line": "example-string",
+  "city": "Berlin",
+  "postal_code": "10117",
+  "state": "BE",
+  "country": "DE"
+}

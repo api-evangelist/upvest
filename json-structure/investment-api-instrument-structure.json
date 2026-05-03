@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-instrument-structure.json",
+  "name": "Instrument",
+  "description": "A tradeable financial instrument such as a stock, ETF, or bond.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "uuid",
+      "description": "The unique identifier of the instrument.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "isin": {
+      "type": "string",
+      "description": "The International Securities Identification Number.",
+      "pattern": "^[A-Z]{2}[A-Z0-9]{9}[0-9]$",
+      "example": "DE0005140008"
+    },
+    "wkn": {
+      "type": "string",
+      "description": "The Wertpapierkennnummer (German securities ID).",
+      "example": "example-value"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the instrument.",
+      "example": "Example Name"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "EQUITY",
+        "ETF",
+        "BOND",
+        "FUND"
+      ],
+      "description": "The instrument type.",
+      "example": "EQUITY"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The trading currency as an ISO 4217 code.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "exchanges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A securities exchange where instruments are traded.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The exchange identifier.",
+            "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+          },
+          "name": {
+            "type": "string",
+            "description": "The exchange name.",
+            "example": "Example Name"
+          },
+          "mic": {
+            "type": "string",
+            "description": "The Market Identifier Code (ISO 10383).",
+            "example": "example-value"
+          }
+        }
+      },
+      "description": "Exchanges where the instrument is traded.",
+      "example": [
+        {
+          "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "name": "Example Name",
+          "mic": "example-value"
+        }
+      ]
+    },
+    "tradeable": {
+      "type": "boolean",
+      "description": "Whether the instrument is currently tradeable.",
+      "example": true
+    },
+    "fractional_trading_enabled": {
+      "type": "boolean",
+      "description": "Whether fractional shares are supported for this instrument.",
+      "example": true
+    }
+  }
+}

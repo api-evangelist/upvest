@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-portfolio-allocation-create-structure.json",
+  "name": "PortfolioAllocationCreate",
+  "description": "Request body for defining a portfolio allocation.",
+  "type": "object",
+  "properties": {
+    "instrument_id": {
+      "type": "uuid",
+      "description": "The instrument to allocate to.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "weight": {
+      "type": "string",
+      "description": "The target weight as a decimal string between 0 and 1.",
+      "example": "example-value"
+    }
+  },
+  "required": [
+    "instrument_id",
+    "weight"
+  ]
+}

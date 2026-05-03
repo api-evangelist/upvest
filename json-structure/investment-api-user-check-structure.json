@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-user-check-structure.json",
+  "name": "UserCheck",
+  "description": "A compliance or verification check on a user.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "uuid",
+      "description": "The unique identifier of the check.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of check performed.",
+      "example": "standard"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "PASSED",
+        "FAILED"
+      ],
+      "description": "The current status of the check.",
+      "example": "PENDING"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "When the check was created.",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "completed_at": {
+      "type": "datetime",
+      "description": "When the check was completed.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-savings-plan-schema.json",
+  "title": "SavingsPlan",
+  "description": "An automated recurring investment plan.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the savings plan.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The account the savings plan belongs to.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "portfolio_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The portfolio to invest into, if applicable.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "instrument_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The instrument to invest into, if applicable.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "cash_amount": {
+      "type": "string",
+      "description": "The recurring investment amount as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The savings plan currency as an ISO 4217 code.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "frequency": {
+      "type": "string",
+      "enum": [
+        "WEEKLY",
+        "BIWEEKLY",
+        "MONTHLY",
+        "QUARTERLY"
+      ],
+      "description": "How often the savings plan executes.",
+      "example": "WEEKLY"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "PAUSED",
+        "CANCELLED"
+      ],
+      "description": "The savings plan status.",
+      "example": "ACTIVE"
+    },
+    "next_execution_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The next scheduled execution date.",
+      "example": "2025-03-15"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the savings plan was created.",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the savings plan was last updated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

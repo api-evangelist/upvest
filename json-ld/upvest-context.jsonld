@@ -1,237 +1,348 @@
 {
   "@context": {
     "@version": 1.1,
-    "upvest": "https://upvest.co/ns/",
+    "upvest": "https://docs.upvest.co/schema/",
     "schema": "https://schema.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
-    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
-
-    "User": {
-      "@id": "upvest:User",
-      "@context": {
-        "firstName": "schema:givenName",
-        "lastName": "schema:familyName",
-        "email": "schema:email",
-        "dateOfBirth": {
-          "@id": "schema:birthDate",
-          "@type": "xsd:date"
-        },
-        "nationality": "schema:nationality",
-        "address": "schema:address",
-        "status": "upvest:userStatus",
-        "createdAt": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updatedAt": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Account": "upvest:Account",
+    "AccountCreate": "upvest:AccountCreate",
+    "AccountReturn": "upvest:AccountReturn",
+    "AccountTransfer": "upvest:AccountTransfer",
+    "AccountTransferCreate": "upvest:AccountTransferCreate",
+    "AccountUpdate": "upvest:AccountUpdate",
+    "Address": "upvest:Address",
+    "CashBalance": "upvest:CashBalance",
+    "CorporateAction": "upvest:CorporateAction",
+    "DirectDebit": "upvest:DirectDebit",
+    "DirectDebitCreate": "upvest:DirectDebitCreate",
+    "Exchange": "upvest:Exchange",
+    "Execution": "upvest:Execution",
+    "Fee": "upvest:Fee",
+    "FeeConfiguration": "upvest:FeeConfiguration",
+    "Instrument": "upvest:Instrument",
+    "InstrumentPrice": "upvest:InstrumentPrice",
+    "Liquidation": "upvest:Liquidation",
+    "LiquidationCreate": "upvest:LiquidationCreate",
+    "Mandate": "upvest:Mandate",
+    "Order": "upvest:Order",
+    "OrderCancellation": "upvest:OrderCancellation",
+    "OrderCreate": "upvest:OrderCreate",
+    "Portfolio": "upvest:Portfolio",
+    "PortfolioAllocation": "upvest:PortfolioAllocation",
+    "PortfolioAllocationCreate": "upvest:PortfolioAllocationCreate",
+    "PortfolioCreate": "upvest:PortfolioCreate",
+    "PortfolioOrder": "upvest:PortfolioOrder",
+    "PortfolioOrderCreate": "upvest:PortfolioOrderCreate",
+    "PortfolioUpdate": "upvest:PortfolioUpdate",
+    "Position": "upvest:Position",
+    "RebalancingExecution": "upvest:RebalancingExecution",
+    "ReferenceAccount": "upvest:ReferenceAccount",
+    "Report": "upvest:Report",
+    "SavingsPlan": "upvest:SavingsPlan",
+    "SavingsPlanCreate": "upvest:SavingsPlanCreate",
+    "SavingsPlanUpdate": "upvest:SavingsPlanUpdate",
+    "SecuritiesTransfer": "upvest:SecuritiesTransfer",
+    "SecuritiesTransferCreate": "upvest:SecuritiesTransferCreate",
+    "TaxResidency": "upvest:TaxResidency",
+    "TaxResidencyCreate": "upvest:TaxResidencyCreate",
+    "Transaction": "upvest:Transaction",
+    "TreasuryReport": "upvest:TreasuryReport",
+    "Upvest Order": "upvest:Upvest Order",
+    "Upvest Webhook Event": "upvest:Upvest Webhook Event",
+    "User": "upvest:User",
+    "UserCheck": "upvest:UserCheck",
+    "UserCreate": "upvest:UserCreate",
+    "UserIdentifier": "upvest:UserIdentifier",
+    "UserIdentifierCreate": "upvest:UserIdentifierCreate",
+    "UserIdentifierUpdate": "upvest:UserIdentifierUpdate",
+    "UserUpdate": "upvest:UserUpdate",
+    "Valuation": "upvest:Valuation",
+    "WebhookSubscription": "upvest:WebhookSubscription",
+    "WebhookSubscriptionCreate": "upvest:WebhookSubscriptionCreate",
+    "WebhookSubscriptionUpdate": "upvest:WebhookSubscriptionUpdate",
+    "Withdrawal": "upvest:Withdrawal",
+    "WithdrawalCreate": "upvest:WithdrawalCreate",
+    "accountGroupId": {
+      "@id": "upvest:account_group_id",
+      "@type": "xsd:string"
     },
-
-    "Account": {
-      "@id": "upvest:InvestmentAccount",
-      "@context": {
-        "userId": {
-          "@id": "upvest:accountHolder",
-          "@type": "@id"
-        },
-        "accountGroupId": {
-          "@id": "upvest:accountGroup",
-          "@type": "@id"
-        },
-        "type": "upvest:accountType",
-        "status": "upvest:accountStatus",
-        "createdAt": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "accountHolder": {
+      "@id": "upvest:account_holder",
+      "@type": "xsd:string"
     },
-
-    "Instrument": {
-      "@id": "upvest:FinancialInstrument",
-      "@context": {
-        "isin": "upvest:isin",
-        "wkn": "upvest:wkn",
-        "name": "schema:name",
-        "type": "upvest:instrumentType",
-        "currency": "schema:currency",
-        "exchanges": {
-          "@id": "upvest:tradedOn",
-          "@container": "@set"
-        },
-        "tradeable": "upvest:isTradeable",
-        "fractionalTradingEnabled": "upvest:fractionalTradingEnabled"
-      }
+    "accountId": {
+      "@id": "upvest:account_id",
+      "@type": "xsd:string"
     },
-
-    "Order": {
-      "@id": "upvest:Order",
-      "@context": {
-        "accountId": {
-          "@id": "upvest:orderAccount",
-          "@type": "@id"
-        },
-        "instrumentId": {
-          "@id": "upvest:orderInstrument",
-          "@type": "@id"
-        },
-        "side": "upvest:orderSide",
-        "type": "upvest:orderType",
-        "status": "upvest:orderStatus",
-        "quantity": {
-          "@id": "upvest:orderQuantity",
-          "@type": "xsd:decimal"
-        },
-        "cashAmount": {
-          "@id": "upvest:cashAmount",
-          "@type": "xsd:decimal"
-        },
-        "limitPrice": {
-          "@id": "upvest:limitPrice",
-          "@type": "xsd:decimal"
-        },
-        "currency": "schema:currency",
-        "createdAt": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "additionalLine": {
+      "@id": "upvest:additional_line",
+      "@type": "xsd:string"
     },
-
-    "Portfolio": {
-      "@id": "upvest:Portfolio",
-      "@context": {
-        "accountId": {
-          "@id": "upvest:portfolioAccount",
-          "@type": "@id"
-        },
-        "name": "schema:name",
-        "status": "upvest:portfolioStatus",
-        "allocations": {
-          "@id": "upvest:targetAllocations",
-          "@container": "@set"
-        },
-        "createdAt": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "address": {
+      "@id": "upvest:address",
+      "@type": "@id"
     },
-
-    "Position": {
-      "@id": "upvest:Position",
-      "@context": {
-        "accountId": {
-          "@id": "upvest:positionAccount",
-          "@type": "@id"
-        },
-        "instrumentId": {
-          "@id": "upvest:positionInstrument",
-          "@type": "@id"
-        },
-        "quantity": {
-          "@id": "upvest:holdingQuantity",
-          "@type": "xsd:decimal"
-        },
-        "averageBuyInPrice": {
-          "@id": "upvest:averageCostBasis",
-          "@type": "xsd:decimal"
-        },
-        "currency": "schema:currency"
-      }
+    "allocations": {
+      "@id": "upvest:allocations",
+      "@container": "@set",
+      "@type": "@id"
     },
-
-    "SavingsPlan": {
-      "@id": "upvest:SavingsPlan",
-      "@context": {
-        "accountId": {
-          "@id": "upvest:savingsAccount",
-          "@type": "@id"
-        },
-        "portfolioId": {
-          "@id": "upvest:savingsPortfolio",
-          "@type": "@id"
-        },
-        "instrumentId": {
-          "@id": "upvest:savingsInstrument",
-          "@type": "@id"
-        },
-        "cashAmount": {
-          "@id": "upvest:recurringAmount",
-          "@type": "xsd:decimal"
-        },
-        "currency": "schema:currency",
-        "frequency": "schema:repeatFrequency",
-        "status": "upvest:savingsPlanStatus",
-        "nextExecutionDate": {
-          "@id": "upvest:nextExecution",
-          "@type": "xsd:date"
-        }
-      }
+    "amount": {
+      "@id": "upvest:amount",
+      "@type": "xsd:string"
     },
-
-    "Execution": {
-      "@id": "upvest:Execution",
-      "@context": {
-        "orderId": {
-          "@id": "upvest:executionOrder",
-          "@type": "@id"
-        },
-        "quantity": {
-          "@id": "upvest:executedQuantity",
-          "@type": "xsd:decimal"
-        },
-        "price": {
-          "@id": "upvest:executionPrice",
-          "@type": "xsd:decimal"
-        },
-        "executedAt": {
-          "@id": "upvest:executionTimestamp",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "available": {
+      "@id": "upvest:available",
+      "@type": "xsd:string"
     },
-
-    "CorporateAction": {
-      "@id": "upvest:CorporateAction",
-      "@context": {
-        "instrumentId": {
-          "@id": "upvest:affectedInstrument",
-          "@type": "@id"
-        },
-        "type": "upvest:corporateActionType",
-        "recordDate": {
-          "@id": "upvest:recordDate",
-          "@type": "xsd:date"
-        },
-        "exDate": {
-          "@id": "upvest:exDate",
-          "@type": "xsd:date"
-        }
-      }
+    "averageBuyInPrice": {
+      "@id": "upvest:average_buy_in_price",
+      "@type": "xsd:string"
     },
-
-    "WebhookEvent": {
-      "@id": "upvest:WebhookEvent",
-      "@context": {
-        "eventType": "upvest:eventType",
-        "object": {
-          "@id": "upvest:affectedResource",
-          "@type": "@id"
-        },
-        "webhookId": {
-          "@id": "upvest:webhookSubscription",
-          "@type": "@id"
-        },
-        "createdAt": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "bic": {
+      "@id": "upvest:bic",
+      "@type": "xsd:string"
+    },
+    "cashAmount": {
+      "@id": "upvest:cash_amount",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "upvest:city",
+      "@type": "xsd:string"
+    },
+    "completedAt": {
+      "@id": "upvest:completed_at",
+      "@type": "xsd:dateTime"
+    },
+    "country": {
+      "@id": "upvest:country",
+      "@type": "xsd:string"
+    },
+    "createdAt": "schema:dateCreated",
+    "currency": {
+      "@id": "upvest:currency",
+      "@type": "xsd:string"
+    },
+    "dateOfBirth": {
+      "@id": "upvest:date_of_birth",
+      "@type": "xsd:date"
+    },
+    "direction": {
+      "@id": "upvest:direction",
+      "@type": "xsd:string"
+    },
+    "email": "schema:email",
+    "eventCategories": {
+      "@id": "upvest:event_categories",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "exDate": {
+      "@id": "upvest:ex_date",
+      "@type": "xsd:date"
+    },
+    "exchangeId": {
+      "@id": "upvest:exchange_id",
+      "@type": "xsd:string"
+    },
+    "exchanges": {
+      "@id": "upvest:exchanges",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "executedAt": {
+      "@id": "upvest:executed_at",
+      "@type": "xsd:dateTime"
+    },
+    "fileId": {
+      "@id": "upvest:file_id",
+      "@type": "xsd:string"
+    },
+    "firstName": {
+      "@id": "upvest:first_name",
+      "@type": "xsd:string"
+    },
+    "fractionalTradingEnabled": {
+      "@id": "upvest:fractional_trading_enabled",
+      "@type": "xsd:boolean"
+    },
+    "frequency": {
+      "@id": "upvest:frequency",
+      "@type": "xsd:string"
+    },
+    "iban": {
+      "@id": "upvest:iban",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "upvest:id",
+      "@type": "xsd:string"
+    },
+    "instrumentId": {
+      "@id": "upvest:instrument_id",
+      "@type": "xsd:string"
+    },
+    "isin": {
+      "@id": "upvest:isin",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "upvest:last_name",
+      "@type": "xsd:string"
+    },
+    "limitPrice": {
+      "@id": "upvest:limit_price",
+      "@type": "xsd:string"
+    },
+    "mandateId": {
+      "@id": "upvest:mandate_id",
+      "@type": "xsd:string"
+    },
+    "mic": {
+      "@id": "upvest:mic",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "nationality": {
+      "@id": "upvest:nationality",
+      "@type": "xsd:string"
+    },
+    "nextExecutionDate": {
+      "@id": "upvest:next_execution_date",
+      "@type": "xsd:date"
+    },
+    "orderId": {
+      "@id": "upvest:order_id",
+      "@type": "xsd:string"
+    },
+    "payload": {
+      "@id": "upvest:payload",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "pending": {
+      "@id": "upvest:pending",
+      "@type": "xsd:string"
+    },
+    "periodEnd": {
+      "@id": "upvest:period_end",
+      "@type": "xsd:date"
+    },
+    "periodStart": {
+      "@id": "upvest:period_start",
+      "@type": "xsd:date"
+    },
+    "portfolioId": {
+      "@id": "upvest:portfolio_id",
+      "@type": "xsd:string"
+    },
+    "postalCode": {
+      "@id": "upvest:postal_code",
+      "@type": "xsd:string"
+    },
+    "price": {
+      "@id": "upvest:price",
+      "@type": "xsd:string"
+    },
+    "quantity": {
+      "@id": "upvest:quantity",
+      "@type": "xsd:string"
+    },
+    "rate": {
+      "@id": "upvest:rate",
+      "@type": "xsd:string"
+    },
+    "recordDate": {
+      "@id": "upvest:record_date",
+      "@type": "xsd:date"
+    },
+    "remittanceInformation": {
+      "@id": "upvest:remittance_information",
+      "@type": "xsd:string"
+    },
+    "side": {
+      "@id": "upvest:side",
+      "@type": "xsd:string"
+    },
+    "sourceAccountId": {
+      "@id": "upvest:source_account_id",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "upvest:state",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "upvest:status",
+      "@type": "xsd:string"
+    },
+    "stopPrice": {
+      "@id": "upvest:stop_price",
+      "@type": "xsd:string"
+    },
+    "street": {
+      "@id": "upvest:street",
+      "@type": "xsd:string"
+    },
+    "targetAccountId": {
+      "@id": "upvest:target_account_id",
+      "@type": "xsd:string"
+    },
+    "taxIdentificationNumber": {
+      "@id": "upvest:tax_identification_number",
+      "@type": "xsd:string"
+    },
+    "timestamp": {
+      "@id": "upvest:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "total": {
+      "@id": "upvest:total",
+      "@type": "xsd:string"
+    },
+    "totalReturn": {
+      "@id": "upvest:total_return",
+      "@type": "xsd:string"
+    },
+    "totalReturnPercentage": {
+      "@id": "upvest:total_return_percentage",
+      "@type": "xsd:string"
+    },
+    "totalValue": {
+      "@id": "upvest:total_value",
+      "@type": "xsd:string"
+    },
+    "tradeable": {
+      "@id": "upvest:tradeable",
+      "@type": "xsd:boolean"
+    },
+    "type": {
+      "@id": "upvest:type",
+      "@type": "xsd:string"
+    },
+    "updatedAt": "schema:dateModified",
+    "url": "schema:url",
+    "userId": {
+      "@id": "upvest:user_id",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "upvest:value",
+      "@type": "xsd:string"
+    },
+    "valuedAt": {
+      "@id": "upvest:valued_at",
+      "@type": "xsd:dateTime"
+    },
+    "weight": {
+      "@id": "upvest:weight",
+      "@type": "xsd:string"
+    },
+    "wkn": {
+      "@id": "upvest:wkn",
+      "@type": "xsd:string"
     }
   }
 }

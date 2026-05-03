@@ -1,0 +1,7 @@
+{
+  "url": "https://example.com/webhook",
+  "event_categories": [
+    "example-string"
+  ],
+  "status": "ACTIVE"
+}

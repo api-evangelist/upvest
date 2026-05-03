@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-corporate-action-schema.json",
+  "title": "CorporateAction",
+  "description": "A corporate action event such as a dividend, split, or merger.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The corporate action identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "instrument_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The instrument affected.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "DIVIDEND",
+        "SPLIT",
+        "MERGER",
+        "RIGHTS_ISSUE"
+      ],
+      "description": "The type of corporate action.",
+      "example": "DIVIDEND"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ANNOUNCED",
+        "PROCESSED"
+      ],
+      "description": "The corporate action status.",
+      "example": "ANNOUNCED"
+    },
+    "record_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The record date for the corporate action.",
+      "example": "2025-03-15"
+    },
+    "ex_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The ex-date for the corporate action.",
+      "example": "2025-03-15"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the event was recorded.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

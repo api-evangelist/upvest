@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-liquidation-create-schema.json",
+  "title": "LiquidationCreate",
+  "description": "Request body for creating a liquidation.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "FULL",
+        "PARTIAL"
+      ],
+      "description": "Whether to fully or partially liquidate.",
+      "example": "FULL"
+    }
+  },
+  "required": [
+    "type"
+  ]
+}

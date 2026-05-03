@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-webhook-subscription-update-structure.json",
+  "name": "WebhookSubscriptionUpdate",
+  "description": "Request body for updating a webhook subscription.",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "uri",
+      "description": "The updated endpoint URL.",
+      "example": "https://example.com"
+    },
+    "event_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The updated event categories.",
+      "example": [
+        "example-value"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "description": "Activate or deactivate the subscription.",
+      "example": "ACTIVE"
+    }
+  }
+}

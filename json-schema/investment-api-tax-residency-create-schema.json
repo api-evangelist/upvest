@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-tax-residency-create-schema.json",
+  "title": "TaxResidencyCreate",
+  "description": "Request body for creating a tax residency record.",
+  "type": "object",
+  "properties": {
+    "country": {
+      "type": "string",
+      "description": "The country of tax residency as an ISO 3166-1 alpha-2 code.",
+      "pattern": "^[A-Z]{2}$",
+      "example": "DE"
+    },
+    "tax_identification_number": {
+      "type": "string",
+      "description": "The tax identification number in the given country.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    }
+  },
+  "required": [
+    "country"
+  ]
+}

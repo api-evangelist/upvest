@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-savings-plan-update-schema.json",
+  "title": "SavingsPlanUpdate",
+  "description": "Request body for updating a savings plan.",
+  "type": "object",
+  "properties": {
+    "cash_amount": {
+      "type": "string",
+      "description": "The updated investment amount.",
+      "example": "example-value"
+    },
+    "frequency": {
+      "type": "string",
+      "enum": [
+        "WEEKLY",
+        "BIWEEKLY",
+        "MONTHLY",
+        "QUARTERLY"
+      ],
+      "description": "The updated execution frequency.",
+      "example": "WEEKLY"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "PAUSED"
+      ],
+      "description": "Activate or pause the savings plan.",
+      "example": "ACTIVE"
+    }
+  }
+}

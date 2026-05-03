@@ -1,0 +1,17 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "isin": "DE0005140008",
+  "wkn": "example-string",
+  "name": "Investment Portfolio A",
+  "type": "EQUITY",
+  "currency": "EUR",
+  "exchanges": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Investment Portfolio A",
+      "mic": "example-string"
+    }
+  ],
+  "tradeable": true,
+  "fractional_trading_enabled": true
+}

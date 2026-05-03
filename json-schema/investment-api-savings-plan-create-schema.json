@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-savings-plan-create-schema.json",
+  "title": "SavingsPlanCreate",
+  "description": "Request body for creating a savings plan.",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The account to create the plan for.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "portfolio_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The portfolio to invest into.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "instrument_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The instrument to invest into.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "cash_amount": {
+      "type": "string",
+      "description": "The recurring investment amount.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The currency as an ISO 4217 code.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "frequency": {
+      "type": "string",
+      "enum": [
+        "WEEKLY",
+        "BIWEEKLY",
+        "MONTHLY",
+        "QUARTERLY"
+      ],
+      "description": "The execution frequency.",
+      "example": "WEEKLY"
+    }
+  },
+  "required": [
+    "account_id",
+    "cash_amount",
+    "currency",
+    "frequency"
+  ]
+}

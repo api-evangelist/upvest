@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-portfolio-order-create-schema.json",
+  "title": "PortfolioOrderCreate",
+  "description": "Request body for placing a portfolio order.",
+  "type": "object",
+  "properties": {
+    "cash_amount": {
+      "type": "string",
+      "description": "The total cash amount to invest, distributed across allocations.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The order currency as an ISO 4217 code.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    }
+  },
+  "required": [
+    "cash_amount",
+    "currency"
+  ]
+}

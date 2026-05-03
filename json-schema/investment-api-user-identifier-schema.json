@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-user-identifier-schema.json",
+  "title": "UserIdentifier",
+  "description": "An external identifier associated with a user.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of external identifier.",
+      "example": "standard"
+    },
+    "value": {
+      "type": "string",
+      "description": "The identifier value.",
+      "example": "example-value"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the identifier was created.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

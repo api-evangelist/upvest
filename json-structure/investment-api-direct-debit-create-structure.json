@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-direct-debit-create-structure.json",
+  "name": "DirectDebitCreate",
+  "description": "Request body for creating a direct debit.",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "uuid",
+      "description": "The user initiating the debit.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_group_id": {
+      "type": "uuid",
+      "description": "The account group to fund.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "mandate_id": {
+      "type": "uuid",
+      "description": "The mandate authorizing the debit.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "cash_amount": {
+      "type": "string",
+      "description": "The debit amount.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The currency as an ISO 4217 code.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "remittance_information": {
+      "type": "string",
+      "description": "Optional remittance information.",
+      "example": "example-value"
+    }
+  },
+  "required": [
+    "user_id",
+    "account_group_id",
+    "mandate_id",
+    "cash_amount",
+    "currency"
+  ]
+}

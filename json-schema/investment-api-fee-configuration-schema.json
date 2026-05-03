@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-fee-configuration-schema.json",
+  "title": "FeeConfiguration",
+  "description": "A fee configuration template defining fee structures.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The fee configuration identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the fee configuration.",
+      "example": "Example Name"
+    },
+    "type": {
+      "type": "string",
+      "description": "The fee type this configuration applies to.",
+      "example": "standard"
+    },
+    "rate": {
+      "type": "string",
+      "description": "The fee rate as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The fee currency.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    }
+  }
+}

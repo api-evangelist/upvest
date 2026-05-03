@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-user-structure.json",
+  "name": "User",
+  "description": "An end user on the investment platform.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "uuid",
+      "description": "The unique identifier of the user.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "first_name": {
+      "type": "string",
+      "description": "The user's first name.",
+      "example": "Example Name"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "The user's last name.",
+      "example": "Example Name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "The user's email address.",
+      "example": "user@example.com"
+    },
+    "date_of_birth": {
+      "type": "date",
+      "description": "The user's date of birth.",
+      "example": "2025-03-15"
+    },
+    "nationality": {
+      "type": "string",
+      "description": "The user's nationality as an ISO 3166-1 alpha-2 country code.",
+      "pattern": "^[A-Z]{2}$",
+      "example": "DE"
+    },
+    "address": {
+      "type": "object",
+      "description": "A postal address.",
+      "required": [
+        "street",
+        "city",
+        "postal_code",
+        "country"
+      ],
+      "properties": {
+        "street": {
+          "type": "string",
+          "description": "The street name and number.",
+          "example": "Example Street 1"
+        },
+        "additional_line": {
+          "type": "string",
+          "description": "Additional address line.",
+          "example": "example-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "The city name.",
+          "example": "Berlin"
+        },
+        "postal_code": {
+          "type": "string",
+          "description": "The postal or ZIP code.",
+          "example": "10115"
+        },
+        "state": {
+          "type": "string",
+          "description": "The state or province.",
+          "example": "BE"
+        },
+        "country": {
+          "type": "string",
+          "description": "The country as an ISO 3166-1 alpha-2 code.",
+          "pattern": "^[A-Z]{2}$",
+          "example": "DE"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "ACTIVE",
+        "BLOCKED",
+        "CLOSED"
+      ],
+      "description": "The current status of the user.",
+      "example": "PENDING"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "The date and time when the user was created.",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "updated_at": {
+      "type": "datetime",
+      "description": "The date and time when the user was last updated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

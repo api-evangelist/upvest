@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-rebalancing-execution-schema.json",
+  "title": "RebalancingExecution",
+  "description": "A portfolio rebalancing operation.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The rebalancing execution identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "portfolio_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The portfolio being rebalanced.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED"
+      ],
+      "description": "The rebalancing status.",
+      "example": "NEW"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the rebalancing was initiated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

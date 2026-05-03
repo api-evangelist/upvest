@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-portfolio-update-structure.json",
+  "name": "PortfolioUpdate",
+  "description": "Request body for updating a portfolio.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The updated portfolio name.",
+      "example": "Example Name"
+    }
+  }
+}

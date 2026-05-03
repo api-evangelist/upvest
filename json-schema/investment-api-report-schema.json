@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-report-schema.json",
+  "title": "Report",
+  "description": "A generated user-facing report or statement.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The report identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "type": {
+      "type": "string",
+      "description": "The report type.",
+      "example": "standard"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "READY",
+        "FAILED"
+      ],
+      "description": "The report generation status.",
+      "example": "PENDING"
+    },
+    "file_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The file identifier for downloading the report.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the report was generated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-user-identifier-update-schema.json",
+  "title": "UserIdentifierUpdate",
+  "description": "Request body for updating a user identifier.",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "The updated identifier value.",
+      "example": "example-value"
+    }
+  }
+}

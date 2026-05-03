@@ -1,0 +1,10 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "account_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "instrument_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "quantity": "example-string",
+  "average_buy_in_price": "example-string",
+  "currency": "EUR",
+  "created_at": "2025-03-15T14:30:00Z",
+  "updated_at": "2025-03-15T14:30:00Z"
+}

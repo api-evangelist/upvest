@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-order-schema.json",
+  "title": "Order",
+  "description": "A buy or sell order for a financial instrument.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the order.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The account the order belongs to.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "user_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The user who placed the order.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "instrument_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The instrument being traded.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "side": {
+      "type": "string",
+      "enum": [
+        "BUY",
+        "SELL"
+      ],
+      "description": "Whether this is a buy or sell order.",
+      "example": "BUY"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "MARKET",
+        "LIMIT",
+        "STOP"
+      ],
+      "description": "The order type.",
+      "example": "MARKET"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "PROCESSING",
+        "FILLED",
+        "CANCELLED",
+        "REJECTED"
+      ],
+      "description": "The current status of the order.",
+      "example": "NEW"
+    },
+    "quantity": {
+      "type": "string",
+      "description": "The quantity of shares to trade as a decimal string.",
+      "example": "example-value"
+    },
+    "cash_amount": {
+      "type": "string",
+      "description": "The cash amount to invest as a decimal string.",
+      "example": "example-value"
+    },
+    "limit_price": {
+      "type": "string",
+      "description": "The limit price for limit orders as a decimal string.",
+      "example": "example-value"
+    },
+    "stop_price": {
+      "type": "string",
+      "description": "The stop price for stop orders as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The order currency as an ISO 4217 code.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the order was placed.",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the order was last updated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

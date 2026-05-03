@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-account-transfer-create-schema.json",
+  "title": "AccountTransferCreate",
+  "description": "Request body for creating an account transfer.",
+  "type": "object",
+  "properties": {
+    "source_account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The source account.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "target_account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The target account.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    }
+  }
+}

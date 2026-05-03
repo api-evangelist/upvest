@@ -1,0 +1,8 @@
+{
+  "account_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "total_return": "example-string",
+  "total_return_percentage": "example-string",
+  "period_start": "1990-01-15",
+  "period_end": "1990-01-15",
+  "currency": "EUR"
+}

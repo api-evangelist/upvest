@@ -1,0 +1,403 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Upvest"
+  description: "Unified taxonomy for the Upvest Investment API, mapping operational resources, actions, schemas, and parameters to customer-facing investment workflows and personas."
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+operational:
+  apis:
+    - namespace: upvest-investment
+      version: "1.0.0"
+      baseUrl: https://api.upvest.co
+      status: active
+      description: "Full-service investment infrastructure API"
+
+  resources:
+    - name: users
+      api: upvest-investment
+      description: "End users onboarded to the investment platform"
+      actions: [list, create, retrieve, update]
+    - name: accounts
+      api: upvest-investment
+      description: "Investment accounts holding positions and balances"
+      actions: [list, create, retrieve, update, close]
+    - name: orders
+      api: upvest-investment
+      description: "Buy and sell orders for financial instruments"
+      actions: [list, place, retrieve, cancel]
+    - name: instruments
+      api: upvest-investment
+      description: "Available financial instruments (stocks, ETFs, mutual funds)"
+      actions: [list, retrieve]
+    - name: instrument-prices
+      api: upvest-investment
+      description: "Real-time and historical price data"
+      actions: [list]
+    - name: portfolios
+      api: upvest-investment
+      description: "Custom investment portfolios with target allocations"
+      actions: [list, create, retrieve, update]
+    - name: portfolio-allocations
+      api: upvest-investment
+      description: "Asset allocation targets within portfolios"
+      actions: [list, update]
+    - name: savings-plans
+      api: upvest-investment
+      description: "Automated recurring investment savings plans"
+      actions: [list, create, retrieve, update, delete]
+    - name: positions
+      api: upvest-investment
+      description: "Current holdings and investment positions"
+      actions: [list, retrieve]
+    - name: valuations
+      api: upvest-investment
+      description: "Account and position valuations"
+      actions: [list]
+    - name: returns
+      api: upvest-investment
+      description: "Investment return metrics for accounts"
+      actions: [list]
+    - name: payments
+      api: upvest-investment
+      description: "Payment operations including top-ups and withdrawals"
+      actions: [create, list]
+    - name: direct-debits
+      api: upvest-investment
+      description: "Direct debit funding operations"
+      actions: [create, list]
+    - name: mandates
+      api: upvest-investment
+      description: "Direct debit mandates for accounts"
+      actions: [list, retrieve]
+    - name: withdrawals
+      api: upvest-investment
+      description: "Cash withdrawal operations"
+      actions: [create, list]
+    - name: webhooks
+      api: upvest-investment
+      description: "Webhook subscriptions for event notifications"
+      actions: [list, create, retrieve, update, delete]
+    - name: reports
+      api: upvest-investment
+      description: "User-facing investment reports and statements"
+      actions: [list]
+    - name: transactions
+      api: upvest-investment
+      description: "Transaction history for accounts"
+      actions: [list]
+    - name: fees
+      api: upvest-investment
+      description: "Fee charges and configurations"
+      actions: [list]
+    - name: tax-residencies
+      api: upvest-investment
+      description: "Tax residency records for regulatory compliance"
+      actions: [list, create]
+    - name: user-checks
+      api: upvest-investment
+      description: "Compliance and identity verification checks"
+      actions: [list]
+    - name: securities-transfers
+      api: upvest-investment
+      description: "Securities transfer operations between accounts"
+      actions: [create, list]
+    - name: account-transfers
+      api: upvest-investment
+      description: "Account transfer operations between entities"
+      actions: [create, list]
+    - name: corporate-actions
+      api: upvest-investment
+      description: "Corporate action events (dividends, splits, mergers)"
+      actions: [list]
+    - name: liquidations
+      api: upvest-investment
+      description: "Account liquidation operations"
+      actions: [create, list]
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+      description: "Retrieve a paginated collection of resources"
+    - name: create
+      httpMethod: POST
+      pattern: write
+      description: "Create a new resource"
+    - name: retrieve
+      httpMethod: GET
+      pattern: read
+      description: "Retrieve a single resource by identifier"
+    - name: update
+      httpMethod: PATCH
+      pattern: write
+      description: "Partially update an existing resource"
+    - name: delete
+      httpMethod: DELETE
+      pattern: destructive
+      description: "Delete or cancel a resource"
+    - name: place
+      httpMethod: POST
+      pattern: write
+      description: "Submit an order for execution"
+    - name: cancel
+      httpMethod: DELETE
+      pattern: destructive
+      description: "Cancel a pending operation"
+    - name: close
+      httpMethod: DELETE
+      pattern: destructive
+      description: "Close an account"
+
+  schemas:
+    core:
+      - name: User
+        description: "End user entity with identity and compliance status"
+        keyProperties: [id, first_name, last_name, email, status, nationality]
+      - name: Account
+        description: "Investment account holding positions and balances"
+        keyProperties: [id, user_id, type, status, created_at]
+      - name: Order
+        description: "Buy or sell order for a financial instrument"
+        keyProperties: [id, account_id, instrument_id, side, status, amount]
+      - name: Instrument
+        description: "Financial instrument available for trading"
+        keyProperties: [id, isin, name, type, currency]
+    portfolios:
+      - name: Portfolio
+        description: "Custom portfolio with target asset allocations"
+        keyProperties: [id, account_id, name, status]
+      - name: PortfolioAllocation
+        description: "Target allocation for an asset within a portfolio"
+        keyProperties: [instrument_id, weight]
+    savings:
+      - name: SavingsPlan
+        description: "Automated recurring investment plan"
+        keyProperties: [id, account_id, amount, frequency, status]
+    payments:
+      - name: DirectDebit
+        description: "Direct debit payment for account funding"
+        keyProperties: [id, account_id, amount, status]
+      - name: Withdrawal
+        description: "Cash withdrawal from investment account"
+        keyProperties: [id, account_id, amount, status]
+    compliance:
+      - name: TaxResidency
+        description: "Tax residency record for regulatory compliance"
+        keyProperties: [id, country, tax_identification_number]
+      - name: UserCheck
+        description: "Compliance verification check result"
+        keyProperties: [id, type, status, completed_at]
+    reporting:
+      - name: Transaction
+        description: "Transaction record for an account"
+        keyProperties: [id, account_id, type, amount, currency, created_at]
+      - name: Report
+        description: "Generated investment report or statement"
+        keyProperties: [id, type, period, created_at]
+
+  parameters:
+    pagination:
+      - name: offset
+        type: integer
+        description: "Number of items to skip"
+      - name: limit
+        type: integer
+        description: "Maximum items per page (1-100, default 20)"
+    identifiers:
+      - name: user_id
+        type: string
+        format: uuid
+        description: "User unique identifier"
+      - name: account_id
+        type: string
+        format: uuid
+        description: "Account unique identifier"
+      - name: instrument_id
+        type: string
+        format: uuid
+        description: "Instrument unique identifier"
+      - name: order_id
+        type: string
+        format: uuid
+        description: "Order unique identifier"
+      - name: portfolio_id
+        type: string
+        format: uuid
+        description: "Portfolio unique identifier"
+      - name: savings_plan_id
+        type: string
+        format: uuid
+        description: "Savings plan unique identifier"
+      - name: webhook_id
+        type: string
+        format: uuid
+        description: "Webhook subscription unique identifier"
+
+  enums:
+    userStatus:
+      - PENDING
+      - ACTIVE
+      - BLOCKED
+      - CLOSED
+    accountStatus:
+      - PENDING
+      - OPEN
+      - CLOSING
+      - CLOSED
+    orderStatus:
+      - PENDING
+      - EXECUTING
+      - EXECUTED
+      - CANCELLED
+      - FAILED
+    checkStatus:
+      - PENDING
+      - PASSED
+      - FAILED
+    tokenType:
+      - bearer
+
+  authentication:
+    schemes:
+      - name: oauth2ClientCredentials
+        type: oauth2
+        flow: clientCredentials
+        tokenUrl: /auth/token
+    scopes:
+      - name: users:read
+        description: "Read user data"
+      - name: users:admin
+        description: "Onboard and manage users"
+      - name: accounts:read
+        description: "Read account data"
+      - name: accounts:admin
+        description: "Create and manage accounts"
+      - name: orders:read
+        description: "Read order data"
+      - name: orders:admin
+        description: "Place and manage orders"
+      - name: instruments:read
+        description: "Read instrument data"
+      - name: portfolios:read
+        description: "Read portfolio data"
+      - name: portfolios:admin
+        description: "Create and manage portfolios"
+      - name: positions:read
+        description: "Read position data"
+      - name: payments:read
+        description: "Read payment data"
+      - name: payments:admin
+        description: "Manage payments and direct debits"
+      - name: reports:read
+        description: "Read reports"
+      - name: webhooks:read
+        description: "Read webhook subscriptions"
+      - name: webhooks:admin
+        description: "Manage webhook subscriptions"
+      - name: transactions:read
+        description: "Read transaction data"
+      - name: fees:read
+        description: "Read fee data"
+      - name: fees:admin
+        description: "Configure fees"
+
+capability:
+  workflows:
+    - name: investment-operations
+      file: capabilities/investment-operations.yaml
+      description: "Full investment lifecycle management for embedded investment products"
+      apisCombined: [upvest-investment]
+      toolCount: 23
+      personas: [Fintech Developer, Integration Engineer, Investment Platform Admin]
+      domains: [User Management, Account Management, Trading, Portfolio Management, Payments, Reporting]
+
+  personas:
+    - id: fintech-developer
+      name: Fintech Developer
+      description: "Developer building embedded investment features into a fintech app"
+      workflows: [investment-operations]
+    - id: integration-engineer
+      name: Integration Engineer
+      description: "Engineer integrating Upvest APIs into banking or wealth management platforms"
+      workflows: [investment-operations]
+    - id: investment-platform-admin
+      name: Investment Platform Admin
+      description: "Administrator managing the investment platform configuration and reporting"
+      workflows: [investment-operations]
+
+  domains:
+    - name: User Management
+      description: "User onboarding, identity verification, and compliance"
+      resources: [users, user-checks, tax-residencies]
+    - name: Account Management
+      description: "Investment account creation and lifecycle"
+      resources: [accounts, positions, valuations, returns]
+    - name: Trading
+      description: "Order placement, execution, and instrument data"
+      resources: [orders, instruments, instrument-prices, executions]
+    - name: Portfolio Management
+      description: "Portfolio creation, allocation, and rebalancing"
+      resources: [portfolios, portfolio-allocations, savings-plans]
+    - name: Payments
+      description: "Funding and withdrawal operations"
+      resources: [direct-debits, mandates, withdrawals, reference-accounts]
+    - name: Reporting
+      description: "Transactions, reports, fees, and compliance"
+      resources: [reports, transactions, fees]
+
+  namespaces:
+    consumed:
+      - name: upvest-investment
+        baseUri: https://api.upvest.co
+        auth: oauth2
+    restExposed:
+      - name: upvest-investment-ops-api
+        port: 8080
+        prefix: /v1
+    mcpExposed:
+      - name: upvest-investment-ops-mcp
+        port: 9080
+        transport: http
+
+  binds:
+    - name: UPVEST_CLIENT_ID
+      description: "OAuth2 client identifier"
+      usedBy: [investment-operations]
+    - name: UPVEST_CLIENT_SECRET
+      description: "OAuth2 client secret"
+      usedBy: [investment-operations]
+    - name: UPVEST_ACCESS_TOKEN
+      description: "OAuth2 bearer access token"
+      usedBy: [investment-operations]
+
+crossReference:
+  - resource: users
+    operations: [listUsers, createUser, retrieveUser, updateUser]
+    workflows: [investment-operations]
+    personas: [fintech-developer, integration-engineer]
+  - resource: accounts
+    operations: [listAccounts, createAccount, retrieveAccount, updateAccount, closeAccount]
+    workflows: [investment-operations]
+    personas: [fintech-developer, integration-engineer]
+  - resource: orders
+    operations: [listOrders, placeOrder, retrieveOrder, cancelOrder]
+    workflows: [investment-operations]
+    personas: [fintech-developer, investment-platform-admin]
+  - resource: portfolios
+    operations: [listPortfolios, createPortfolio, retrievePortfolio, updatePortfolio]
+    workflows: [investment-operations]
+    personas: [fintech-developer, investment-platform-admin]
+  - resource: savings-plans
+    operations: [listSavingsPlans, createSavingsPlan, updateSavingsPlan, deleteSavingsPlan]
+    workflows: [investment-operations]
+    personas: [fintech-developer]
+  - resource: positions
+    operations: [listPositions, listValuations, listReturns]
+    workflows: [investment-operations]
+    personas: [investment-platform-admin]
+  - resource: reports
+    operations: [listReports, listTransactions]
+    workflows: [investment-operations]
+    personas: [investment-platform-admin]

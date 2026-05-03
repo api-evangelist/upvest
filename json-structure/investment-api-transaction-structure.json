@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-transaction-structure.json",
+  "name": "Transaction",
+  "description": "A transaction record within an account.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "uuid",
+      "description": "The transaction identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_id": {
+      "type": "uuid",
+      "description": "The account the transaction belongs to.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "ORDER_EXECUTION",
+        "FEE",
+        "DIVIDEND",
+        "TRANSFER",
+        "DIRECT_DEBIT",
+        "WITHDRAWAL"
+      ],
+      "description": "The transaction type.",
+      "example": "ORDER_EXECUTION"
+    },
+    "amount": {
+      "type": "string",
+      "description": "The transaction amount as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The transaction currency.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "When the transaction occurred.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

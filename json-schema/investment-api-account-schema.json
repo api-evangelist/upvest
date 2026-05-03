@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-account-schema.json",
+  "title": "Account",
+  "description": "An investment account that holds positions and tracks balances.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the account.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "user_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The user who owns this account.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_group_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The account group this account belongs to.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of investment account.",
+      "example": "standard"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "OPEN",
+        "CLOSING",
+        "CLOSED"
+      ],
+      "description": "The current status of the account.",
+      "example": "PENDING"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the account was created.",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the account was last updated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

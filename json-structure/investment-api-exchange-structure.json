@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-exchange-structure.json",
+  "name": "Exchange",
+  "description": "A securities exchange where instruments are traded.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The exchange identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "name": {
+      "type": "string",
+      "description": "The exchange name.",
+      "example": "Example Name"
+    },
+    "mic": {
+      "type": "string",
+      "description": "The Market Identifier Code (ISO 10383).",
+      "example": "example-value"
+    }
+  }
+}

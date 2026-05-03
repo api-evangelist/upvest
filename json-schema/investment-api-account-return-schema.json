@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-account-return-schema.json",
+  "title": "AccountReturn",
+  "description": "Investment return calculation for an account.",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The account identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "total_return": {
+      "type": "string",
+      "description": "The total return as a decimal string.",
+      "example": "example-value"
+    },
+    "total_return_percentage": {
+      "type": "string",
+      "description": "The total return as a percentage string.",
+      "example": "example-value"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "The start of the return period.",
+      "example": "2025-03-15"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "The end of the return period.",
+      "example": "2025-03-15"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The return currency.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    }
+  }
+}

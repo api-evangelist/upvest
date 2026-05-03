@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-portfolio-order-schema.json",
+  "title": "PortfolioOrder",
+  "description": "An order placed against a portfolio's allocations.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The portfolio order identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "portfolio_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The portfolio the order was placed for.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "cash_amount": {
+      "type": "string",
+      "description": "The total cash amount invested.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The order currency.",
+      "example": "EUR"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "PROCESSING",
+        "COMPLETED",
+        "CANCELLED"
+      ],
+      "description": "The portfolio order status.",
+      "example": "NEW"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the order was created.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-order-create-structure.json",
+  "name": "OrderCreate",
+  "description": "Request body for placing an order.",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "uuid",
+      "description": "The account to place the order for.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "instrument_id": {
+      "type": "uuid",
+      "description": "The instrument to trade.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "side": {
+      "type": "string",
+      "enum": [
+        "BUY",
+        "SELL"
+      ],
+      "description": "Whether to buy or sell.",
+      "example": "BUY"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "MARKET",
+        "LIMIT",
+        "STOP"
+      ],
+      "description": "The order type.",
+      "example": "MARKET"
+    },
+    "quantity": {
+      "type": "string",
+      "description": "The quantity of shares to trade as a decimal string.",
+      "example": "example-value"
+    },
+    "cash_amount": {
+      "type": "string",
+      "description": "The cash amount to invest as a decimal string.",
+      "example": "example-value"
+    },
+    "limit_price": {
+      "type": "string",
+      "description": "The limit price for limit orders as a decimal string.",
+      "example": "example-value"
+    },
+    "stop_price": {
+      "type": "string",
+      "description": "The stop price for stop orders as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The order currency as an ISO 4217 code.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    }
+  },
+  "required": [
+    "account_id",
+    "instrument_id",
+    "side",
+    "type"
+  ]
+}

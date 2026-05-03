@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-account-create-schema.json",
+  "title": "AccountCreate",
+  "description": "Request body for creating an investment account.",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The user to create the account for.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_group_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The account group to assign the account to.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of investment account.",
+      "example": "standard"
+    }
+  },
+  "required": [
+    "user_id",
+    "account_group_id"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-webhook-subscription-schema.json",
+  "title": "WebhookSubscription",
+  "description": "A webhook subscription for receiving event notifications.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The webhook subscription identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The HTTPS endpoint URL to deliver events to.",
+      "example": "https://example.com"
+    },
+    "event_categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "ALL",
+          "USER",
+          "USER_CHECK",
+          "ORDER",
+          "ORDER_CANCELLATION",
+          "EXECUTION",
+          "POSITION",
+          "CASH_BALANCE",
+          "ACCOUNT",
+          "ACCOUNT_GROUP",
+          "PORTFOLIO",
+          "SAVINGS_PLAN",
+          "DIRECT_DEBIT",
+          "WITHDRAWAL",
+          "MANDATE",
+          "SECURITIES_TRANSFER",
+          "ACCOUNT_TRANSFER",
+          "CORPORATE_ACTION",
+          "LIQUIDATION",
+          "REPORT",
+          "FEE",
+          "REBALANCING"
+        ]
+      },
+      "description": "The event categories to subscribe to.",
+      "example": [
+        "ALL"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "description": "The subscription status.",
+      "example": "ACTIVE"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the subscription was created.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

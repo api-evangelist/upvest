@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-liquidation-structure.json",
+  "name": "Liquidation",
+  "description": "A liquidation of account holdings.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "uuid",
+      "description": "The liquidation identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_id": {
+      "type": "uuid",
+      "description": "The account being liquidated.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "FULL",
+        "PARTIAL"
+      ],
+      "description": "Whether this is a full or partial liquidation.",
+      "example": "FULL"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED"
+      ],
+      "description": "The liquidation status.",
+      "example": "NEW"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "When the liquidation was initiated.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

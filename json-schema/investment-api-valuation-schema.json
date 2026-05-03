@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-schema/investment-api-valuation-schema.json",
+  "title": "Valuation",
+  "description": "A point-in-time valuation of an account or position.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The valuation identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "account_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The account being valued.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "total_value": {
+      "type": "string",
+      "description": "The total account value as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The valuation currency.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "valued_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The valuation timestamp.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

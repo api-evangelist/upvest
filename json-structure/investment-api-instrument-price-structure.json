@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-instrument-price-structure.json",
+  "name": "InstrumentPrice",
+  "description": "Price data for an instrument on a specific exchange.",
+  "type": "object",
+  "properties": {
+    "instrument_id": {
+      "type": "uuid",
+      "description": "The instrument identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "exchange_id": {
+      "type": "string",
+      "description": "The exchange identifier.",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "price": {
+      "type": "string",
+      "description": "The current price as a decimal string.",
+      "example": "example-value"
+    },
+    "currency": {
+      "type": "string",
+      "description": "The price currency as an ISO 4217 code.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "EUR"
+    },
+    "timestamp": {
+      "type": "datetime",
+      "description": "When this price was recorded.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

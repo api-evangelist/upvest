@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/json-structure/investment-api-account-update-structure.json",
+  "name": "AccountUpdate",
+  "description": "Request body for updating an investment account.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of investment account.",
+      "example": "standard"
+    }
+  }
+}
