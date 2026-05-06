@@ -1,497 +1,1098 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Upvest Investment Operations"
-  description: "Unified workflow capability for building and managing investment experiences on the Upvest platform. Covers user onboarding, account management, order placement, portfolio management, savings plans, and position tracking. Designed for fintech developers and integration engineers building embedded investment features."
+  label: Upvest Investment Operations
+  description: Unified workflow capability for building and managing investment experiences on the Upvest platform. Covers
+    user onboarding, account management, order placement, portfolio management, savings plans, and position tracking. Designed
+    for fintech developers and integration engineers building embedded investment features.
   tags:
-    - Upvest
-    - Investments
-    - Fintech
-    - Banking Infrastructure
-    - Trading
-    - Portfolios
-    - Savings Plans
-  created: "2026-05-03"
-  modified: "2026-05-03"
-
+  - Upvest
+  - Investments
+  - Fintech
+  - Banking Infrastructure
+  - Trading
+  - Portfolios
+  - Savings Plans
+  created: '2026-05-03'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      UPVEST_CLIENT_ID: UPVEST_CLIENT_ID
-      UPVEST_CLIENT_SECRET: UPVEST_CLIENT_SECRET
-      UPVEST_ACCESS_TOKEN: UPVEST_ACCESS_TOKEN
-
+- namespace: env
+  keys:
+    UPVEST_CLIENT_ID: UPVEST_CLIENT_ID
+    UPVEST_CLIENT_SECRET: UPVEST_CLIENT_SECRET
+    UPVEST_ACCESS_TOKEN: UPVEST_ACCESS_TOKEN
 capability:
   consumes:
-    - import: upvest-investment
-      location: ./shared/investment-api.yaml
-
+  - type: http
+    namespace: upvest-investment
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API for building embedded investment experiences.
+    authentication:
+      type: bearer
+      token: '{{UPVEST_ACCESS_TOKEN}}'
+    resources:
+    - name: authentication
+      path: /auth/token
+      description: OAuth 2.0 token management
+      operations:
+      - name: create-access-token
+        method: POST
+        description: Obtain an OAuth 2.0 access token using client credentials
+        inputParameters:
+        - name: grant_type
+          in: body
+          type: string
+          required: true
+          description: Must be client_credentials
+        - name: client_id
+          in: body
+          type: string
+          required: true
+          description: Client identifier
+        - name: client_secret
+          in: body
+          type: string
+          required: true
+          description: Client secret
+        - name: scope
+          in: body
+          type: string
+          required: true
+          description: Space-separated scopes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users
+      path: /users
+      description: End user management
+      operations:
+      - name: list-users
+        method: GET
+        description: Retrieve a paginated list of all onboarded users
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Max items per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-user
+        method: POST
+        description: Onboard a new user to the investment platform
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            first_name: '{{tools.first_name}}'
+            last_name: '{{tools.last_name}}'
+            email: '{{tools.email}}'
+            date_of_birth: '{{tools.date_of_birth}}'
+            nationality: '{{tools.nationality}}'
+      - name: retrieve-user
+        method: GET
+        description: Retrieve details for a specific user
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: User UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-user
+        method: PATCH
+        description: Update profile information for an existing user
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          required: true
+          description: User UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts
+      path: /accounts
+      description: Investment account management
+      operations:
+      - name: list-accounts
+        method: GET
+        description: Retrieve all investment accounts
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Max items per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-account
+        method: POST
+        description: Create a new investment account
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            user_id: '{{tools.user_id}}'
+            account_group_id: '{{tools.account_group_id}}'
+      - name: retrieve-account
+        method: GET
+        description: Retrieve a specific investment account
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+          description: Account UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: close-account
+        method: DELETE
+        description: Close an investment account
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+          description: Account UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: instruments
+      path: /instruments
+      description: Financial instruments and price data
+      operations:
+      - name: list-instruments
+        method: GET
+        description: List available financial instruments
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Max items per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: retrieve-instrument
+        method: GET
+        description: Retrieve a specific instrument
+        inputParameters:
+        - name: instrument_id
+          in: path
+          type: string
+          required: true
+          description: Instrument UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-instrument-prices
+        method: GET
+        description: Retrieve real-time and historical price data
+        inputParameters:
+        - name: instrument_id
+          in: path
+          type: string
+          required: true
+          description: Instrument UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: orders
+      path: /orders
+      description: Order placement and management
+      operations:
+      - name: list-orders
+        method: GET
+        description: List all orders
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Max items per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: place-order
+        method: POST
+        description: Place a new buy or sell order
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            account_id: '{{tools.account_id}}'
+            instrument_id: '{{tools.instrument_id}}'
+            side: '{{tools.side}}'
+            amount: '{{tools.amount}}'
+      - name: retrieve-order
+        method: GET
+        description: Retrieve a specific order
+        inputParameters:
+        - name: order_id
+          in: path
+          type: string
+          required: true
+          description: Order UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: cancel-order
+        method: DELETE
+        description: Cancel a pending order
+        inputParameters:
+        - name: order_id
+          in: path
+          type: string
+          required: true
+          description: Order UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: portfolios
+      path: /portfolios
+      description: Portfolio management
+      operations:
+      - name: list-portfolios
+        method: GET
+        description: List all portfolios
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-portfolio
+        method: POST
+        description: Create a new portfolio
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            account_id: '{{tools.account_id}}'
+      - name: retrieve-portfolio
+        method: GET
+        description: Retrieve a specific portfolio
+        inputParameters:
+        - name: portfolio_id
+          in: path
+          type: string
+          required: true
+          description: Portfolio UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: savings-plans
+      path: /savings_plans
+      description: Automated savings plan management
+      operations:
+      - name: list-savings-plans
+        method: GET
+        description: List all savings plans
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-savings-plan
+        method: POST
+        description: Create a new savings plan
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            account_id: '{{tools.account_id}}'
+            amount: '{{tools.amount}}'
+            frequency: '{{tools.frequency}}'
+      - name: update-savings-plan
+        method: PATCH
+        description: Update a savings plan
+        inputParameters:
+        - name: savings_plan_id
+          in: path
+          type: string
+          required: true
+          description: Savings plan UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-savings-plan
+        method: DELETE
+        description: Delete a savings plan
+        inputParameters:
+        - name: savings_plan_id
+          in: path
+          type: string
+          required: true
+          description: Savings plan UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: payments
+      path: /payments
+      description: Payment operations including top-ups, withdrawals, and direct debits
+      operations:
+      - name: create-direct-debit
+        method: POST
+        description: Create a direct debit payment
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            account_id: '{{tools.account_id}}'
+            amount: '{{tools.amount}}'
+      - name: list-direct-debits
+        method: GET
+        description: List direct debit operations
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-withdrawal
+        method: POST
+        description: Process a cash withdrawal
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            account_id: '{{tools.account_id}}'
+            amount: '{{tools.amount}}'
+      - name: list-withdrawals
+        method: GET
+        description: List withdrawal operations
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: positions
+      path: /positions
+      description: Account position and valuation data
+      operations:
+      - name: list-positions
+        method: GET
+        description: List current holdings for an account
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+          description: Account UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-valuations
+        method: GET
+        description: List account valuations
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+          description: Account UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-returns
+        method: GET
+        description: List investment returns for an account
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          required: true
+          description: Account UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: webhooks
+      path: /webhooks
+      description: Webhook subscription management
+      operations:
+      - name: list-webhook-subscriptions
+        method: GET
+        description: List all webhook subscriptions
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-webhook-subscription
+        method: POST
+        description: Register a new webhook endpoint
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            url: '{{tools.url}}'
+            events: '{{tools.events}}'
+      - name: retrieve-webhook-subscription
+        method: GET
+        description: Retrieve a specific webhook subscription
+        inputParameters:
+        - name: webhook_id
+          in: path
+          type: string
+          required: true
+          description: Webhook UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-webhook-subscription
+        method: DELETE
+        description: Delete a webhook subscription
+        inputParameters:
+        - name: webhook_id
+          in: path
+          type: string
+          required: true
+          description: Webhook UUID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: reports
+      path: /reports
+      description: Reporting and transaction data
+      operations:
+      - name: list-reports
+        method: GET
+        description: List user-facing investment reports
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-transactions
+        method: GET
+        description: List transaction history
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-fees
+        method: GET
+        description: List fee charges on accounts
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: upvest-investment-ops-api
-      description: "Unified REST API for Upvest investment operations."
-      resources:
-        - path: /v1/users
-          name: users
-          description: "User onboarding and management"
-          operations:
-            - method: GET
-              name: list-users
-              description: "List all onboarded users"
-              call: "upvest-investment.list-users"
-              with:
-                offset: "rest.offset"
-                limit: "rest.limit"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-user
-              description: "Onboard a new user"
-              call: "upvest-investment.create-user"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/users/{user_id}
-          name: user
-          description: "Individual user operations"
-          operations:
-            - method: GET
-              name: retrieve-user
-              description: "Retrieve a specific user"
-              call: "upvest-investment.retrieve-user"
-              with:
-                user_id: "rest.user_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/accounts
-          name: accounts
-          description: "Investment account management"
-          operations:
-            - method: GET
-              name: list-accounts
-              description: "List all accounts"
-              call: "upvest-investment.list-accounts"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-account
-              description: "Create a new investment account"
-              call: "upvest-investment.create-account"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/accounts/{account_id}
-          name: account
-          description: "Individual account operations"
-          operations:
-            - method: GET
-              name: retrieve-account
-              description: "Retrieve a specific account"
-              call: "upvest-investment.retrieve-account"
-              with:
-                account_id: "rest.account_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/orders
-          name: orders
-          description: "Order placement and management"
-          operations:
-            - method: GET
-              name: list-orders
-              description: "List all orders"
-              call: "upvest-investment.list-orders"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: place-order
-              description: "Place a buy or sell order"
-              call: "upvest-investment.place-order"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/orders/{order_id}
-          name: order
-          description: "Individual order operations"
-          operations:
-            - method: GET
-              name: retrieve-order
-              description: "Retrieve order details"
-              call: "upvest-investment.retrieve-order"
-              with:
-                order_id: "rest.order_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: cancel-order
-              description: "Cancel a pending order"
-              call: "upvest-investment.cancel-order"
-              with:
-                order_id: "rest.order_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/instruments
-          name: instruments
-          description: "Financial instruments and prices"
-          operations:
-            - method: GET
-              name: list-instruments
-              description: "List available instruments"
-              call: "upvest-investment.list-instruments"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/portfolios
-          name: portfolios
-          description: "Portfolio management"
-          operations:
-            - method: GET
-              name: list-portfolios
-              description: "List portfolios"
-              call: "upvest-investment.list-portfolios"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-portfolio
-              description: "Create a portfolio"
-              call: "upvest-investment.create-portfolio"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/savings-plans
-          name: savings-plans
-          description: "Automated savings plan management"
-          operations:
-            - method: GET
-              name: list-savings-plans
-              description: "List savings plans"
-              call: "upvest-investment.list-savings-plans"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-savings-plan
-              description: "Create a savings plan"
-              call: "upvest-investment.create-savings-plan"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/positions
-          name: positions
-          description: "Account positions and valuations"
-          operations:
-            - method: GET
-              name: list-positions
-              description: "List account positions"
-              call: "upvest-investment.list-positions"
-              with:
-                account_id: "rest.account_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/payments/direct-debits
-          name: direct-debits
-          description: "Direct debit payments"
-          operations:
-            - method: POST
-              name: create-direct-debit
-              description: "Create a direct debit"
-              call: "upvest-investment.create-direct-debit"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: GET
-              name: list-direct-debits
-              description: "List direct debits"
-              call: "upvest-investment.list-direct-debits"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/payments/withdrawals
-          name: withdrawals
-          description: "Cash withdrawal operations"
-          operations:
-            - method: POST
-              name: create-withdrawal
-              description: "Process a withdrawal"
-              call: "upvest-investment.create-withdrawal"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: GET
-              name: list-withdrawals
-              description: "List withdrawals"
-              call: "upvest-investment.list-withdrawals"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/webhooks
-          name: webhooks
-          description: "Webhook subscription management"
-          operations:
-            - method: GET
-              name: list-webhooks
-              description: "List webhook subscriptions"
-              call: "upvest-investment.list-webhook-subscriptions"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-webhook
-              description: "Register a webhook"
-              call: "upvest-investment.create-webhook-subscription"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/reports
-          name: reports
-          description: "Reports and transaction data"
-          operations:
-            - method: GET
-              name: list-reports
-              description: "List investment reports"
-              call: "upvest-investment.list-reports"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: GET
-              name: list-transactions
-              description: "List transaction history"
-              call: "upvest-investment.list-transactions"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9080
-      namespace: upvest-investment-ops-mcp
-      transport: http
-      description: "MCP server for AI-assisted investment operations on the Upvest platform."
-      tools:
-        - name: list-users
-          description: "List all onboarded users on the investment platform"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "upvest-investment.list-users"
-          with:
-            offset: "tools.offset"
-            limit: "tools.limit"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-user
-          description: "Onboard a new user to the investment platform"
-          hints:
-            readOnly: false
-          call: "upvest-investment.create-user"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: retrieve-user
-          description: "Retrieve details for a specific user by ID"
-          hints:
-            readOnly: true
-          call: "upvest-investment.retrieve-user"
-          with:
-            user_id: "tools.user_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-accounts
-          description: "List all investment accounts"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "upvest-investment.list-accounts"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-account
-          description: "Create a new investment account for a user"
-          hints:
-            readOnly: false
-          call: "upvest-investment.create-account"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: retrieve-account
-          description: "Retrieve details for a specific investment account"
-          hints:
-            readOnly: true
-          call: "upvest-investment.retrieve-account"
-          with:
-            account_id: "tools.account_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-instruments
-          description: "List available financial instruments (stocks, ETFs, mutual funds)"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "upvest-investment.list-instruments"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-instrument-prices
-          description: "Get price data for a specific financial instrument"
-          hints:
-            readOnly: true
-          call: "upvest-investment.list-instrument-prices"
-          with:
-            instrument_id: "tools.instrument_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-orders
-          description: "List all orders across accounts"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "upvest-investment.list-orders"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: place-order
-          description: "Place a buy or sell order for a financial instrument"
-          hints:
-            readOnly: false
-          call: "upvest-investment.place-order"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: retrieve-order
-          description: "Retrieve details and status for a specific order"
-          hints:
-            readOnly: true
-          call: "upvest-investment.retrieve-order"
-          with:
-            order_id: "tools.order_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: cancel-order
-          description: "Cancel a pending order before execution"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: true
-          call: "upvest-investment.cancel-order"
-          with:
-            order_id: "tools.order_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-portfolios
-          description: "List all investment portfolios"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "upvest-investment.list-portfolios"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-portfolio
-          description: "Create a new investment portfolio with custom allocations"
-          hints:
-            readOnly: false
-          call: "upvest-investment.create-portfolio"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-savings-plans
-          description: "List all automated savings plans"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "upvest-investment.list-savings-plans"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-savings-plan
-          description: "Create an automated recurring investment savings plan"
-          hints:
-            readOnly: false
-          call: "upvest-investment.create-savings-plan"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-positions
-          description: "List current investment positions and holdings for an account"
-          hints:
-            readOnly: true
-          call: "upvest-investment.list-positions"
-          with:
-            account_id: "tools.account_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-valuations
-          description: "Get current and historical account valuations"
-          hints:
-            readOnly: true
-          call: "upvest-investment.list-valuations"
-          with:
-            account_id: "tools.account_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-direct-debit
-          description: "Set up a direct debit payment for account funding"
-          hints:
-            readOnly: false
-          call: "upvest-investment.create-direct-debit"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-withdrawal
-          description: "Process a cash withdrawal from an investment account"
-          hints:
-            readOnly: false
-          call: "upvest-investment.create-withdrawal"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-reports
-          description: "List investment reports and statements"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "upvest-investment.list-reports"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-transactions
-          description: "List transaction history for accounts"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "upvest-investment.list-transactions"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-webhook-subscriptions
-          description: "List all registered webhook subscriptions"
-          hints:
-            readOnly: true
-          call: "upvest-investment.list-webhook-subscriptions"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-webhook-subscription
-          description: "Register a new webhook endpoint for event notifications"
-          hints:
-            readOnly: false
-          call: "upvest-investment.create-webhook-subscription"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: upvest-investment-ops-api
+    description: Unified REST API for Upvest investment operations.
+    resources:
+    - path: /v1/users
+      name: users
+      description: User onboarding and management
+      operations:
+      - method: GET
+        name: list-users
+        description: List all onboarded users
+        call: upvest-investment.list-users
+        with:
+          offset: rest.offset
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-user
+        description: Onboard a new user
+        call: upvest-investment.create-user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{user_id}
+      name: user
+      description: Individual user operations
+      operations:
+      - method: GET
+        name: retrieve-user
+        description: Retrieve a specific user
+        call: upvest-investment.retrieve-user
+        with:
+          user_id: rest.user_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts
+      name: accounts
+      description: Investment account management
+      operations:
+      - method: GET
+        name: list-accounts
+        description: List all accounts
+        call: upvest-investment.list-accounts
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-account
+        description: Create a new investment account
+        call: upvest-investment.create-account
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{account_id}
+      name: account
+      description: Individual account operations
+      operations:
+      - method: GET
+        name: retrieve-account
+        description: Retrieve a specific account
+        call: upvest-investment.retrieve-account
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders
+      name: orders
+      description: Order placement and management
+      operations:
+      - method: GET
+        name: list-orders
+        description: List all orders
+        call: upvest-investment.list-orders
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: place-order
+        description: Place a buy or sell order
+        call: upvest-investment.place-order
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{order_id}
+      name: order
+      description: Individual order operations
+      operations:
+      - method: GET
+        name: retrieve-order
+        description: Retrieve order details
+        call: upvest-investment.retrieve-order
+        with:
+          order_id: rest.order_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancel-order
+        description: Cancel a pending order
+        call: upvest-investment.cancel-order
+        with:
+          order_id: rest.order_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instruments
+      name: instruments
+      description: Financial instruments and prices
+      operations:
+      - method: GET
+        name: list-instruments
+        description: List available instruments
+        call: upvest-investment.list-instruments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/portfolios
+      name: portfolios
+      description: Portfolio management
+      operations:
+      - method: GET
+        name: list-portfolios
+        description: List portfolios
+        call: upvest-investment.list-portfolios
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-portfolio
+        description: Create a portfolio
+        call: upvest-investment.create-portfolio
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/savings-plans
+      name: savings-plans
+      description: Automated savings plan management
+      operations:
+      - method: GET
+        name: list-savings-plans
+        description: List savings plans
+        call: upvest-investment.list-savings-plans
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-savings-plan
+        description: Create a savings plan
+        call: upvest-investment.create-savings-plan
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/positions
+      name: positions
+      description: Account positions and valuations
+      operations:
+      - method: GET
+        name: list-positions
+        description: List account positions
+        call: upvest-investment.list-positions
+        with:
+          account_id: rest.account_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payments/direct-debits
+      name: direct-debits
+      description: Direct debit payments
+      operations:
+      - method: POST
+        name: create-direct-debit
+        description: Create a direct debit
+        call: upvest-investment.create-direct-debit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: list-direct-debits
+        description: List direct debits
+        call: upvest-investment.list-direct-debits
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payments/withdrawals
+      name: withdrawals
+      description: Cash withdrawal operations
+      operations:
+      - method: POST
+        name: create-withdrawal
+        description: Process a withdrawal
+        call: upvest-investment.create-withdrawal
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: list-withdrawals
+        description: List withdrawals
+        call: upvest-investment.list-withdrawals
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhooks
+      name: webhooks
+      description: Webhook subscription management
+      operations:
+      - method: GET
+        name: list-webhooks
+        description: List webhook subscriptions
+        call: upvest-investment.list-webhook-subscriptions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-webhook
+        description: Register a webhook
+        call: upvest-investment.create-webhook-subscription
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reports
+      name: reports
+      description: Reports and transaction data
+      operations:
+      - method: GET
+        name: list-reports
+        description: List investment reports
+        call: upvest-investment.list-reports
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: list-transactions
+        description: List transaction history
+        call: upvest-investment.list-transactions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9080
+    namespace: upvest-investment-ops-mcp
+    transport: http
+    description: MCP server for AI-assisted investment operations on the Upvest platform.
+    tools:
+    - name: list-users
+      description: List all onboarded users on the investment platform
+      hints:
+        readOnly: true
+        openWorld: true
+      call: upvest-investment.list-users
+      with:
+        offset: tools.offset
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-user
+      description: Onboard a new user to the investment platform
+      hints:
+        readOnly: false
+      call: upvest-investment.create-user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-user
+      description: Retrieve details for a specific user by ID
+      hints:
+        readOnly: true
+      call: upvest-investment.retrieve-user
+      with:
+        user_id: tools.user_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-accounts
+      description: List all investment accounts
+      hints:
+        readOnly: true
+        openWorld: true
+      call: upvest-investment.list-accounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-account
+      description: Create a new investment account for a user
+      hints:
+        readOnly: false
+      call: upvest-investment.create-account
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-account
+      description: Retrieve details for a specific investment account
+      hints:
+        readOnly: true
+      call: upvest-investment.retrieve-account
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-instruments
+      description: List available financial instruments (stocks, ETFs, mutual funds)
+      hints:
+        readOnly: true
+        openWorld: true
+      call: upvest-investment.list-instruments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-instrument-prices
+      description: Get price data for a specific financial instrument
+      hints:
+        readOnly: true
+      call: upvest-investment.list-instrument-prices
+      with:
+        instrument_id: tools.instrument_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-orders
+      description: List all orders across accounts
+      hints:
+        readOnly: true
+        openWorld: true
+      call: upvest-investment.list-orders
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: place-order
+      description: Place a buy or sell order for a financial instrument
+      hints:
+        readOnly: false
+      call: upvest-investment.place-order
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-order
+      description: Retrieve details and status for a specific order
+      hints:
+        readOnly: true
+      call: upvest-investment.retrieve-order
+      with:
+        order_id: tools.order_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-order
+      description: Cancel a pending order before execution
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: upvest-investment.cancel-order
+      with:
+        order_id: tools.order_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-portfolios
+      description: List all investment portfolios
+      hints:
+        readOnly: true
+        openWorld: true
+      call: upvest-investment.list-portfolios
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-portfolio
+      description: Create a new investment portfolio with custom allocations
+      hints:
+        readOnly: false
+      call: upvest-investment.create-portfolio
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-savings-plans
+      description: List all automated savings plans
+      hints:
+        readOnly: true
+        openWorld: true
+      call: upvest-investment.list-savings-plans
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-savings-plan
+      description: Create an automated recurring investment savings plan
+      hints:
+        readOnly: false
+      call: upvest-investment.create-savings-plan
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-positions
+      description: List current investment positions and holdings for an account
+      hints:
+        readOnly: true
+      call: upvest-investment.list-positions
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-valuations
+      description: Get current and historical account valuations
+      hints:
+        readOnly: true
+      call: upvest-investment.list-valuations
+      with:
+        account_id: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-direct-debit
+      description: Set up a direct debit payment for account funding
+      hints:
+        readOnly: false
+      call: upvest-investment.create-direct-debit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-withdrawal
+      description: Process a cash withdrawal from an investment account
+      hints:
+        readOnly: false
+      call: upvest-investment.create-withdrawal
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-reports
+      description: List investment reports and statements
+      hints:
+        readOnly: true
+        openWorld: true
+      call: upvest-investment.list-reports
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-transactions
+      description: List transaction history for accounts
+      hints:
+        readOnly: true
+        openWorld: true
+      call: upvest-investment.list-transactions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-webhook-subscriptions
+      description: List all registered webhook subscriptions
+      hints:
+        readOnly: true
+      call: upvest-investment.list-webhook-subscriptions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook-subscription
+      description: Register a new webhook endpoint for event notifications
+      hints:
+        readOnly: false
+      call: upvest-investment.create-webhook-subscription
+      outputParameters:
+      - type: object
+        mapping: $.
