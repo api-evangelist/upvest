@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Portfolios
+  description: 'Upvest Investment API — Portfolios. 4 operations. Lead operation: Upvest List portfolios. Self-contained Naftiko
+    capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Portfolios
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-portfolios
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Portfolios business capability. Self-contained, no shared references.
+    resources:
+    - name: portfolios
+      path: /portfolios
+      operations:
+      - name: listportfolios
+        method: GET
+        description: Upvest List portfolios
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createportfolio
+        method: POST
+        description: Upvest Create a portfolio
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: portfolios-portfolio_id
+      path: /portfolios/{portfolio_id}
+      operations:
+      - name: retrieveportfolio
+        method: GET
+        description: Upvest Retrieve a portfolio
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateportfolio
+        method: PATCH
+        description: Upvest Update a portfolio
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-portfolios-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Portfolios. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/portfolios
+      name: portfolios
+      description: REST surface for portfolios.
+      operations:
+      - method: GET
+        name: listportfolios
+        description: Upvest List portfolios
+        call: investment-portfolios.listportfolios
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createportfolio
+        description: Upvest Create a portfolio
+        call: investment-portfolios.createportfolio
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/portfolios/{portfolio-id}
+      name: portfolios-portfolio-id
+      description: REST surface for portfolios-portfolio_id.
+      operations:
+      - method: GET
+        name: retrieveportfolio
+        description: Upvest Retrieve a portfolio
+        call: investment-portfolios.retrieveportfolio
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateportfolio
+        description: Upvest Update a portfolio
+        call: investment-portfolios.updateportfolio
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-portfolios-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Portfolios. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: upvest-list-portfolios
+      description: Upvest List portfolios
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-portfolios.listportfolios
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-create-portfolio
+      description: Upvest Create a portfolio
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: investment-portfolios.createportfolio
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-retrieve-portfolio
+      description: Upvest Retrieve a portfolio
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-portfolios.retrieveportfolio
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-update-portfolio
+      description: Upvest Update a portfolio
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: investment-portfolios.updateportfolio
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

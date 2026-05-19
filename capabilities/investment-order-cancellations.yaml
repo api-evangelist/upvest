@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Order Cancellations
+  description: 'Upvest Investment API — Order Cancellations. 1 operations. Lead operation: Upvest Cancel an order. Self-contained
+    Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Order Cancellations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-order-cancellations
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Order Cancellations business capability. Self-contained, no shared references.
+    resources:
+    - name: orders-order_id-cancellation
+      path: /orders/{order_id}/cancellation
+      operations:
+      - name: cancelorder
+        method: POST
+        description: Upvest Cancel an order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-order-cancellations-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Order Cancellations. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/orders/{order-id}/cancellation
+      name: orders-order-id-cancellation
+      description: REST surface for orders-order_id-cancellation.
+      operations:
+      - method: POST
+        name: cancelorder
+        description: Upvest Cancel an order
+        call: investment-order-cancellations.cancelorder
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-order-cancellations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Order Cancellations. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-cancel-order
+      description: Upvest Cancel an order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: investment-order-cancellations.cancelorder
+      outputParameters:
+      - type: object
+        mapping: $.

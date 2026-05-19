@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Account Transfers
+  description: 'Upvest Investment API — Account Transfers. 2 operations. Lead operation: Upvest Create an account transfer.
+    Self-contained Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Account Transfers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-account-transfers
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Account Transfers business capability. Self-contained, no shared references.
+    resources:
+    - name: account_transfers
+      path: /account_transfers
+      operations:
+      - name: createaccounttransfer
+        method: POST
+        description: Upvest Create an account transfer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listaccounttransfers
+        method: GET
+        description: Upvest List account transfers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-account-transfers-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Account Transfers. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/account-transfers
+      name: account-transfers
+      description: REST surface for account_transfers.
+      operations:
+      - method: POST
+        name: createaccounttransfer
+        description: Upvest Create an account transfer
+        call: investment-account-transfers.createaccounttransfer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listaccounttransfers
+        description: Upvest List account transfers
+        call: investment-account-transfers.listaccounttransfers
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-account-transfers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Account Transfers. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-create-account-transfer
+      description: Upvest Create an account transfer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: investment-account-transfers.createaccounttransfer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-list-account-transfers
+      description: Upvest List account transfers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-account-transfers.listaccounttransfers
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Webhook Subscriptions
+  description: 'Upvest Investment API — Webhook Subscriptions. 5 operations. Lead operation: Upvest List webhook subscriptions.
+    Self-contained Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Webhook Subscriptions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-webhook-subscriptions
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Webhook Subscriptions business capability. Self-contained, no shared references.
+    resources:
+    - name: webhooks
+      path: /webhooks
+      operations:
+      - name: listwebhooksubscriptions
+        method: GET
+        description: Upvest List webhook subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createwebhooksubscription
+        method: POST
+        description: Upvest Create a webhook subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: webhooks-webhook_id
+      path: /webhooks/{webhook_id}
+      operations:
+      - name: retrievewebhooksubscription
+        method: GET
+        description: Upvest Retrieve a webhook subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatewebhooksubscription
+        method: PATCH
+        description: Upvest Update a webhook subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletewebhooksubscription
+        method: DELETE
+        description: Upvest Delete a webhook subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-webhook-subscriptions-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Webhook Subscriptions. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/webhooks
+      name: webhooks
+      description: REST surface for webhooks.
+      operations:
+      - method: GET
+        name: listwebhooksubscriptions
+        description: Upvest List webhook subscriptions
+        call: investment-webhook-subscriptions.listwebhooksubscriptions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwebhooksubscription
+        description: Upvest Create a webhook subscription
+        call: investment-webhook-subscriptions.createwebhooksubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhooks/{webhook-id}
+      name: webhooks-webhook-id
+      description: REST surface for webhooks-webhook_id.
+      operations:
+      - method: GET
+        name: retrievewebhooksubscription
+        description: Upvest Retrieve a webhook subscription
+        call: investment-webhook-subscriptions.retrievewebhooksubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatewebhooksubscription
+        description: Upvest Update a webhook subscription
+        call: investment-webhook-subscriptions.updatewebhooksubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewebhooksubscription
+        description: Upvest Delete a webhook subscription
+        call: investment-webhook-subscriptions.deletewebhooksubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-webhook-subscriptions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Webhook Subscriptions. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-list-webhook-subscriptions
+      description: Upvest List webhook subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-webhook-subscriptions.listwebhooksubscriptions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-create-webhook-subscription
+      description: Upvest Create a webhook subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: investment-webhook-subscriptions.createwebhooksubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-retrieve-webhook-subscription
+      description: Upvest Retrieve a webhook subscription
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-webhook-subscriptions.retrievewebhooksubscription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-update-webhook-subscription
+      description: Upvest Update a webhook subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: investment-webhook-subscriptions.updatewebhooksubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-delete-webhook-subscription
+      description: Upvest Delete a webhook subscription
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: investment-webhook-subscriptions.deletewebhooksubscription
+      outputParameters:
+      - type: object
+        mapping: $.

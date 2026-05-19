@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Portfolio Allocations
+  description: 'Upvest Investment API — Portfolio Allocations. 2 operations. Lead operation: Upvest List portfolio allocations.
+    Self-contained Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Portfolio Allocations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-portfolio-allocations
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Portfolio Allocations business capability. Self-contained, no shared references.
+    resources:
+    - name: portfolios-portfolio_id-allocations
+      path: /portfolios/{portfolio_id}/allocations
+      operations:
+      - name: listportfolioallocations
+        method: GET
+        description: Upvest List portfolio allocations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateportfolioallocations
+        method: PUT
+        description: Upvest Update portfolio allocations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-portfolio-allocations-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Portfolio Allocations. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/portfolios/{portfolio-id}/allocations
+      name: portfolios-portfolio-id-allocations
+      description: REST surface for portfolios-portfolio_id-allocations.
+      operations:
+      - method: GET
+        name: listportfolioallocations
+        description: Upvest List portfolio allocations
+        call: investment-portfolio-allocations.listportfolioallocations
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateportfolioallocations
+        description: Upvest Update portfolio allocations
+        call: investment-portfolio-allocations.updateportfolioallocations
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-portfolio-allocations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Portfolio Allocations. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-list-portfolio-allocations
+      description: Upvest List portfolio allocations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-portfolio-allocations.listportfolioallocations
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-update-portfolio-allocations
+      description: Upvest Update portfolio allocations
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: investment-portfolio-allocations.updateportfolioallocations
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

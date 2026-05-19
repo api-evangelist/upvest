@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Valuations
+  description: 'Upvest Investment API — Valuations. 1 operations. Lead operation: Upvest List account valuations. Self-contained
+    Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Valuations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-valuations
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Valuations business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-account_id-valuations
+      path: /accounts/{account_id}/valuations
+      operations:
+      - name: listvaluations
+        method: GET
+        description: Upvest List account valuations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-valuations-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Valuations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/valuations
+      name: accounts-account-id-valuations
+      description: REST surface for accounts-account_id-valuations.
+      operations:
+      - method: GET
+        name: listvaluations
+        description: Upvest List account valuations
+        call: investment-valuations.listvaluations
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-valuations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Valuations. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: upvest-list-account-valuations
+      description: Upvest List account valuations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-valuations.listvaluations
+      outputParameters:
+      - type: object
+        mapping: $.

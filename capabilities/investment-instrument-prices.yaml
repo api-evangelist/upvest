@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Instrument Prices
+  description: 'Upvest Investment API — Instrument Prices. 1 operations. Lead operation: Upvest List instrument prices. Self-contained
+    Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Instrument Prices
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-instrument-prices
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Instrument Prices business capability. Self-contained, no shared references.
+    resources:
+    - name: instruments-instrument_id-prices
+      path: /instruments/{instrument_id}/prices
+      operations:
+      - name: listinstrumentprices
+        method: GET
+        description: Upvest List instrument prices
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-instrument-prices-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Instrument Prices. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/instruments/{instrument-id}/prices
+      name: instruments-instrument-id-prices
+      description: REST surface for instruments-instrument_id-prices.
+      operations:
+      - method: GET
+        name: listinstrumentprices
+        description: Upvest List instrument prices
+        call: investment-instrument-prices.listinstrumentprices
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-instrument-prices-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Instrument Prices. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-list-instrument-prices
+      description: Upvest List instrument prices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-instrument-prices.listinstrumentprices
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — User Identifiers
+  description: 'Upvest Investment API — User Identifiers. 4 operations. Lead operation: Upvest List user identifiers. Self-contained
+    Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - User Identifiers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-user-identifiers
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — User Identifiers business capability. Self-contained, no shared references.
+    resources:
+    - name: users-user_id-identifiers
+      path: /users/{user_id}/identifiers
+      operations:
+      - name: listuseridentifiers
+        method: GET
+        description: Upvest List user identifiers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createuseridentifier
+        method: POST
+        description: Upvest Create a user identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: users-user_id-identifiers-identifier_id
+      path: /users/{user_id}/identifiers/{identifier_id}
+      operations:
+      - name: retrieveuseridentifier
+        method: GET
+        description: Upvest Retrieve a user identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateuseridentifier
+        method: PATCH
+        description: Upvest Update a user identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-user-identifiers-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — User Identifiers. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/users/{user-id}/identifiers
+      name: users-user-id-identifiers
+      description: REST surface for users-user_id-identifiers.
+      operations:
+      - method: GET
+        name: listuseridentifiers
+        description: Upvest List user identifiers
+        call: investment-user-identifiers.listuseridentifiers
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createuseridentifier
+        description: Upvest Create a user identifier
+        call: investment-user-identifiers.createuseridentifier
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{user-id}/identifiers/{identifier-id}
+      name: users-user-id-identifiers-identifier-id
+      description: REST surface for users-user_id-identifiers-identifier_id.
+      operations:
+      - method: GET
+        name: retrieveuseridentifier
+        description: Upvest Retrieve a user identifier
+        call: investment-user-identifiers.retrieveuseridentifier
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateuseridentifier
+        description: Upvest Update a user identifier
+        call: investment-user-identifiers.updateuseridentifier
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-user-identifiers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — User Identifiers. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-list-user-identifiers
+      description: Upvest List user identifiers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-user-identifiers.listuseridentifiers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-create-user-identifier
+      description: Upvest Create a user identifier
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: investment-user-identifiers.createuseridentifier
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-retrieve-user-identifier
+      description: Upvest Retrieve a user identifier
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-user-identifiers.retrieveuseridentifier
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-update-user-identifier
+      description: Upvest Update a user identifier
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: investment-user-identifiers.updateuseridentifier
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

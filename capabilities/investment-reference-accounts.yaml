@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Reference Accounts
+  description: 'Upvest Investment API — Reference Accounts. 1 operations. Lead operation: Upvest List reference accounts.
+    Self-contained Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Reference Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-reference-accounts
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Reference Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-account_id-reference_accounts
+      path: /accounts/{account_id}/reference_accounts
+      operations:
+      - name: listreferenceaccounts
+        method: GET
+        description: Upvest List reference accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-reference-accounts-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Reference Accounts. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/{account-id}/reference-accounts
+      name: accounts-account-id-reference-accounts
+      description: REST surface for accounts-account_id-reference_accounts.
+      operations:
+      - method: GET
+        name: listreferenceaccounts
+        description: Upvest List reference accounts
+        call: investment-reference-accounts.listreferenceaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-reference-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Reference Accounts. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-list-reference-accounts
+      description: Upvest List reference accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-reference-accounts.listreferenceaccounts
+      outputParameters:
+      - type: object
+        mapping: $.

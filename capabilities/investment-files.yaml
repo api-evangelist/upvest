@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Files
+  description: 'Upvest Investment API — Files. 1 operations. Lead operation: Upvest Retrieve a file. Self-contained Naftiko
+    capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Files
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-files
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Files business capability. Self-contained, no shared references.
+    resources:
+    - name: files-file_id
+      path: /files/{file_id}
+      operations:
+      - name: retrievefile
+        method: GET
+        description: Upvest Retrieve a file
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-files-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Files. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/files/{file-id}
+      name: files-file-id
+      description: REST surface for files-file_id.
+      operations:
+      - method: GET
+        name: retrievefile
+        description: Upvest Retrieve a file
+        call: investment-files.retrievefile
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-files-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Files. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: upvest-retrieve-file
+      description: Upvest Retrieve a file
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-files.retrievefile
+      outputParameters:
+      - type: object
+        mapping: $.

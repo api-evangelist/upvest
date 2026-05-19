@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Securities Transfers
+  description: 'Upvest Investment API — Securities Transfers. 2 operations. Lead operation: Upvest Create a securities transfer.
+    Self-contained Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Securities Transfers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-securities-transfers
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Securities Transfers business capability. Self-contained, no shared references.
+    resources:
+    - name: securities_transfers
+      path: /securities_transfers
+      operations:
+      - name: createsecuritiestransfer
+        method: POST
+        description: Upvest Create a securities transfer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listsecuritiestransfers
+        method: GET
+        description: Upvest List securities transfers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-securities-transfers-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Securities Transfers. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/securities-transfers
+      name: securities-transfers
+      description: REST surface for securities_transfers.
+      operations:
+      - method: POST
+        name: createsecuritiestransfer
+        description: Upvest Create a securities transfer
+        call: investment-securities-transfers.createsecuritiestransfer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listsecuritiestransfers
+        description: Upvest List securities transfers
+        call: investment-securities-transfers.listsecuritiestransfers
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-securities-transfers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Securities Transfers. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-create-securities-transfer
+      description: Upvest Create a securities transfer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: investment-securities-transfers.createsecuritiestransfer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-list-securities-transfers
+      description: Upvest List securities transfers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-securities-transfers.listsecuritiestransfers
+      outputParameters:
+      - type: object
+        mapping: $.

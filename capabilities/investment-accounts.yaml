@@ -1,0 +1,229 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Accounts
+  description: 'Upvest Investment API — Accounts. 6 operations. Lead operation: Upvest List accounts. Self-contained Naftiko
+    capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-accounts
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts
+      path: /accounts
+      operations:
+      - name: listaccounts
+        method: GET
+        description: Upvest List accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createaccount
+        method: POST
+        description: Upvest Create an account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounts-account_id
+      path: /accounts/{account_id}
+      operations:
+      - name: retrieveaccount
+        method: GET
+        description: Upvest Retrieve an account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateaccount
+        method: PATCH
+        description: Upvest Update an account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: closeaccount
+        method: DELETE
+        description: Upvest Close an account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: users-user_id-accounts
+      path: /users/{user_id}/accounts
+      operations:
+      - name: listuseraccounts
+        method: GET
+        description: Upvest List accounts for a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-accounts-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Accounts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accounts
+      name: accounts
+      description: REST surface for accounts.
+      operations:
+      - method: GET
+        name: listaccounts
+        description: Upvest List accounts
+        call: investment-accounts.listaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createaccount
+        description: Upvest Create an account
+        call: investment-accounts.createaccount
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{account-id}
+      name: accounts-account-id
+      description: REST surface for accounts-account_id.
+      operations:
+      - method: GET
+        name: retrieveaccount
+        description: Upvest Retrieve an account
+        call: investment-accounts.retrieveaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateaccount
+        description: Upvest Update an account
+        call: investment-accounts.updateaccount
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: closeaccount
+        description: Upvest Close an account
+        call: investment-accounts.closeaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{user-id}/accounts
+      name: users-user-id-accounts
+      description: REST surface for users-user_id-accounts.
+      operations:
+      - method: GET
+        name: listuseraccounts
+        description: Upvest List accounts for a user
+        call: investment-accounts.listuseraccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Accounts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: upvest-list-accounts
+      description: Upvest List accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-accounts.listaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-create-account
+      description: Upvest Create an account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: investment-accounts.createaccount
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-retrieve-account
+      description: Upvest Retrieve an account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-accounts.retrieveaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-update-account
+      description: Upvest Update an account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: investment-accounts.updateaccount
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-close-account
+      description: Upvest Close an account
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: investment-accounts.closeaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-list-accounts-user
+      description: Upvest List accounts for a user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-accounts.listuseraccounts
+      outputParameters:
+      - type: object
+        mapping: $.

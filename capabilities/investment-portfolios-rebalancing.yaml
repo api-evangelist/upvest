@@ -1,0 +1,95 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upvest Investment API — Portfolios Rebalancing
+  description: 'Upvest Investment API — Portfolios Rebalancing. 2 operations. Lead operation: Upvest Trigger portfolio rebalancing.
+    Self-contained Naftiko capability covering one Upvest business surface.'
+  tags:
+  - Upvest
+  - Portfolios Rebalancing
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPVEST_API_KEY: UPVEST_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: investment-portfolios-rebalancing
+    baseUri: https://api.upvest.co
+    description: Upvest Investment API — Portfolios Rebalancing business capability. Self-contained, no shared references.
+    resources:
+    - name: portfolios-portfolio_id-rebalancing
+      path: /portfolios/{portfolio_id}/rebalancing
+      operations:
+      - name: triggerportfoliorebalancing
+        method: POST
+        description: Upvest Trigger portfolio rebalancing
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: listrebalancingexecutions
+        method: GET
+        description: Upvest List rebalancing executions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPVEST_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: investment-portfolios-rebalancing-rest
+    port: 8080
+    description: REST adapter for Upvest Investment API — Portfolios Rebalancing. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/portfolios/{portfolio-id}/rebalancing
+      name: portfolios-portfolio-id-rebalancing
+      description: REST surface for portfolios-portfolio_id-rebalancing.
+      operations:
+      - method: POST
+        name: triggerportfoliorebalancing
+        description: Upvest Trigger portfolio rebalancing
+        call: investment-portfolios-rebalancing.triggerportfoliorebalancing
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listrebalancingexecutions
+        description: Upvest List rebalancing executions
+        call: investment-portfolios-rebalancing.listrebalancingexecutions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: investment-portfolios-rebalancing-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upvest Investment API — Portfolios Rebalancing. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upvest-trigger-portfolio-rebalancing
+      description: Upvest Trigger portfolio rebalancing
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: investment-portfolios-rebalancing.triggerportfoliorebalancing
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upvest-list-rebalancing-executions
+      description: Upvest List rebalancing executions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: investment-portfolios-rebalancing.listrebalancingexecutions
+      outputParameters:
+      - type: object
+        mapping: $.
