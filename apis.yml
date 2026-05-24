@@ -219,6 +219,8 @@ common:
       description: Event-driven integration pattern via Upvest webhook subscriptions for real-time processing.
     - name: OAuth 2.0
       description: Client credentials flow for API authentication and token management.
+  - type: LLMsTxt
+    url: https://docs.upvest.co/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
