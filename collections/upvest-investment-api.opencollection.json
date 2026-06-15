@@ -1,0 +1,1784 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upvest Investment API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/auth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest Create an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/auth/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "client_secret",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Obtain an OAuth 2.0 access token using client credentials. The returned opaque access token is used to authenticate subsequent API requests. You must specify the required scopes for the endpoints you intend to call."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/users",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all onboarded users. Supports filtering and pagination parameters."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Onboard a new user to the investment platform. The user must pass identity verification and compliance checks before trading is enabled."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific user by their unique identifier."
+        },
+        {
+          "info": {
+            "name": "Upvest Update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.upvest.co/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update profile information for an existing user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Identifiers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List user identifiers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/users/:user_id/identifiers",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ]
+          },
+          "docs": "Retrieve all external identifiers associated with a user."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a user identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/users/:user_id/identifiers",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an external identifier to a user record."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve a user identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/users/:user_id/identifiers/:identifier_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              },
+              {
+                "name": "identifier_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific external identifier for a user."
+        },
+        {
+          "info": {
+            "name": "Upvest Update a user identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.upvest.co/users/:user_id/identifiers/:identifier_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              },
+              {
+                "name": "identifier_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing external identifier for a user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Checks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List user checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/users/:user_id/checks",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ]
+          },
+          "docs": "Retrieve compliance and verification checks performed on a user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tax Residencies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List tax residencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/users/:user_id/tax_residencies",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ]
+          },
+          "docs": "Retrieve tax residency information for a user."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a tax residency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/users/:user_id/tax_residencies",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a tax residency record for a user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List accounts for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/users/:user_id/accounts",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ]
+          },
+          "docs": "Retrieve all investment accounts belonging to a specific user."
+        },
+        {
+          "info": {
+            "name": "Upvest List accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all investment accounts."
+        },
+        {
+          "info": {
+            "name": "Upvest Create an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Open a new investment account for a user."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific investment account."
+        },
+        {
+          "info": {
+            "name": "Upvest Update an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.upvest.co/accounts/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update metadata or settings for an existing investment account."
+        },
+        {
+          "info": {
+            "name": "Upvest Close an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.upvest.co/accounts/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Close an investment account. The account must have no open positions or pending orders."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Instruments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List instruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/instruments",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              },
+              {
+                "name": "isin",
+                "value": "DE0005140008",
+                "type": "query",
+                "description": "Filter instruments by ISIN code."
+              },
+              {
+                "name": "type",
+                "value": "EQUITY",
+                "type": "query",
+                "description": "Filter instruments by type."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of available financial instruments including equities, ETFs, and other tradeable securities."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve an instrument",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/instruments/:instrument_id",
+            "params": [
+              {
+                "name": "instrument_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the instrument."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific financial instrument."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Instrument Prices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List instrument prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/instruments/:instrument_id/prices",
+            "params": [
+              {
+                "name": "instrument_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the instrument."
+              }
+            ]
+          },
+          "docs": "Retrieve price data for a specific instrument. Prices are linked to exchanges so you can track where prices are available."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/orders",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              },
+              {
+                "name": "account_id",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "type": "query",
+                "description": "Filter orders by account identifier."
+              },
+              {
+                "name": "status",
+                "value": "NEW",
+                "type": "query",
+                "description": "Filter orders by status."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of orders. Supports filtering by account, status, and other criteria."
+        },
+        {
+          "info": {
+            "name": "Upvest Place an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Place a new buy or sell order for a financial instrument. Orders are processed asynchronously and their status can be tracked via webhooks or polling."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/orders/:order_id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the order."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific order including current status and execution information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Order Cancellations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest Cancel an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/orders/:order_id/cancellation",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the order."
+              }
+            ]
+          },
+          "docs": "Request cancellation of a pending order. Cancellation may not be possible if the order is already in execution."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Executions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List order executions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/orders/:order_id/executions",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the order."
+              }
+            ]
+          },
+          "docs": "Retrieve execution details for a specific order. Each execution represents a fill against the order."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Portfolios",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List portfolios",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/portfolios",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of portfolios."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/portfolios",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new portfolio with a defined set of target allocations across instruments."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve a portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific portfolio including its allocations and current state."
+        },
+        {
+          "info": {
+            "name": "Upvest Update a portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update portfolio settings or metadata."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Portfolio Allocations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List portfolio allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/allocations",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ]
+          },
+          "docs": "Retrieve target allocations for a specific portfolio."
+        },
+        {
+          "info": {
+            "name": "Upvest Update portfolio allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/allocations",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace the target allocation set for a portfolio."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Portfolio Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest Place a portfolio order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/orders",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Place an order against a portfolio allocation. The order amount is distributed across the portfolio's instruments according to the target allocations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Portfolios Rebalancing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List rebalancing executions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/rebalancing",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of rebalancing executions for a portfolio."
+        },
+        {
+          "info": {
+            "name": "Upvest Trigger portfolio rebalancing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/rebalancing",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ]
+          },
+          "docs": "Initiate a rebalancing operation to realign current holdings with target allocations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Savings Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List savings plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/savings_plans",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of automated savings plans."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a savings plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/savings_plans",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an automated recurring investment plan. Savings plans execute on a defined schedule, investing a specified amount into an instrument or portfolio."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve a savings plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/savings_plans/:savings_plan_id",
+            "params": [
+              {
+                "name": "savings_plan_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the savings plan."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific savings plan."
+        },
+        {
+          "info": {
+            "name": "Upvest Update a savings plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.upvest.co/savings_plans/:savings_plan_id",
+            "params": [
+              {
+                "name": "savings_plan_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the savings plan."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the configuration of an existing savings plan."
+        },
+        {
+          "info": {
+            "name": "Upvest Delete a savings plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.upvest.co/savings_plans/:savings_plan_id",
+            "params": [
+              {
+                "name": "savings_plan_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the savings plan."
+              }
+            ]
+          },
+          "docs": "Cancel and remove an automated savings plan."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Positions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/positions",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Retrieve current holdings and position details for an account."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve a position",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/positions/:position_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              },
+              {
+                "name": "position_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the position."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific position within an account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Valuations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List account valuations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/valuations",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Retrieve valuation history for an account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Returns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List account returns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/returns",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Retrieve investment return calculations for an account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cash Balances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List cash balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/cash_balances",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Retrieve cash balance information for an account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Direct Debits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List direct debits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/direct_debits",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of direct debit funding requests."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a direct debit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/direct_debits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a direct debit funding request to transfer funds into an investment account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Mandates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List mandates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/mandates",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of direct debit mandates."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve a mandate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/mandates/:mandate_id",
+            "params": [
+              {
+                "name": "mandate_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mandate."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific direct debit mandate."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Withdrawals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List withdrawals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/withdrawals",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of cash withdrawals."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/withdrawals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Process a cash withdrawal from an investment account to a linked reference account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reference Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List reference accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/reference_accounts",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Retrieve linked reference bank accounts for an investment account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/fees",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Retrieve fees charged on an account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fee Configurations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List fee configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/fee_configurations",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve available fee configuration templates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/reports",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of generated user-facing reports and statements."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Treasury Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List treasury reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/treasury_reports",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve treasury-level reports for institutional oversight and reconciliation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/transactions",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve transaction history for an account including order executions, fees, dividends, and transfers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest Retrieve a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/files/:file_id",
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the file."
+              }
+            ]
+          },
+          "docs": "Download a generated file such as a report or statement."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Liquidations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List liquidations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/accounts/:account_id/liquidations",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ]
+          },
+          "docs": "Retrieve liquidation operations for an account."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a liquidation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/accounts/:account_id/liquidations",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a full or partial liquidation of an account's holdings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Securities Transfers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List securities transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/securities_transfers",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of securities transfer operations."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a securities transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/securities_transfers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a transfer of securities between accounts or providers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account Transfers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List account transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/account_transfers",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of account transfer operations."
+        },
+        {
+          "info": {
+            "name": "Upvest Create an account transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/account_transfers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transfer an account between entities."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Corporate Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List corporate actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/corporate_actions",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve corporate action events affecting held securities such as dividends, splits, and mergers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhook Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List webhook subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/webhooks"
+          },
+          "docs": "Retrieve all registered webhook subscriptions."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a new webhook endpoint to receive event notifications. The URL must use HTTPS and support TLS 1.2 or higher."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific webhook subscription."
+        },
+        {
+          "info": {
+            "name": "Upvest Update a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.upvest.co/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook subscription."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the configuration of an existing webhook subscription."
+        },
+        {
+          "info": {
+            "name": "Upvest Delete a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.upvest.co/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook subscription."
+              }
+            ]
+          },
+          "docs": "Remove a webhook subscription. Events will no longer be delivered to this endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

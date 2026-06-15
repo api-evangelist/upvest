@@ -2,20 +2,24 @@
   "repo": "upvest",
   "feeds": [
     {
-      "source": "https://docs.upvest.co/documentation/guides",
-      "feed_url": "https://docs.upvest.co/documentation/guides",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
       "source": "https://upvest.co/blog",
       "feed_url": "https://upvest.co/blog",
       "title": "",
       "saved": 0,
       "method": "none"
+    },
+    {
+      "source": "https://engineering.upvest.co/",
+      "error": "URLError"
+    },
+    {
+      "source": "https://docs.upvest.co/documentation/guides",
+      "feed_url": "https://docs.upvest.co/documentation/guides",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-01T23:35:02Z",
+  "fetched": "2026-06-14T20:42:17Z",
   "post_count": 0
 }
