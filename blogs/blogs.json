@@ -3,23 +3,17 @@
   "feeds": [
     {
       "source": "https://upvest.co/blog",
-      "feed_url": "https://upvest.co/blog",
-      "title": "",
+      "feed_url": "",
       "saved": 0,
-      "method": "none"
+      "method": "agent-scrape"
     },
     {
       "source": "https://engineering.upvest.co/",
-      "error": "URLError"
-    },
-    {
-      "source": "https://docs.upvest.co/documentation/guides",
-      "feed_url": "https://docs.upvest.co/documentation/guides",
-      "title": "",
       "saved": 0,
-      "method": "none"
+      "error": "DNS not found (ENOTFOUND)"
     }
   ],
-  "fetched": "2026-06-14T20:42:17Z",
-  "post_count": 0
+  "fetched": "2026-06-27T13:18:42Z",
+  "post_count": 0,
+  "agent_pulled": "2026-06-27"
 }

@@ -86,7 +86,7 @@ common:
   - type: Blog
     url: https://engineering.upvest.co/
     title: Engineering Blog
-  - type: SignUp
+  - type: Signup
     url: https://upvest.co/contact
   - type: PrivacyPolicy
     url: https://upvest.co/legal/privacy-policy
@@ -151,7 +151,7 @@ common:
         description: Event-driven integration pattern via Upvest webhook subscriptions for real-time processing.
       - name: OAuth 2.0
         description: Client credentials flow for API authentication and token management.
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.upvest.co/llms.txt
 maintainers:
   - FN: Kin Lane
