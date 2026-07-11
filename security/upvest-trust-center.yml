@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://upvest.co/security
+url: https://upvest.co/security
+certifications:
+- ISO 27001
+- ISO 27017
+- PCI DSS
+- GDPR
+- FIPS 140
+evidence:
+- source: https://upvest.co/security
+  keywords:
+  - iso 27001
+  - iso/iec 27001
+  - pci-dss
+  - gdpr

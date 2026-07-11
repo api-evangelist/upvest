@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/upvest-investment-api-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: oauth2ClientCredentials
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /auth/token
+    scopes: 18
+  description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client
+    ID and client secret.
+  sources:
+  - openapi/upvest-investment-api-openapi.yml
