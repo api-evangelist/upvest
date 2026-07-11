@@ -71,6 +71,10 @@ apis:
       orders and executions, instruments and price data, portfolios, savings plans, payments (top-ups, withdrawals,
       direct debits), tax and compliance, webhooks, and reporting.
 common:
+  - type: Authentication
+    url: authentication/upvest-authentication.yml
+  - type: OAuthScopes
+    url: scopes/upvest-scopes.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/upvest
   - type: Website
