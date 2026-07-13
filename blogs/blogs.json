@@ -2,18 +2,21 @@
   "repo": "upvest",
   "feeds": [
     {
-      "source": "https://upvest.co/blog",
-      "feed_url": "",
+      "source": "https://docs.upvest.co/documentation/guides",
+      "feed_url": "https://docs.upvest.co/documentation/guides",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape"
+      "method": "none"
     },
     {
-      "source": "https://engineering.upvest.co/",
+      "source": "https://upvest.co/blog",
+      "feed_url": "https://upvest.co/blog",
+      "title": "",
       "saved": 0,
-      "error": "DNS not found (ENOTFOUND)"
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T13:18:42Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0,
   "agent_pulled": "2026-06-27"
 }
