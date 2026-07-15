@@ -71,6 +71,8 @@ apis:
       orders and executions, instruments and price data, portfolios, savings plans, payments (top-ups, withdrawals,
       direct debits), tax and compliance, webhooks, and reporting.
 common:
+  - type: AgenticAccess
+    url: agentic-access/upvest-agentic-access.yml
   - type: TrustCenter
     url: security/upvest-trust-center.yml
   - type: DomainSecurity
