@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment Account Transfers Instrument Prices API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  version: 1.0.0
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+servers:
+- url: https://api.upvest.co
+  description: Production Server
+- url: https://sandbox.upvest.co
+  description: Sandbox Server
+security:
+- oauth2ClientCredentials: []
+tags:
+- name: Instrument Prices
+  description: Retrieve real-time and historical price data for instruments.
+paths:
+  /instruments/{instrument_id}/prices:
+    get:
+      operationId: listInstrumentPrices
+      summary: Upvest List instrument prices
+      description: Retrieve price data for a specific instrument. Prices are linked to exchanges so you can track where prices are available.
+      tags:
+      - Instrument Prices
+      parameters:
+      - $ref: '#/components/parameters/InstrumentId'
+      responses:
+        '200':
+          description: Instrument price data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InstrumentPrice'
+              examples:
+                listInstrumentPrices200Example:
+                  summary: Default listInstrumentPrices 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - instrument_id: {}
+                      exchange_id: {}
+                      price: {}
+                      currency: {}
+                      timestamp: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listInstrumentPrices401Example:
+                  summary: Default listInstrumentPrices 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '404':
+          description: Instrument not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listInstrumentPrices404Example:
+                  summary: Default listInstrumentPrices 404 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    InstrumentId:
+      name: instrument_id
+      in: path
+      required: true
+      description: The unique identifier of the instrument.
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    InstrumentPrice:
+      type: object
+      description: Price data for an instrument on a specific exchange.
+      properties:
+        instrument_id:
+          type: string
+          format: uuid
+          description: The instrument identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        exchange_id:
+          type: string
+          description: The exchange identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        price:
+          type: string
+          description: The current price as a decimal string.
+          example: example-value
+        currency:
+          type: string
+          description: The price currency as an ISO 4217 code.
+          pattern: ^[A-Z]{3}$
+          example: EUR
+        timestamp:
+          type: string
+          format: date-time
+          description: When this price was recorded.
+          example: '2025-03-15T14:30:00Z'
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/

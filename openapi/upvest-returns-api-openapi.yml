@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment Account Transfers Returns API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  version: 1.0.0
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+servers:
+- url: https://api.upvest.co
+  description: Production Server
+- url: https://sandbox.upvest.co
+  description: Sandbox Server
+security:
+- oauth2ClientCredentials: []
+tags:
+- name: Returns
+  description: Calculate account-level investment returns.
+paths:
+  /accounts/{account_id}/returns:
+    get:
+      operationId: listAccountReturns
+      summary: Upvest List account returns
+      description: Retrieve investment return calculations for an account.
+      tags:
+      - Returns
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Account returns data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AccountReturn'
+              examples:
+                listAccountReturns200Example:
+                  summary: Default listAccountReturns 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - account_id: {}
+                      total_return: {}
+                      total_return_percentage: {}
+                      period_start: {}
+                      period_end: {}
+                      currency: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listAccountReturns401Example:
+                  summary: Default listAccountReturns 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    AccountReturn:
+      type: object
+      description: Investment return calculation for an account.
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: The account identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        total_return:
+          type: string
+          description: The total return as a decimal string.
+          example: example-value
+        total_return_percentage:
+          type: string
+          description: The total return as a percentage string.
+          example: example-value
+        period_start:
+          type: string
+          format: date
+          description: The start of the return period.
+          example: '2025-03-15'
+        period_end:
+          type: string
+          format: date
+          description: The end of the return period.
+          example: '2025-03-15'
+        currency:
+          type: string
+          description: The return currency.
+          pattern: ^[A-Z]{3}$
+          example: EUR
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/

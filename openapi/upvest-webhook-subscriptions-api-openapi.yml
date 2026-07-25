@@ -1,0 +1,475 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment Account Transfers Webhook Subscriptions API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  version: 1.0.0
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+servers:
+- url: https://api.upvest.co
+  description: Production Server
+- url: https://sandbox.upvest.co
+  description: Sandbox Server
+security:
+- oauth2ClientCredentials: []
+tags:
+- name: Webhook Subscriptions
+  description: Register, update, and manage webhook subscriptions for event notifications.
+paths:
+  /webhooks:
+    get:
+      operationId: listWebhookSubscriptions
+      summary: Upvest List webhook subscriptions
+      description: Retrieve all registered webhook subscriptions.
+      tags:
+      - Webhook Subscriptions
+      responses:
+        '200':
+          description: List of webhook subscriptions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookSubscription'
+              examples:
+                listWebhookSubscriptions200Example:
+                  summary: Default listWebhookSubscriptions 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: {}
+                      url: {}
+                      event_categories: {}
+                      status: {}
+                      created_at: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listWebhookSubscriptions401Example:
+                  summary: Default listWebhookSubscriptions 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createWebhookSubscription
+      summary: Upvest Create a webhook subscription
+      description: Register a new webhook endpoint to receive event notifications. The URL must use HTTPS and support TLS 1.2 or higher.
+      tags:
+      - Webhook Subscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionCreate'
+            examples:
+              createWebhookSubscriptionRequestExample:
+                summary: Default createWebhookSubscription request
+                x-microcks-default: true
+                value:
+                  url: https://example.com
+                  event_categories:
+                  - example-value
+      responses:
+        '201':
+          description: Webhook subscription created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+              examples:
+                createWebhookSubscription201Example:
+                  summary: Default createWebhookSubscription 201 response
+                  x-microcks-default: true
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    url: https://example.com
+                    event_categories:
+                    - ALL
+                    status: ACTIVE
+                    created_at: '2025-03-15T14:30:00Z'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                createWebhookSubscription400Example:
+                  summary: Default createWebhookSubscription 400 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                createWebhookSubscription401Example:
+                  summary: Default createWebhookSubscription 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /webhooks/{webhook_id}:
+    get:
+      operationId: retrieveWebhookSubscription
+      summary: Upvest Retrieve a webhook subscription
+      description: Retrieve details for a specific webhook subscription.
+      tags:
+      - Webhook Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '200':
+          description: Webhook subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+              examples:
+                retrieveWebhookSubscription200Example:
+                  summary: Default retrieveWebhookSubscription 200 response
+                  x-microcks-default: true
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    url: https://example.com
+                    event_categories:
+                    - ALL
+                    status: ACTIVE
+                    created_at: '2025-03-15T14:30:00Z'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                retrieveWebhookSubscription401Example:
+                  summary: Default retrieveWebhookSubscription 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '404':
+          description: Webhook subscription not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                retrieveWebhookSubscription404Example:
+                  summary: Default retrieveWebhookSubscription 404 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateWebhookSubscription
+      summary: Upvest Update a webhook subscription
+      description: Update the configuration of an existing webhook subscription.
+      tags:
+      - Webhook Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/WebhookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionUpdate'
+            examples:
+              updateWebhookSubscriptionRequestExample:
+                summary: Default updateWebhookSubscription request
+                x-microcks-default: true
+                value:
+                  url: https://example.com
+                  event_categories:
+                  - example-value
+                  status: ACTIVE
+      responses:
+        '200':
+          description: Webhook subscription updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+              examples:
+                updateWebhookSubscription200Example:
+                  summary: Default updateWebhookSubscription 200 response
+                  x-microcks-default: true
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    url: https://example.com
+                    event_categories:
+                    - ALL
+                    status: ACTIVE
+                    created_at: '2025-03-15T14:30:00Z'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                updateWebhookSubscription400Example:
+                  summary: Default updateWebhookSubscription 400 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                updateWebhookSubscription401Example:
+                  summary: Default updateWebhookSubscription 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteWebhookSubscription
+      summary: Upvest Delete a webhook subscription
+      description: Remove a webhook subscription. Events will no longer be delivered to this endpoint.
+      tags:
+      - Webhook Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '204':
+          description: Webhook subscription deleted
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                deleteWebhookSubscription401Example:
+                  summary: Default deleteWebhookSubscription 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '404':
+          description: Webhook subscription not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                deleteWebhookSubscription404Example:
+                  summary: Default deleteWebhookSubscription 404 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    WebhookSubscriptionUpdate:
+      type: object
+      description: Request body for updating a webhook subscription.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The updated endpoint URL.
+          example: https://example.com
+        event_categories:
+          type: array
+          items:
+            type: string
+          description: The updated event categories.
+          example:
+          - example-value
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          description: Activate or deactivate the subscription.
+          example: ACTIVE
+    WebhookSubscriptionCreate:
+      type: object
+      description: Request body for creating a webhook subscription.
+      required:
+      - url
+      - event_categories
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The HTTPS endpoint URL. Must use TLS 1.2 or higher.
+          example: https://example.com
+        event_categories:
+          type: array
+          items:
+            type: string
+          description: The event categories to subscribe to.
+          example:
+          - example-value
+    WebhookSubscription:
+      type: object
+      description: A webhook subscription for receiving event notifications.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The webhook subscription identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        url:
+          type: string
+          format: uri
+          description: The HTTPS endpoint URL to deliver events to.
+          example: https://example.com
+        event_categories:
+          type: array
+          items:
+            type: string
+            enum:
+            - ALL
+            - USER
+            - USER_CHECK
+            - ORDER
+            - ORDER_CANCELLATION
+            - EXECUTION
+            - POSITION
+            - CASH_BALANCE
+            - ACCOUNT
+            - ACCOUNT_GROUP
+            - PORTFOLIO
+            - SAVINGS_PLAN
+            - DIRECT_DEBIT
+            - WITHDRAWAL
+            - MANDATE
+            - SECURITIES_TRANSFER
+            - ACCOUNT_TRANSFER
+            - CORPORATE_ACTION
+            - LIQUIDATION
+            - REPORT
+            - FEE
+            - REBALANCING
+          description: The event categories to subscribe to.
+          example:
+          - ALL
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - INACTIVE
+          description: The subscription status.
+          example: ACTIVE
+        created_at:
+          type: string
+          format: date-time
+          description: When the subscription was created.
+          example: '2025-03-15T14:30:00Z'
+  parameters:
+    WebhookId:
+      name: webhook_id
+      in: path
+      required: true
+      description: The unique identifier of the webhook subscription.
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/

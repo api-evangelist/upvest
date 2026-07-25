@@ -1,0 +1,298 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment Account Transfers Withdrawals API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  version: 1.0.0
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+servers:
+- url: https://api.upvest.co
+  description: Production Server
+- url: https://sandbox.upvest.co
+  description: Sandbox Server
+security:
+- oauth2ClientCredentials: []
+tags:
+- name: Withdrawals
+  description: Process cash withdrawals from investment accounts.
+paths:
+  /withdrawals:
+    post:
+      operationId: createWithdrawal
+      summary: Upvest Create a withdrawal
+      description: Process a cash withdrawal from an investment account to a linked reference account.
+      tags:
+      - Withdrawals
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawalCreate'
+            examples:
+              createWithdrawalRequestExample:
+                summary: Default createWithdrawal request
+                x-microcks-default: true
+                value:
+                  account_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                  cash_amount: example-value
+                  currency: EUR
+      responses:
+        '201':
+          description: Withdrawal created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Withdrawal'
+              examples:
+                createWithdrawal201Example:
+                  summary: Default createWithdrawal 201 response
+                  x-microcks-default: true
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    account_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    cash_amount: example-value
+                    currency: EUR
+                    status: NEW
+                    created_at: '2025-03-15T14:30:00Z'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                createWithdrawal400Example:
+                  summary: Default createWithdrawal 400 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                createWithdrawal401Example:
+                  summary: Default createWithdrawal 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: listWithdrawals
+      summary: Upvest List withdrawals
+      description: Retrieve a list of cash withdrawals.
+      tags:
+      - Withdrawals
+      parameters:
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of withdrawals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Withdrawal'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+              examples:
+                listWithdrawals200Example:
+                  summary: Default listWithdrawals 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: {}
+                      account_id: {}
+                      cash_amount: {}
+                      currency: {}
+                      status: {}
+                      created_at: {}
+                    meta:
+                      offset: 0
+                      limit: 20
+                      count: 100
+                      total: 100
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listWithdrawals401Example:
+                  summary: Default listWithdrawals 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    WithdrawalCreate:
+      type: object
+      description: Request body for creating a withdrawal.
+      required:
+      - account_id
+      - cash_amount
+      - currency
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: The account to withdraw from.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        cash_amount:
+          type: string
+          description: The withdrawal amount.
+          example: example-value
+        currency:
+          type: string
+          description: The currency as an ISO 4217 code.
+          pattern: ^[A-Z]{3}$
+          example: EUR
+    Withdrawal:
+      type: object
+      description: A cash withdrawal from an investment account.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The withdrawal identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        account_id:
+          type: string
+          format: uuid
+          description: The account to withdraw from.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        cash_amount:
+          type: string
+          description: The withdrawal amount.
+          example: example-value
+        currency:
+          type: string
+          description: The currency of the withdrawal.
+          pattern: ^[A-Z]{3}$
+          example: EUR
+        status:
+          type: string
+          enum:
+          - NEW
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          description: The withdrawal status.
+          example: NEW
+        created_at:
+          type: string
+          format: date-time
+          description: When the withdrawal was created.
+          example: '2025-03-15T14:30:00Z'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/

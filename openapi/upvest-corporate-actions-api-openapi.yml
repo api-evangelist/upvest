@@ -1,0 +1,214 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment Account Transfers Corporate Actions API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  version: 1.0.0
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+servers:
+- url: https://api.upvest.co
+  description: Production Server
+- url: https://sandbox.upvest.co
+  description: Sandbox Server
+security:
+- oauth2ClientCredentials: []
+tags:
+- name: Corporate Actions
+  description: View and manage corporate action events on held securities.
+paths:
+  /corporate_actions:
+    get:
+      operationId: listCorporateActions
+      summary: Upvest List corporate actions
+      description: Retrieve corporate action events affecting held securities such as dividends, splits, and mergers.
+      tags:
+      - Corporate Actions
+      parameters:
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: List of corporate actions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CorporateAction'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+              examples:
+                listCorporateActions200Example:
+                  summary: Default listCorporateActions 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: {}
+                      instrument_id: {}
+                      type: {}
+                      status: {}
+                      record_date: {}
+                      ex_date: {}
+                      created_at: {}
+                    meta:
+                      offset: 0
+                      limit: 20
+                      count: 100
+                      total: 100
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listCorporateActions401Example:
+                  summary: Default listCorporateActions 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
+    CorporateAction:
+      type: object
+      description: A corporate action event such as a dividend, split, or merger.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The corporate action identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        instrument_id:
+          type: string
+          format: uuid
+          description: The instrument affected.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        type:
+          type: string
+          enum:
+          - DIVIDEND
+          - SPLIT
+          - MERGER
+          - RIGHTS_ISSUE
+          description: The type of corporate action.
+          example: DIVIDEND
+        status:
+          type: string
+          enum:
+          - ANNOUNCED
+          - PROCESSED
+          description: The corporate action status.
+          example: ANNOUNCED
+        record_date:
+          type: string
+          format: date
+          description: The record date for the corporate action.
+          example: '2025-03-15'
+        ex_date:
+          type: string
+          format: date
+          description: The ex-date for the corporate action.
+          example: '2025-03-15'
+        created_at:
+          type: string
+          format: date-time
+          description: When the event was recorded.
+          example: '2025-03-15T14:30:00Z'
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/

@@ -1,0 +1,587 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment Account Transfers Users API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  version: 1.0.0
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+servers:
+- url: https://api.upvest.co
+  description: Production Server
+- url: https://sandbox.upvest.co
+  description: Sandbox Server
+security:
+- oauth2ClientCredentials: []
+tags:
+- name: Users
+  description: Manage end users including onboarding, identity verification, and profile management.
+paths:
+  /users:
+    get:
+      operationId: listUsers
+      summary: Upvest List users
+      description: Retrieve a paginated list of all onboarded users. Supports filtering and pagination parameters.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+              examples:
+                listUsers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: {}
+                      first_name: {}
+                      last_name: {}
+                      email: {}
+                      date_of_birth: {}
+                      nationality: {}
+                      address: {}
+                      status: {}
+                      created_at: {}
+                      updated_at: {}
+                    meta:
+                      offset: 0
+                      limit: 20
+                      count: 100
+                      total: 100
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listUsers401Example:
+                  summary: Default listUsers 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createUser
+      summary: Upvest Create a user
+      description: Onboard a new user to the investment platform. The user must pass identity verification and compliance checks before trading is enabled.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+            examples:
+              createUserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  first_name: Example Name
+                  last_name: Example Name
+                  email: user@example.com
+                  date_of_birth: '2025-03-15'
+                  nationality: DE
+                  address:
+                    street: {}
+                    additional_line: {}
+                    city: {}
+                    postal_code: {}
+                    state: {}
+                    country: {}
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                createUser201Example:
+                  summary: Default createUser 201 response
+                  x-microcks-default: true
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    first_name: Example Name
+                    last_name: Example Name
+                    email: user@example.com
+                    date_of_birth: '2025-03-15'
+                    nationality: DE
+                    address:
+                      street: {}
+                      additional_line: {}
+                      city: {}
+                      postal_code: {}
+                      state: {}
+                      country: {}
+                    status: PENDING
+                    created_at: '2025-03-15T14:30:00Z'
+                    updated_at: '2025-03-15T14:30:00Z'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                createUser400Example:
+                  summary: Default createUser 400 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                createUser401Example:
+                  summary: Default createUser 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{user_id}:
+    get:
+      operationId: retrieveUser
+      summary: Upvest Retrieve a user
+      description: Retrieve details for a specific user by their unique identifier.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                retrieveUser200Example:
+                  summary: Default retrieveUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    first_name: Example Name
+                    last_name: Example Name
+                    email: user@example.com
+                    date_of_birth: '2025-03-15'
+                    nationality: DE
+                    address:
+                      street: {}
+                      additional_line: {}
+                      city: {}
+                      postal_code: {}
+                      state: {}
+                      country: {}
+                    status: PENDING
+                    created_at: '2025-03-15T14:30:00Z'
+                    updated_at: '2025-03-15T14:30:00Z'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                retrieveUser401Example:
+                  summary: Default retrieveUser 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                retrieveUser404Example:
+                  summary: Default retrieveUser 404 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateUser
+      summary: Upvest Update a user
+      description: Update profile information for an existing user.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+            examples:
+              updateUserRequestExample:
+                summary: Default updateUser request
+                x-microcks-default: true
+                value:
+                  first_name: Example Name
+                  last_name: Example Name
+                  email: user@example.com
+                  address:
+                    street: {}
+                    additional_line: {}
+                    city: {}
+                    postal_code: {}
+                    state: {}
+                    country: {}
+      responses:
+        '200':
+          description: User successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                updateUser200Example:
+                  summary: Default updateUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    first_name: Example Name
+                    last_name: Example Name
+                    email: user@example.com
+                    date_of_birth: '2025-03-15'
+                    nationality: DE
+                    address:
+                      street: {}
+                      additional_line: {}
+                      city: {}
+                      postal_code: {}
+                      state: {}
+                      country: {}
+                    status: PENDING
+                    created_at: '2025-03-15T14:30:00Z'
+                    updated_at: '2025-03-15T14:30:00Z'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                updateUser400Example:
+                  summary: Default updateUser 400 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                updateUser401Example:
+                  summary: Default updateUser 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                updateUser404Example:
+                  summary: Default updateUser 404 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    User:
+      type: object
+      description: An end user on the investment platform.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the user.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        first_name:
+          type: string
+          description: The user's first name.
+          example: Example Name
+        last_name:
+          type: string
+          description: The user's last name.
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: The user's email address.
+          example: user@example.com
+        date_of_birth:
+          type: string
+          format: date
+          description: The user's date of birth.
+          example: '2025-03-15'
+        nationality:
+          type: string
+          description: The user's nationality as an ISO 3166-1 alpha-2 country code.
+          pattern: ^[A-Z]{2}$
+          example: DE
+        address:
+          $ref: '#/components/schemas/Address'
+        status:
+          type: string
+          enum:
+          - PENDING
+          - ACTIVE
+          - BLOCKED
+          - CLOSED
+          description: The current status of the user.
+          example: PENDING
+        created_at:
+          type: string
+          format: date-time
+          description: The date and time when the user was created.
+          example: '2025-03-15T14:30:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: The date and time when the user was last updated.
+          example: '2025-03-15T14:30:00Z'
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    UserUpdate:
+      type: object
+      description: Request body for updating user information.
+      properties:
+        first_name:
+          type: string
+          description: The user's first name.
+          example: Example Name
+        last_name:
+          type: string
+          description: The user's last name.
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: The user's email address.
+          example: user@example.com
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      description: A postal address.
+      required:
+      - street
+      - city
+      - postal_code
+      - country
+      properties:
+        street:
+          type: string
+          description: The street name and number.
+          example: Example Street 1
+        additional_line:
+          type: string
+          description: Additional address line.
+          example: example-value
+        city:
+          type: string
+          description: The city name.
+          example: Berlin
+        postal_code:
+          type: string
+          description: The postal or ZIP code.
+          example: '10115'
+        state:
+          type: string
+          description: The state or province.
+          example: BE
+        country:
+          type: string
+          description: The country as an ISO 3166-1 alpha-2 code.
+          pattern: ^[A-Z]{2}$
+          example: DE
+    UserCreate:
+      type: object
+      description: Request body for creating a new user.
+      required:
+      - first_name
+      - last_name
+      - email
+      - date_of_birth
+      - nationality
+      - address
+      properties:
+        first_name:
+          type: string
+          description: The user's first name.
+          example: Example Name
+        last_name:
+          type: string
+          description: The user's last name.
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: The user's email address.
+          example: user@example.com
+        date_of_birth:
+          type: string
+          format: date
+          description: The user's date of birth.
+          example: '2025-03-15'
+        nationality:
+          type: string
+          description: The user's nationality as an ISO 3166-1 alpha-2 country code.
+          pattern: ^[A-Z]{2}$
+          example: DE
+        address:
+          $ref: '#/components/schemas/Address'
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: string
+        format: uuid
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/

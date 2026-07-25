@@ -1,0 +1,276 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment Account Transfers Securities Transfers API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  version: 1.0.0
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+servers:
+- url: https://api.upvest.co
+  description: Production Server
+- url: https://sandbox.upvest.co
+  description: Sandbox Server
+security:
+- oauth2ClientCredentials: []
+tags:
+- name: Securities Transfers
+  description: Transfer securities between accounts or providers.
+paths:
+  /securities_transfers:
+    post:
+      operationId: createSecuritiesTransfer
+      summary: Upvest Create a securities transfer
+      description: Initiate a transfer of securities between accounts or providers.
+      tags:
+      - Securities Transfers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecuritiesTransferCreate'
+            examples:
+              createSecuritiesTransferRequestExample:
+                summary: Default createSecuritiesTransfer request
+                x-microcks-default: true
+                value:
+                  direction: INBOUND
+      responses:
+        '201':
+          description: Securities transfer initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuritiesTransfer'
+              examples:
+                createSecuritiesTransfer201Example:
+                  summary: Default createSecuritiesTransfer 201 response
+                  x-microcks-default: true
+                  value:
+                    id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    status: NEW
+                    direction: INBOUND
+                    created_at: '2025-03-15T14:30:00Z'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                createSecuritiesTransfer400Example:
+                  summary: Default createSecuritiesTransfer 400 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                createSecuritiesTransfer401Example:
+                  summary: Default createSecuritiesTransfer 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: listSecuritiesTransfers
+      summary: Upvest List securities transfers
+      description: Retrieve a list of securities transfer operations.
+      tags:
+      - Securities Transfers
+      parameters:
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: List of securities transfers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SecuritiesTransfer'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+              examples:
+                listSecuritiesTransfers200Example:
+                  summary: Default listSecuritiesTransfers 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: {}
+                      status: {}
+                      direction: {}
+                      created_at: {}
+                    meta:
+                      offset: 0
+                      limit: 20
+                      count: 100
+                      total: 100
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listSecuritiesTransfers401Example:
+                  summary: Default listSecuritiesTransfers 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SecuritiesTransfer:
+      type: object
+      description: A securities transfer between accounts or providers.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The transfer identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        status:
+          type: string
+          enum:
+          - NEW
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          description: The transfer status.
+          example: NEW
+        direction:
+          type: string
+          enum:
+          - INBOUND
+          - OUTBOUND
+          description: Whether securities are coming in or going out.
+          example: INBOUND
+        created_at:
+          type: string
+          format: date-time
+          description: When the transfer was initiated.
+          example: '2025-03-15T14:30:00Z'
+    SecuritiesTransferCreate:
+      type: object
+      description: Request body for creating a securities transfer.
+      required:
+      - direction
+      properties:
+        direction:
+          type: string
+          enum:
+          - INBOUND
+          - OUTBOUND
+          description: The transfer direction.
+          example: INBOUND
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/

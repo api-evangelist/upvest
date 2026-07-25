@@ -1,0 +1,238 @@
+openapi: 3.1.0
+info:
+  title: Upvest Investment Account Transfers Portfolio Allocations API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  version: 1.0.0
+  contact:
+    name: Upvest Support
+    url: https://upvest.co/
+  termsOfService: https://upvest.co/legal
+servers:
+- url: https://api.upvest.co
+  description: Production Server
+- url: https://sandbox.upvest.co
+  description: Sandbox Server
+security:
+- oauth2ClientCredentials: []
+tags:
+- name: Portfolio Allocations
+  description: Define and update target allocations within portfolios.
+paths:
+  /portfolios/{portfolio_id}/allocations:
+    get:
+      operationId: listPortfolioAllocations
+      summary: Upvest List portfolio allocations
+      description: Retrieve target allocations for a specific portfolio.
+      tags:
+      - Portfolio Allocations
+      parameters:
+      - $ref: '#/components/parameters/PortfolioId'
+      responses:
+        '200':
+          description: List of portfolio allocations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PortfolioAllocation'
+              examples:
+                listPortfolioAllocations200Example:
+                  summary: Default listPortfolioAllocations 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - instrument_id: {}
+                      weight: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                listPortfolioAllocations401Example:
+                  summary: Default listPortfolioAllocations 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updatePortfolioAllocations
+      summary: Upvest Update portfolio allocations
+      description: Replace the target allocation set for a portfolio.
+      tags:
+      - Portfolio Allocations
+      parameters:
+      - $ref: '#/components/parameters/PortfolioId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - allocations
+              properties:
+                allocations:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PortfolioAllocationCreate'
+            examples:
+              updatePortfolioAllocationsRequestExample:
+                summary: Default updatePortfolioAllocations request
+                x-microcks-default: true
+                value:
+                  allocations:
+                  - instrument_id: {}
+                    weight: {}
+      responses:
+        '200':
+          description: Allocations updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PortfolioAllocation'
+              examples:
+                updatePortfolioAllocations200Example:
+                  summary: Default updatePortfolioAllocations 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - instrument_id: {}
+                      weight: {}
+        '400':
+          description: Invalid allocations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                updatePortfolioAllocations400Example:
+                  summary: Default updatePortfolioAllocations 400 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                updatePortfolioAllocations401Example:
+                  summary: Default updatePortfolioAllocations 401 response
+                  x-microcks-default: true
+                  value:
+                    type: standard
+                    status: 100
+                    title: example-value
+                    detail: example-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    PortfolioId:
+      name: portfolio_id
+      in: path
+      required: true
+      description: The unique identifier of the portfolio.
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    PortfolioAllocation:
+      type: object
+      description: A target allocation within a portfolio.
+      properties:
+        instrument_id:
+          type: string
+          format: uuid
+          description: The instrument identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        weight:
+          type: string
+          description: The target weight as a decimal string between 0 and 1.
+          example: example-value
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    PortfolioAllocationCreate:
+      type: object
+      description: Request body for defining a portfolio allocation.
+      required:
+      - instrument_id
+      - weight
+      properties:
+        instrument_id:
+          type: string
+          format: uuid
+          description: The instrument to allocate to.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        weight:
+          type: string
+          description: The target weight as a decimal string between 0 and 1.
+          example: example-value
+  securitySchemes:
+    oauth2ClientCredentials:
+      type: oauth2
+      description: OAuth 2.0 client credentials flow. Obtain an access token by providing your client ID and client secret.
+      flows:
+        clientCredentials:
+          tokenUrl: /auth/token
+          scopes:
+            users:read: Read user data
+            users:admin: Onboard and manage users
+            accounts:read: Read account data
+            accounts:admin: Create and manage accounts
+            orders:read: Read order data
+            orders:admin: Place and manage orders
+            instruments:read: Read instrument data
+            portfolios:read: Read portfolio data
+            portfolios:admin: Create and manage portfolios
+            positions:read: Read position data
+            payments:read: Read payment data
+            payments:admin: Manage payments and direct debits
+            reports:read: Read reports
+            webhooks:read: Read webhook subscriptions
+            webhooks:admin: Manage webhook subscriptions
+            transactions:read: Read transaction data
+            fees:read: Read fee data
+            fees:admin: Configure fees
+externalDocs:
+  description: Upvest API Documentation
+  url: https://docs.upvest.co/
