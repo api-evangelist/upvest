@@ -2,7 +2,20 @@ aid: upvest
 url: https://raw.githubusercontent.com/api-evangelist/upvest/refs/heads/main/apis.yml
 name: Upvest
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/upvest.png
 tags:
   - Banking Infrastructure
   - Fintech
@@ -21,56 +34,1199 @@ created: '2026-03-24'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: upvest:investment-api
-    name: Upvest Investment API
-    tags:
-      - Custody
-      - Investments
-      - Orders
-      - Portfolios
-      - Securities
-      - Trading
-      - Fractional Investing
-      - Savings Plans
-      - Payments
-      - Webhooks
-    humanURL: https://docs.upvest.co/
-    baseURL: https://api.upvest.co
-    properties:
-      - url: https://docs.upvest.co/api
-        type: Documentation
-      - type: OpenAPI
-        url: openapi/upvest-investment-api-openapi.yml
-      - type: AsyncAPI
-        url: asyncapi/upvest-investment-events-asyncapi.yml
-      - type: JSONSchema
-        url: json-schema/upvest-webhook-event-schema.json
-      - type: JSONSchema
-        url: json-schema/upvest-order-schema.json
-      - type: JSONSchema
-        url: json-schema/investment-api-user-schema.json
-      - type: JSONSchema
-        url: json-schema/investment-api-account-schema.json
-      - type: JSONSchema
-        url: json-schema/investment-api-order-schema.json
-      - type: JSONSchema
-        url: json-schema/investment-api-portfolio-schema.json
-      - type: JSONSchema
-        url: json-schema/investment-api-savings-plan-schema.json
-      - type: JSONSchema
-        url: json-schema/investment-api-instrument-schema.json
-      - type: JSONSchema
-        url: json-schema/investment-api-transaction-schema.json
-      - type: JSONSchema
-        url: json-schema/investment-api-position-schema.json
-    description: >-
-      The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports
-      placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and
-      managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and
-      webhook notifications for real-time event handling. Key resource groups include users and businesses, accounts,
-      orders and executions, instruments and price data, portfolios, savings plans, payments (top-ups, withdrawals,
-      direct debits), tax and compliance, webhooks, and reporting.
+- aid: upvest:upvest-account-transfers-api
+  name: Upvest Account Transfers API
+  description: Transfer accounts between entities.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Account Transfers
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-account-transfers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-accounts-api
+  name: Upvest Accounts API
+  description: Investment accounts that hold positions and track balances for users.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-authentication-api
+  name: Upvest Authentication API
+  description: OAuth 2.0 token management for API access using client credentials flow.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-cash-balances-api
+  name: Upvest Cash Balances API
+  description: View cash balance information for accounts.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Cash Balances
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-cash-balances-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-corporate-actions-api
+  name: Upvest Corporate Actions API
+  description: View and manage corporate action events on held securities.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Corporate Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-corporate-actions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-direct-debits-api
+  name: Upvest Direct Debits API
+  description: Manage direct debit funding operations.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Direct Debits
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-executions-api
+  name: Upvest Executions API
+  description: Track order execution details and fills.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Executions
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-executions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-fee-configurations-api
+  name: Upvest Fee Configurations API
+  description: Configure fee structures and schedules.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Fee Configurations
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-fee-configurations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-fees-api
+  name: Upvest Fees API
+  description: Track and manage fee charges on accounts.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Fees
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-fees-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-files-api
+  name: Upvest Files API
+  description: Access and download generated files such as reports and statements.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-files-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-instrument-prices-api
+  name: Upvest Instrument Prices API
+  description: Retrieve real-time and historical price data for instruments.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Instrument Prices
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-instrument-prices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-instruments-api
+  name: Upvest Instruments API
+  description: Query available financial instruments and their metadata.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Instruments
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-instruments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-liquidations-api
+  name: Upvest Liquidations API
+  description: Manage full or partial account liquidations.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Liquidations
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-liquidations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-mandates-api
+  name: Upvest Mandates API
+  description: Manage direct debit mandates for accounts.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Mandates
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-mandates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-order-cancellations-api
+  name: Upvest Order Cancellations API
+  description: Cancel pending orders before execution.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Order Cancellations
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-order-cancellations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-orders-api
+  name: Upvest Orders API
+  description: Place, manage, and track buy and sell orders for instruments.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-portfolio-allocations-api
+  name: Upvest Portfolio Allocations API
+  description: Define and update target allocations within portfolios.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Portfolio Allocations
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-portfolio-allocations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-portfolio-orders-api
+  name: Upvest Portfolio Orders API
+  description: Place orders against portfolio allocations.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Portfolio Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-portfolio-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-portfolios-api
+  name: Upvest Portfolios API
+  description: Create and manage portfolios with custom asset allocations.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Portfolios
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-portfolios-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-portfolios-rebalancing-api
+  name: Upvest Portfolios Rebalancing API
+  description: Trigger and track portfolio rebalancing operations.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Portfolios Rebalancing
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-portfolios-rebalancing-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-positions-api
+  name: Upvest Positions API
+  description: View current holdings and position details for accounts.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Positions
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-positions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-reference-accounts-api
+  name: Upvest Reference Accounts API
+  description: Manage reference bank accounts linked to investment accounts.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Reference Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-reference-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-reports-api
+  name: Upvest Reports API
+  description: Generate and retrieve user-facing investment reports and statements.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-returns-api
+  name: Upvest Returns API
+  description: Calculate account-level investment returns.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Returns
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-returns-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-savings-plans-api
+  name: Upvest Savings Plans API
+  description: Configure automated recurring investments into portfolios or instruments.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Savings Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-savings-plans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-securities-transfers-api
+  name: Upvest Securities Transfers API
+  description: Transfer securities between accounts or providers.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Securities Transfers
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-securities-transfers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-tax-residencies-api
+  name: Upvest Tax Residencies API
+  description: Manage tax residency information for users.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Tax Residencies
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-tax-residencies-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-transactions-api
+  name: Upvest Transactions API
+  description: View transaction history for accounts.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-treasury-reports-api
+  name: Upvest Treasury Reports API
+  description: Access treasury-level reporting for institutional oversight.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Treasury Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-treasury-reports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-user-checks-api
+  name: Upvest User Checks API
+  description: Compliance and verification checks on users.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - User Checks
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-user-checks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-user-identifiers-api
+  name: Upvest User Identifiers API
+  description: Manage external identifiers associated with users.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - User Identifiers
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-user-identifiers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-users-api
+  name: Upvest Users API
+  description: Manage end users including onboarding, identity verification, and profile management.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-valuations-api
+  name: Upvest Valuations API
+  description: Retrieve account and position valuations.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Valuations
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-valuations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-webhook-subscriptions-api
+  name: Upvest Webhook Subscriptions API
+  description: Register, update, and manage webhook subscriptions for event notifications.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Webhook Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-webhook-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
+- aid: upvest:upvest-withdrawals-api
+  name: Upvest Withdrawals API
+  description: Process cash withdrawals from investment accounts.
+  humanURL: https://docs.upvest.co/
+  baseURL: https://api.upvest.co
+  tags:
+  - Withdrawals
+  properties:
+  - type: OpenAPI
+    url: openapi/upvest-withdrawals-api-openapi.yml
+  - type: Documentation
+    url: https://docs.upvest.co/api
+  - type: AsyncAPI
+    url: asyncapi/upvest-investment-events-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/upvest-webhook-event-schema.json
+  - type: JSONSchema
+    url: json-schema/upvest-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-account-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-portfolio-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-savings-plan-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-instrument-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/investment-api-position-schema.json
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/upvest/overview
   - type: AgenticAccess
     url: agentic-access/upvest-agentic-access.yml
   - type: TrustCenter
