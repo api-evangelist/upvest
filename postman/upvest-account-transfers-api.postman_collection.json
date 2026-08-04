@@ -1,0 +1,413 @@
+{
+  "info": {
+    "_postman_id": "152b68cb-8931-4fb2-92fc-9855eca55c19",
+    "name": "Upvest Investment Account Transfers API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:00.000Z",
+    "updatedAt": "2026-07-28T03:24:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-152b68cb-8931-4fb2-92fc-9855eca55c19"
+  },
+  "item": [
+    {
+      "name": "account_transfers",
+      "item": [
+        {
+          "name": "Upvest Create an account transfer",
+          "id": "162d818d-0e64-4339-a70c-85776c1abc42",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_account_id\": \"<uuid>\",\n  \"target_account_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/account_transfers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account_transfers"
+              ]
+            },
+            "description": "Transfer an account between entities."
+          },
+          "response": [
+            {
+              "id": "c8d5dcd8-a136-4071-b57a-0c0b9267846c",
+              "name": "Account transfer initiated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_account_id\": \"<uuid>\",\n  \"target_account_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/account_transfers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account_transfers"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"status\": \"NEW\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:24:00.000Z",
+              "updatedAt": "2026-07-28T03:24:00.000Z",
+              "uid": "35240-c8d5dcd8-a136-4071-b57a-0c0b9267846c"
+            },
+            {
+              "id": "66af4f95-5992-4317-bf80-12d22ef49e39",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_account_id\": \"<uuid>\",\n  \"target_account_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/account_transfers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account_transfers"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:00.000Z",
+              "updatedAt": "2026-07-28T03:24:00.000Z",
+              "uid": "35240-66af4f95-5992-4317-bf80-12d22ef49e39"
+            },
+            {
+              "id": "77f80e0f-2348-4864-aebc-7256a7bb33b1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_account_id\": \"<uuid>\",\n  \"target_account_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/account_transfers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account_transfers"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:00.000Z",
+              "updatedAt": "2026-07-28T03:24:00.000Z",
+              "uid": "35240-77f80e0f-2348-4864-aebc-7256a7bb33b1"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:00.000Z",
+          "updatedAt": "2026-07-28T03:24:00.000Z",
+          "uid": "35240-162d818d-0e64-4339-a70c-85776c1abc42"
+        },
+        {
+          "name": "Upvest List account transfers",
+          "id": "4b81a508-1f57-43f7-a117-f0cfe40342e3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/account_transfers?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account_transfers"
+              ],
+              "query": [
+                {
+                  "description": "The number of items to skip for pagination.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "The maximum number of items to return per page.",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieve a list of account transfer operations."
+          },
+          "response": [
+            {
+              "id": "7b376a8d-be8f-404d-937e-77c0fe7a8f60",
+              "name": "List of account transfers",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/account_transfers?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account_transfers"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"status\": \"FAILED\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"status\": \"FAILED\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:24:00.000Z",
+              "updatedAt": "2026-07-28T03:24:00.000Z",
+              "uid": "35240-7b376a8d-be8f-404d-937e-77c0fe7a8f60"
+            },
+            {
+              "id": "67d8814b-8a3a-46ca-9fef-0a6a01f2ab36",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/account_transfers?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account_transfers"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:00.000Z",
+              "updatedAt": "2026-07-28T03:24:00.000Z",
+              "uid": "35240-67d8814b-8a3a-46ca-9fef-0a6a01f2ab36"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:00.000Z",
+          "updatedAt": "2026-07-28T03:24:00.000Z",
+          "uid": "35240-4b81a508-1f57-43f7-a117-f0cfe40342e3"
+        }
+      ],
+      "id": "d020d099-d15e-4399-9446-091cbd3e91ee",
+      "createdAt": "2026-07-28T03:24:00.000Z",
+      "updatedAt": "2026-07-28T03:24:00.000Z",
+      "uid": "35240-d020d099-d15e-4399-9446-091cbd3e91ee"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

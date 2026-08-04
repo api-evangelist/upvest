@@ -1,0 +1,393 @@
+{
+  "info": {
+    "_postman_id": "47da31e8-5b2c-4f44-a523-9a018617b589",
+    "name": "Upvest Investment Account Transfers Mandates API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:14.000Z",
+    "updatedAt": "2026-07-28T03:24:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-47da31e8-5b2c-4f44-a523-9a018617b589"
+  },
+  "item": [
+    {
+      "name": "mandates",
+      "item": [
+        {
+          "name": "{mandate_id}",
+          "item": [
+            {
+              "name": "Upvest Retrieve a mandate",
+              "id": "f15c01d2-268e-4262-a7b5-c70d97400cfe",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mandates/:mandate_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mandates",
+                    ":mandate_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e37574d1-729f-4394-b86d-dcbf9822d4db",
+                      "key": "mandate_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the mandate."
+                    }
+                  ]
+                },
+                "description": "Retrieve details for a specific direct debit mandate."
+              },
+              "response": [
+                {
+                  "id": "4efe2e7e-c7d6-4592-82d4-40bb67583d7f",
+                  "name": "Mandate details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mandates/:mandate_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mandates",
+                        ":mandate_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mandate_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"account_group_id\": \"<uuid>\",\n  \"iban\": \"<string>\",\n  \"status\": \"ACTIVE\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:24:15.000Z",
+                  "updatedAt": "2026-07-28T03:24:15.000Z",
+                  "uid": "35240-4efe2e7e-c7d6-4592-82d4-40bb67583d7f"
+                },
+                {
+                  "id": "bc72208e-d83f-4f9e-b3b1-89bc28455256",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mandates/:mandate_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mandates",
+                        ":mandate_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mandate_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:15.000Z",
+                  "updatedAt": "2026-07-28T03:24:15.000Z",
+                  "uid": "35240-bc72208e-d83f-4f9e-b3b1-89bc28455256"
+                },
+                {
+                  "id": "78b52166-a003-458a-9043-7c0f03cd9d36",
+                  "name": "Mandate not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mandates/:mandate_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mandates",
+                        ":mandate_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mandate_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:15.000Z",
+                  "updatedAt": "2026-07-28T03:24:15.000Z",
+                  "uid": "35240-78b52166-a003-458a-9043-7c0f03cd9d36"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:15.000Z",
+              "updatedAt": "2026-07-28T03:24:15.000Z",
+              "uid": "35240-f15c01d2-268e-4262-a7b5-c70d97400cfe"
+            }
+          ],
+          "id": "9d5e9281-2f06-428c-8cb9-19e1333992fe",
+          "createdAt": "2026-07-28T03:24:15.000Z",
+          "updatedAt": "2026-07-28T03:24:15.000Z",
+          "uid": "35240-9d5e9281-2f06-428c-8cb9-19e1333992fe"
+        },
+        {
+          "name": "Upvest List mandates",
+          "id": "e674808f-1bfb-43c3-90d0-f3e9f5733839",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mandates?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mandates"
+              ],
+              "query": [
+                {
+                  "description": "The number of items to skip for pagination.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "The maximum number of items to return per page.",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieve a list of direct debit mandates."
+          },
+          "response": [
+            {
+              "id": "2cc4890f-c5e4-4418-bee3-2ac74ae7f408",
+              "name": "A list of mandates",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mandates?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mandates"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_group_id\": \"<uuid>\",\n      \"iban\": \"<string>\",\n      \"status\": \"REVOKED\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_group_id\": \"<uuid>\",\n      \"iban\": \"<string>\",\n      \"status\": \"ACTIVE\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:24:15.000Z",
+              "updatedAt": "2026-07-28T03:24:15.000Z",
+              "uid": "35240-2cc4890f-c5e4-4418-bee3-2ac74ae7f408"
+            },
+            {
+              "id": "e9e2a33c-0c3c-4180-93df-febff4b6c444",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mandates?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mandates"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:15.000Z",
+              "updatedAt": "2026-07-28T03:24:15.000Z",
+              "uid": "35240-e9e2a33c-0c3c-4180-93df-febff4b6c444"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:15.000Z",
+          "updatedAt": "2026-07-28T03:24:15.000Z",
+          "uid": "35240-e674808f-1bfb-43c3-90d0-f3e9f5733839"
+        }
+      ],
+      "id": "dde63bb1-a3d1-4ce4-8bb3-fc11622beb21",
+      "createdAt": "2026-07-28T03:24:15.000Z",
+      "updatedAt": "2026-07-28T03:24:15.000Z",
+      "uid": "35240-dde63bb1-a3d1-4ce4-8bb3-fc11622beb21"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

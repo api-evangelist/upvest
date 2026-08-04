@@ -1,0 +1,242 @@
+{
+  "info": {
+    "_postman_id": "877454b6-90b3-48e8-8008-ce7df5cd87ee",
+    "name": "Upvest Investment Account Transfers Files API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:10.000Z",
+    "updatedAt": "2026-07-28T03:24:10.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-877454b6-90b3-48e8-8008-ce7df5cd87ee"
+  },
+  "item": [
+    {
+      "name": "files",
+      "item": [
+        {
+          "name": "{file_id}",
+          "item": [
+            {
+              "name": "Upvest Retrieve a file",
+              "id": "bb844505-a821-4152-bf58-da417b9e5857",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files/:file_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    ":file_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "ef19eddc-6316-4780-89a9-2addb05dbfd3",
+                      "key": "file_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the file."
+                    }
+                  ]
+                },
+                "description": "Download a generated file such as a report or statement."
+              },
+              "response": [
+                {
+                  "id": "35366656-9106-4237-abd4-946f49498ea2",
+                  "name": "File content",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/pdf"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:file_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":file_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "file_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/pdf"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<binary>",
+                  "createdAt": "2026-07-28T03:24:11.000Z",
+                  "updatedAt": "2026-07-28T03:24:11.000Z",
+                  "uid": "35240-35366656-9106-4237-abd4-946f49498ea2"
+                },
+                {
+                  "id": "944c3d94-bdce-454c-bc74-fd2472bdf240",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:file_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":file_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "file_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:11.000Z",
+                  "updatedAt": "2026-07-28T03:24:11.000Z",
+                  "uid": "35240-944c3d94-bdce-454c-bc74-fd2472bdf240"
+                },
+                {
+                  "id": "fd352a3c-15e9-4f8d-a22a-d489a902a675",
+                  "name": "File not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:file_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":file_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "file_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:11.000Z",
+                  "updatedAt": "2026-07-28T03:24:11.000Z",
+                  "uid": "35240-fd352a3c-15e9-4f8d-a22a-d489a902a675"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:11.000Z",
+              "updatedAt": "2026-07-28T03:24:11.000Z",
+              "uid": "35240-bb844505-a821-4152-bf58-da417b9e5857"
+            }
+          ],
+          "id": "421f940e-a5a5-46a7-96e6-80e4f1d5af4f",
+          "createdAt": "2026-07-28T03:24:11.000Z",
+          "updatedAt": "2026-07-28T03:24:11.000Z",
+          "uid": "35240-421f940e-a5a5-46a7-96e6-80e4f1d5af4f"
+        }
+      ],
+      "id": "65bc5a14-63dd-412f-b445-c0485fa0d15b",
+      "createdAt": "2026-07-28T03:24:11.000Z",
+      "updatedAt": "2026-07-28T03:24:11.000Z",
+      "uid": "35240-65bc5a14-63dd-412f-b445-c0485fa0d15b"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

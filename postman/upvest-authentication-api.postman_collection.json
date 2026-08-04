@@ -1,0 +1,263 @@
+{
+  "info": {
+    "_postman_id": "7307fbec-8c75-4dca-8dd5-8dbe0c70ab75",
+    "name": "Upvest Investment Account Transfers Authentication API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:04.000Z",
+    "updatedAt": "2026-07-28T03:24:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7307fbec-8c75-4dca-8dd5-8dbe0c70ab75"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "token",
+          "item": [
+            {
+              "name": "Upvest Create an access token",
+              "id": "f067a01f-6023-4ff4-a418-f2dbb7a1d773",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The OAuth 2.0 grant type. Must be client_credentials.",
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "description": "(Required) The client identifier issued during onboarding.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The client secret issued during onboarding.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A space-separated list of scopes to request.",
+                      "key": "scope",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/token",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "token"
+                  ]
+                },
+                "description": "Obtain an OAuth 2.0 access token using client credentials. The returned opaque access token is used to authenticate subsequent API requests. You must specify the required scopes for the endpoints you intend to call."
+              },
+              "response": [
+                {
+                  "id": "aa3fd60a-e20f-4d55-ab42-cd7109d0ae4f",
+                  "name": "Access token successfully created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) The OAuth 2.0 grant type. Must be client_credentials.",
+                          "key": "grant_type",
+                          "value": "client_credentials"
+                        },
+                        {
+                          "description": "(Required) The client identifier issued during onboarding.",
+                          "key": "client_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The client secret issued during onboarding.",
+                          "key": "client_secret",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) A space-separated list of scopes to request.",
+                          "key": "scope",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/token",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "token"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"access_token\": \"<string>\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": \"<integer>\",\n  \"scope\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:04.000Z",
+                  "updatedAt": "2026-07-28T03:24:04.000Z",
+                  "uid": "35240-aa3fd60a-e20f-4d55-ab42-cd7109d0ae4f"
+                },
+                {
+                  "id": "768fb982-bf7f-416f-b4ab-7eeed46b08af",
+                  "name": "Invalid client credentials or missing scopes",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) The OAuth 2.0 grant type. Must be client_credentials.",
+                          "key": "grant_type",
+                          "value": "client_credentials"
+                        },
+                        {
+                          "description": "(Required) The client identifier issued during onboarding.",
+                          "key": "client_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The client secret issued during onboarding.",
+                          "key": "client_secret",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) A space-separated list of scopes to request.",
+                          "key": "scope",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/token",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "token"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:04.000Z",
+                  "updatedAt": "2026-07-28T03:24:04.000Z",
+                  "uid": "35240-768fb982-bf7f-416f-b4ab-7eeed46b08af"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:04.000Z",
+              "updatedAt": "2026-07-28T03:24:04.000Z",
+              "uid": "35240-f067a01f-6023-4ff4-a418-f2dbb7a1d773"
+            }
+          ],
+          "id": "4f50f1cb-c6d9-4648-bdea-b3cd9ee6667d",
+          "createdAt": "2026-07-28T03:24:04.000Z",
+          "updatedAt": "2026-07-28T03:24:04.000Z",
+          "uid": "35240-4f50f1cb-c6d9-4648-bdea-b3cd9ee6667d"
+        }
+      ],
+      "id": "be4484f5-ebce-4add-b525-2e8a62215cfe",
+      "createdAt": "2026-07-28T03:24:04.000Z",
+      "updatedAt": "2026-07-28T03:24:04.000Z",
+      "uid": "35240-be4484f5-ebce-4add-b525-2e8a62215cfe"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

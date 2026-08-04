@@ -1,0 +1,304 @@
+{
+  "info": {
+    "_postman_id": "87267fcc-d552-4664-9c73-04899c232d4c",
+    "name": "Upvest Investment Account Transfers Order Cancellations API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:32.000Z",
+    "updatedAt": "2026-07-28T03:24:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-87267fcc-d552-4664-9c73-04899c232d4c"
+  },
+  "item": [
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "{order_id}",
+          "item": [
+            {
+              "name": "cancellation",
+              "item": [
+                {
+                  "name": "Upvest Cancel an order",
+                  "id": "9e373006-85af-40f6-8e0e-b4a80fec212b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id/cancellation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id",
+                        "cancellation"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a456f326-144b-4a85-a5f7-67353ed73ef1",
+                          "key": "order_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the order."
+                        }
+                      ]
+                    },
+                    "description": "Request cancellation of a pending order. Cancellation may not be possible if the order is already in execution."
+                  },
+                  "response": [
+                    {
+                      "id": "b7c01ac4-93eb-4b0f-a0e0-6f762504d118",
+                      "name": "Cancellation request accepted",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/cancellation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "cancellation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"order_id\": \"<uuid>\",\n  \"status\": \"CONFIRMED\",\n  \"created_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:24:33.000Z",
+                      "updatedAt": "2026-07-28T03:24:33.000Z",
+                      "uid": "35240-b7c01ac4-93eb-4b0f-a0e0-6f762504d118"
+                    },
+                    {
+                      "id": "b8a11bfe-5420-47c6-b528-1b5f1040a431",
+                      "name": "Order cannot be cancelled",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/cancellation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "cancellation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:33.000Z",
+                      "updatedAt": "2026-07-28T03:24:33.000Z",
+                      "uid": "35240-b8a11bfe-5420-47c6-b528-1b5f1040a431"
+                    },
+                    {
+                      "id": "1e1e804c-6373-4145-9a4e-c886be83af9e",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/cancellation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "cancellation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:33.000Z",
+                      "updatedAt": "2026-07-28T03:24:33.000Z",
+                      "uid": "35240-1e1e804c-6373-4145-9a4e-c886be83af9e"
+                    },
+                    {
+                      "id": "ece49ab5-ec30-4890-a696-eb964da651c7",
+                      "name": "Order not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/cancellation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "cancellation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:33.000Z",
+                      "updatedAt": "2026-07-28T03:24:33.000Z",
+                      "uid": "35240-ece49ab5-ec30-4890-a696-eb964da651c7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:33.000Z",
+                  "updatedAt": "2026-07-28T03:24:33.000Z",
+                  "uid": "35240-9e373006-85af-40f6-8e0e-b4a80fec212b"
+                }
+              ],
+              "id": "175011f2-84b5-433d-b988-1a2259799646",
+              "createdAt": "2026-07-28T03:24:33.000Z",
+              "updatedAt": "2026-07-28T03:24:33.000Z",
+              "uid": "35240-175011f2-84b5-433d-b988-1a2259799646"
+            }
+          ],
+          "id": "fa1ff87c-d98d-4ece-b43e-7af1aeb02638",
+          "createdAt": "2026-07-28T03:24:33.000Z",
+          "updatedAt": "2026-07-28T03:24:33.000Z",
+          "uid": "35240-fa1ff87c-d98d-4ece-b43e-7af1aeb02638"
+        }
+      ],
+      "id": "5eff28de-6b27-41e0-9cf3-afbd0dfc4f28",
+      "createdAt": "2026-07-28T03:24:33.000Z",
+      "updatedAt": "2026-07-28T03:24:33.000Z",
+      "uid": "35240-5eff28de-6b27-41e0-9cf3-afbd0dfc4f28"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

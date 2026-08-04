@@ -1,0 +1,206 @@
+{
+  "info": {
+    "_postman_id": "8b3ce6e3-b9b8-43dd-8882-007f27d5bb97",
+    "name": "Upvest Investment Account Transfers User Checks API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:25:02.000Z",
+    "updatedAt": "2026-07-28T03:25:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8b3ce6e3-b9b8-43dd-8882-007f27d5bb97"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "{user_id}",
+          "item": [
+            {
+              "name": "checks",
+              "item": [
+                {
+                  "name": "Upvest List user checks",
+                  "id": "f7ce0db0-1bae-4055-b4b1-a5e4f9d4705c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:user_id/checks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":user_id",
+                        "checks"
+                      ],
+                      "variable": [
+                        {
+                          "id": "958eff77-2167-4d65-bdc7-063a9964db71",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the user."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve compliance and verification checks performed on a user."
+                  },
+                  "response": [
+                    {
+                      "id": "cf9685c2-1f55-4c49-88fc-13c11e22f57a",
+                      "name": "List of user checks",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/checks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "checks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"status\": \"FAILED\",\n      \"created_at\": \"<dateTime>\",\n      \"completed_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"status\": \"PASSED\",\n      \"created_at\": \"<dateTime>\",\n      \"completed_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:25:03.000Z",
+                      "updatedAt": "2026-07-28T03:25:03.000Z",
+                      "uid": "35240-cf9685c2-1f55-4c49-88fc-13c11e22f57a"
+                    },
+                    {
+                      "id": "59108cdf-19f5-4a6f-99d3-0f1ebf3c9e44",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/checks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "checks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:03.000Z",
+                      "updatedAt": "2026-07-28T03:25:03.000Z",
+                      "uid": "35240-59108cdf-19f5-4a6f-99d3-0f1ebf3c9e44"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:25:03.000Z",
+                  "updatedAt": "2026-07-28T03:25:03.000Z",
+                  "uid": "35240-f7ce0db0-1bae-4055-b4b1-a5e4f9d4705c"
+                }
+              ],
+              "id": "6284f435-058a-45bd-a57d-1ce55b6b07f3",
+              "createdAt": "2026-07-28T03:25:03.000Z",
+              "updatedAt": "2026-07-28T03:25:03.000Z",
+              "uid": "35240-6284f435-058a-45bd-a57d-1ce55b6b07f3"
+            }
+          ],
+          "id": "10a33e47-46cd-4bb0-b211-c508098d2816",
+          "createdAt": "2026-07-28T03:25:03.000Z",
+          "updatedAt": "2026-07-28T03:25:03.000Z",
+          "uid": "35240-10a33e47-46cd-4bb0-b211-c508098d2816"
+        }
+      ],
+      "id": "fcbbeb75-b3d8-456b-88d1-4b1f19bdf6d3",
+      "createdAt": "2026-07-28T03:25:03.000Z",
+      "updatedAt": "2026-07-28T03:25:03.000Z",
+      "uid": "35240-fcbbeb75-b3d8-456b-88d1-4b1f19bdf6d3"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

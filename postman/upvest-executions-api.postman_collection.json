@@ -1,0 +1,255 @@
+{
+  "info": {
+    "_postman_id": "f66c19d7-0eab-4407-a79d-7d7e802b814f",
+    "name": "Upvest Investment Account Transfers Executions API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:07.000Z",
+    "updatedAt": "2026-07-28T03:24:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f66c19d7-0eab-4407-a79d-7d7e802b814f"
+  },
+  "item": [
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "{order_id}",
+          "item": [
+            {
+              "name": "executions",
+              "item": [
+                {
+                  "name": "Upvest List order executions",
+                  "id": "903ff5a3-ff5a-4d58-adf1-5d0ed930257a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id/executions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id",
+                        "executions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6d512f87-e7ca-4984-b883-e3f2aed9274b",
+                          "key": "order_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the order."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve execution details for a specific order. Each execution represents a fill against the order."
+                  },
+                  "response": [
+                    {
+                      "id": "7e81ad5d-742f-4ca3-9231-75170c312d4e",
+                      "name": "List of order executions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/executions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "executions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"order_id\": \"<uuid>\",\n      \"status\": \"CANCELLED\",\n      \"quantity\": \"<string>\",\n      \"price\": \"<string>\",\n      \"executed_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"order_id\": \"<uuid>\",\n      \"status\": \"NEW\",\n      \"quantity\": \"<string>\",\n      \"price\": \"<string>\",\n      \"executed_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:24:08.000Z",
+                      "updatedAt": "2026-07-28T03:24:08.000Z",
+                      "uid": "35240-7e81ad5d-742f-4ca3-9231-75170c312d4e"
+                    },
+                    {
+                      "id": "1dc8ad23-d2bf-4ed3-a323-beb93b8b0c80",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/executions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "executions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:08.000Z",
+                      "updatedAt": "2026-07-28T03:24:08.000Z",
+                      "uid": "35240-1dc8ad23-d2bf-4ed3-a323-beb93b8b0c80"
+                    },
+                    {
+                      "id": "2ac68f86-2ce9-4a44-921a-6b86e503e53b",
+                      "name": "Order not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:order_id/executions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":order_id",
+                            "executions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "order_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:08.000Z",
+                      "updatedAt": "2026-07-28T03:24:08.000Z",
+                      "uid": "35240-2ac68f86-2ce9-4a44-921a-6b86e503e53b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:08.000Z",
+                  "updatedAt": "2026-07-28T03:24:08.000Z",
+                  "uid": "35240-903ff5a3-ff5a-4d58-adf1-5d0ed930257a"
+                }
+              ],
+              "id": "ec407739-0bb2-4494-a725-41358db0dc78",
+              "createdAt": "2026-07-28T03:24:08.000Z",
+              "updatedAt": "2026-07-28T03:24:08.000Z",
+              "uid": "35240-ec407739-0bb2-4494-a725-41358db0dc78"
+            }
+          ],
+          "id": "822cee80-4481-4a73-afa0-20ebd813c99e",
+          "createdAt": "2026-07-28T03:24:08.000Z",
+          "updatedAt": "2026-07-28T03:24:08.000Z",
+          "uid": "35240-822cee80-4481-4a73-afa0-20ebd813c99e"
+        }
+      ],
+      "id": "820c6e82-fcfe-42b4-b876-868cec0ecfdb",
+      "createdAt": "2026-07-28T03:24:08.000Z",
+      "updatedAt": "2026-07-28T03:24:08.000Z",
+      "uid": "35240-820c6e82-fcfe-42b4-b876-868cec0ecfdb"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

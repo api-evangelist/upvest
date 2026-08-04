@@ -1,0 +1,255 @@
+{
+  "info": {
+    "_postman_id": "58196b4b-ba41-4293-bd8d-3d7484ff4730",
+    "name": "Upvest Investment Account Transfers Instrument Prices API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:11.000Z",
+    "updatedAt": "2026-07-28T03:24:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-58196b4b-ba41-4293-bd8d-3d7484ff4730"
+  },
+  "item": [
+    {
+      "name": "instruments",
+      "item": [
+        {
+          "name": "{instrument_id}",
+          "item": [
+            {
+              "name": "prices",
+              "item": [
+                {
+                  "name": "Upvest List instrument prices",
+                  "id": "8de59a6b-0996-4a4c-b063-ac3162eaef0c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instruments/:instrument_id/prices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instruments",
+                        ":instrument_id",
+                        "prices"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8fa13d0e-9923-40ae-867d-7d5347fcf5f0",
+                          "key": "instrument_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the instrument."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve price data for a specific instrument. Prices are linked to exchanges so you can track where prices are available."
+                  },
+                  "response": [
+                    {
+                      "id": "ef3f4829-696b-498c-a071-bdb224463bba",
+                      "name": "Instrument price data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instruments/:instrument_id/prices",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instruments",
+                            ":instrument_id",
+                            "prices"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instrument_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"exchange_id\": \"<string>\",\n      \"price\": \"<string>\",\n      \"currency\": \"TTG\",\n      \"timestamp\": \"<dateTime>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"exchange_id\": \"<string>\",\n      \"price\": \"<string>\",\n      \"currency\": \"CPY\",\n      \"timestamp\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:24:12.000Z",
+                      "updatedAt": "2026-07-28T03:24:12.000Z",
+                      "uid": "35240-ef3f4829-696b-498c-a071-bdb224463bba"
+                    },
+                    {
+                      "id": "ff6838ff-97bf-4ea0-9381-349252d09d04",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instruments/:instrument_id/prices",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instruments",
+                            ":instrument_id",
+                            "prices"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instrument_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:12.000Z",
+                      "updatedAt": "2026-07-28T03:24:12.000Z",
+                      "uid": "35240-ff6838ff-97bf-4ea0-9381-349252d09d04"
+                    },
+                    {
+                      "id": "1b2ca48a-0f83-4c7c-b8a0-1fa587752e1d",
+                      "name": "Instrument not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instruments/:instrument_id/prices",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instruments",
+                            ":instrument_id",
+                            "prices"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instrument_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:12.000Z",
+                      "updatedAt": "2026-07-28T03:24:12.000Z",
+                      "uid": "35240-1b2ca48a-0f83-4c7c-b8a0-1fa587752e1d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:12.000Z",
+                  "updatedAt": "2026-07-28T03:24:12.000Z",
+                  "uid": "35240-8de59a6b-0996-4a4c-b063-ac3162eaef0c"
+                }
+              ],
+              "id": "6e36cf12-42a5-483c-8c8b-ec689ffa68df",
+              "createdAt": "2026-07-28T03:24:12.000Z",
+              "updatedAt": "2026-07-28T03:24:12.000Z",
+              "uid": "35240-6e36cf12-42a5-483c-8c8b-ec689ffa68df"
+            }
+          ],
+          "id": "7dc30f9b-8a16-45e9-b3fe-7e32990f7eb7",
+          "createdAt": "2026-07-28T03:24:12.000Z",
+          "updatedAt": "2026-07-28T03:24:12.000Z",
+          "uid": "35240-7dc30f9b-8a16-45e9-b3fe-7e32990f7eb7"
+        }
+      ],
+      "id": "bf7d7ccb-7126-43e7-9c4f-2f4832299847",
+      "createdAt": "2026-07-28T03:24:12.000Z",
+      "updatedAt": "2026-07-28T03:24:12.000Z",
+      "uid": "35240-bf7d7ccb-7126-43e7-9c4f-2f4832299847"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

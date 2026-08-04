@@ -1,0 +1,471 @@
+{
+  "info": {
+    "_postman_id": "a2f5e2bc-0448-412d-9cfa-5b884cb15b98",
+    "name": "Upvest Investment Account Transfers Positions API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:47.000Z",
+    "updatedAt": "2026-07-28T03:24:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a2f5e2bc-0448-412d-9cfa-5b884cb15b98"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "{account_id}",
+          "item": [
+            {
+              "name": "positions",
+              "item": [
+                {
+                  "name": "{position_id}",
+                  "item": [
+                    {
+                      "name": "Upvest Retrieve a position",
+                      "id": "e86b49fd-d308-4992-ae9b-d51bf89ad1c0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/positions/:position_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "positions",
+                            ":position_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c8bc5f4c-fd3a-426c-90b2-12a4d65a676e",
+                              "key": "account_id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the account."
+                            },
+                            {
+                              "id": "93a0153d-e954-4be8-85b4-952484a97b7a",
+                              "key": "position_id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the position."
+                            }
+                          ]
+                        },
+                        "description": "Retrieve details for a specific position within an account."
+                      },
+                      "response": [
+                        {
+                          "id": "e173aac8-6461-4132-a7c1-bf9cac3142e0",
+                          "name": "Position details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/positions/:position_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "positions",
+                                ":position_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "position_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"quantity\": \"<string>\",\n  \"average_buy_in_price\": \"<string>\",\n  \"currency\": \"SES\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T03:24:48.000Z",
+                          "updatedAt": "2026-07-28T03:24:48.000Z",
+                          "uid": "35240-e173aac8-6461-4132-a7c1-bf9cac3142e0"
+                        },
+                        {
+                          "id": "6b74ba96-7b20-459b-9b55-aae32b942137",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/positions/:position_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "positions",
+                                ":position_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "position_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:24:48.000Z",
+                          "updatedAt": "2026-07-28T03:24:48.000Z",
+                          "uid": "35240-6b74ba96-7b20-459b-9b55-aae32b942137"
+                        },
+                        {
+                          "id": "aa27410f-641b-4784-945f-32a83d305a4f",
+                          "name": "Position not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/positions/:position_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "positions",
+                                ":position_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "position_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:24:48.000Z",
+                          "updatedAt": "2026-07-28T03:24:48.000Z",
+                          "uid": "35240-aa27410f-641b-4784-945f-32a83d305a4f"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:24:48.000Z",
+                      "updatedAt": "2026-07-28T03:24:48.000Z",
+                      "uid": "35240-e86b49fd-d308-4992-ae9b-d51bf89ad1c0"
+                    }
+                  ],
+                  "id": "0f15bdfa-8f1e-4418-971c-9f3c3db31e15",
+                  "createdAt": "2026-07-28T03:24:48.000Z",
+                  "updatedAt": "2026-07-28T03:24:48.000Z",
+                  "uid": "35240-0f15bdfa-8f1e-4418-971c-9f3c3db31e15"
+                },
+                {
+                  "name": "Upvest List positions",
+                  "id": "8f977c51-dc4a-49bb-ae4a-1c73e520fb7f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/positions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "positions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f83ae7f4-7f9a-4b8e-a338-be12ef15d4c4",
+                          "key": "account_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the account."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve current holdings and position details for an account."
+                  },
+                  "response": [
+                    {
+                      "id": "d771d0e5-244c-48e9-8d7b-4f9d3ec61728",
+                      "name": "List of positions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/positions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "positions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"instrument_id\": \"<uuid>\",\n      \"quantity\": \"<string>\",\n      \"average_buy_in_price\": \"<string>\",\n      \"currency\": \"GSR\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"instrument_id\": \"<uuid>\",\n      \"quantity\": \"<string>\",\n      \"average_buy_in_price\": \"<string>\",\n      \"currency\": \"TFB\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:24:48.000Z",
+                      "updatedAt": "2026-07-28T03:24:48.000Z",
+                      "uid": "35240-d771d0e5-244c-48e9-8d7b-4f9d3ec61728"
+                    },
+                    {
+                      "id": "9e9ef9fc-7954-4fa4-ba2b-5fe2f381fda5",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/positions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "positions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:48.000Z",
+                      "updatedAt": "2026-07-28T03:24:48.000Z",
+                      "uid": "35240-9e9ef9fc-7954-4fa4-ba2b-5fe2f381fda5"
+                    },
+                    {
+                      "id": "cbed4c5f-efce-4fc6-a89c-a4d08373ec30",
+                      "name": "Account not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/positions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "positions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:48.000Z",
+                      "updatedAt": "2026-07-28T03:24:48.000Z",
+                      "uid": "35240-cbed4c5f-efce-4fc6-a89c-a4d08373ec30"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:48.000Z",
+                  "updatedAt": "2026-07-28T03:24:48.000Z",
+                  "uid": "35240-8f977c51-dc4a-49bb-ae4a-1c73e520fb7f"
+                }
+              ],
+              "id": "423742fa-cff5-42a6-a4da-428fedce7c33",
+              "createdAt": "2026-07-28T03:24:48.000Z",
+              "updatedAt": "2026-07-28T03:24:48.000Z",
+              "uid": "35240-423742fa-cff5-42a6-a4da-428fedce7c33"
+            }
+          ],
+          "id": "af8506ee-1076-4365-a479-d6d87b2cd3c6",
+          "createdAt": "2026-07-28T03:24:48.000Z",
+          "updatedAt": "2026-07-28T03:24:48.000Z",
+          "uid": "35240-af8506ee-1076-4365-a479-d6d87b2cd3c6"
+        }
+      ],
+      "id": "010dc4c4-ddd9-4cca-85d1-833a9e8aebbd",
+      "createdAt": "2026-07-28T03:24:48.000Z",
+      "updatedAt": "2026-07-28T03:24:48.000Z",
+      "uid": "35240-010dc4c4-ddd9-4cca-85d1-833a9e8aebbd"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

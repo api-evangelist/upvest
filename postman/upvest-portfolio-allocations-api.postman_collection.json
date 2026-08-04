@@ -1,0 +1,450 @@
+{
+  "info": {
+    "_postman_id": "cba51f4b-c8ac-4e64-858c-31ffe41cec8e",
+    "name": "Upvest Investment Account Transfers Portfolio Allocations API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:34.000Z",
+    "updatedAt": "2026-07-28T03:24:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cba51f4b-c8ac-4e64-858c-31ffe41cec8e"
+  },
+  "item": [
+    {
+      "name": "portfolios",
+      "item": [
+        {
+          "name": "{portfolio_id}",
+          "item": [
+            {
+              "name": "allocations",
+              "item": [
+                {
+                  "name": "Upvest List portfolio allocations",
+                  "id": "3f29130e-4169-44b7-8a86-f3b680eaaaf0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/portfolios/:portfolio_id/allocations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "portfolios",
+                        ":portfolio_id",
+                        "allocations"
+                      ],
+                      "variable": [
+                        {
+                          "id": "dc046f42-97bd-4959-9dcb-031d2daea198",
+                          "key": "portfolio_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the portfolio."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve target allocations for a specific portfolio."
+                  },
+                  "response": [
+                    {
+                      "id": "9ebdc307-fa56-43e9-8bdd-c02609e1dcc1",
+                      "name": "List of portfolio allocations",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/portfolios/:portfolio_id/allocations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "portfolios",
+                            ":portfolio_id",
+                            "allocations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolio_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:24:35.000Z",
+                      "updatedAt": "2026-07-28T03:24:35.000Z",
+                      "uid": "35240-9ebdc307-fa56-43e9-8bdd-c02609e1dcc1"
+                    },
+                    {
+                      "id": "d246f660-5a40-474a-80b3-c15b78b12cf4",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/portfolios/:portfolio_id/allocations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "portfolios",
+                            ":portfolio_id",
+                            "allocations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolio_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:35.000Z",
+                      "updatedAt": "2026-07-28T03:24:35.000Z",
+                      "uid": "35240-d246f660-5a40-474a-80b3-c15b78b12cf4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:35.000Z",
+                  "updatedAt": "2026-07-28T03:24:35.000Z",
+                  "uid": "35240-3f29130e-4169-44b7-8a86-f3b680eaaaf0"
+                },
+                {
+                  "name": "Upvest Update portfolio allocations",
+                  "id": "f9825b73-b107-46fc-88c5-de11c3472217",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"allocations\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/portfolios/:portfolio_id/allocations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "portfolios",
+                        ":portfolio_id",
+                        "allocations"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a53550dc-2720-45c9-9d81-fc0e66449bcb",
+                          "key": "portfolio_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the portfolio."
+                        }
+                      ]
+                    },
+                    "description": "Replace the target allocation set for a portfolio."
+                  },
+                  "response": [
+                    {
+                      "id": "b139c67f-5029-424d-8cc7-0a1c8cbb01fc",
+                      "name": "Allocations updated",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"allocations\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/portfolios/:portfolio_id/allocations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "portfolios",
+                            ":portfolio_id",
+                            "allocations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolio_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:24:35.000Z",
+                      "updatedAt": "2026-07-28T03:24:35.000Z",
+                      "uid": "35240-b139c67f-5029-424d-8cc7-0a1c8cbb01fc"
+                    },
+                    {
+                      "id": "7a7bf8e6-0041-4776-95de-aba329b630d2",
+                      "name": "Invalid allocations",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"allocations\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/portfolios/:portfolio_id/allocations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "portfolios",
+                            ":portfolio_id",
+                            "allocations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolio_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:35.000Z",
+                      "updatedAt": "2026-07-28T03:24:35.000Z",
+                      "uid": "35240-7a7bf8e6-0041-4776-95de-aba329b630d2"
+                    },
+                    {
+                      "id": "130d475c-ea69-4e43-bd92-e4d9eeee367e",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"allocations\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/portfolios/:portfolio_id/allocations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "portfolios",
+                            ":portfolio_id",
+                            "allocations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "portfolio_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:35.000Z",
+                      "updatedAt": "2026-07-28T03:24:35.000Z",
+                      "uid": "35240-130d475c-ea69-4e43-bd92-e4d9eeee367e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:35.000Z",
+                  "updatedAt": "2026-07-28T03:24:35.000Z",
+                  "uid": "35240-f9825b73-b107-46fc-88c5-de11c3472217"
+                }
+              ],
+              "id": "ab7b4e4f-ea3d-49a8-95e7-f4b4814dfc0c",
+              "createdAt": "2026-07-28T03:24:35.000Z",
+              "updatedAt": "2026-07-28T03:24:35.000Z",
+              "uid": "35240-ab7b4e4f-ea3d-49a8-95e7-f4b4814dfc0c"
+            }
+          ],
+          "id": "e65e0c2c-f78e-464f-afb7-d02232536ce8",
+          "createdAt": "2026-07-28T03:24:35.000Z",
+          "updatedAt": "2026-07-28T03:24:35.000Z",
+          "uid": "35240-e65e0c2c-f78e-464f-afb7-d02232536ce8"
+        }
+      ],
+      "id": "b2749033-012c-4b07-bc40-9316e5add01d",
+      "createdAt": "2026-07-28T03:24:35.000Z",
+      "updatedAt": "2026-07-28T03:24:35.000Z",
+      "uid": "35240-b2749033-012c-4b07-bc40-9316e5add01d"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

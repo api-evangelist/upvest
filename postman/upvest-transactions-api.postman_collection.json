@@ -1,0 +1,242 @@
+{
+  "info": {
+    "_postman_id": "a291cc40-70e2-4c04-8426-3d5b27a35a45",
+    "name": "Upvest Investment Account Transfers Transactions API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:25:00.000Z",
+    "updatedAt": "2026-07-28T03:25:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a291cc40-70e2-4c04-8426-3d5b27a35a45"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "{account_id}",
+          "item": [
+            {
+              "name": "transactions",
+              "item": [
+                {
+                  "name": "Upvest List transactions",
+                  "id": "68b8488a-bfbc-471c-8cd0-0ecd3fbc0718",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/transactions?offset=0&limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "transactions"
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of items to skip for pagination.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The maximum number of items to return per page.",
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "c3404783-1afe-4181-8fe2-e84a745eded4",
+                          "key": "account_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the account."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve transaction history for an account including order executions, fees, dividends, and transfers."
+                  },
+                  "response": [
+                    {
+                      "id": "d6ab28cf-5272-41a4-a6ef-534ff0f83f16",
+                      "name": "List of transactions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/transactions?offset=0&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "transactions"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of items to skip for pagination.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "The maximum number of items to return per page.",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"type\": \"FEE\",\n      \"amount\": \"<string>\",\n      \"currency\": \"WZZ\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"type\": \"DIVIDEND\",\n      \"amount\": \"<string>\",\n      \"currency\": \"MLG\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:25:01.000Z",
+                      "updatedAt": "2026-07-28T03:25:01.000Z",
+                      "uid": "35240-d6ab28cf-5272-41a4-a6ef-534ff0f83f16"
+                    },
+                    {
+                      "id": "1fce48fb-3cae-4dfb-bb0e-5a62c47eef0b",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/transactions?offset=0&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "transactions"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of items to skip for pagination.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "The maximum number of items to return per page.",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:01.000Z",
+                      "updatedAt": "2026-07-28T03:25:01.000Z",
+                      "uid": "35240-1fce48fb-3cae-4dfb-bb0e-5a62c47eef0b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:25:01.000Z",
+                  "updatedAt": "2026-07-28T03:25:01.000Z",
+                  "uid": "35240-68b8488a-bfbc-471c-8cd0-0ecd3fbc0718"
+                }
+              ],
+              "id": "ea91fee7-207d-4fbf-80f6-868a744e4ffb",
+              "createdAt": "2026-07-28T03:25:01.000Z",
+              "updatedAt": "2026-07-28T03:25:01.000Z",
+              "uid": "35240-ea91fee7-207d-4fbf-80f6-868a744e4ffb"
+            }
+          ],
+          "id": "e882e38e-da10-4a70-ba8b-c608a79817e2",
+          "createdAt": "2026-07-28T03:25:01.000Z",
+          "updatedAt": "2026-07-28T03:25:01.000Z",
+          "uid": "35240-e882e38e-da10-4a70-ba8b-c608a79817e2"
+        }
+      ],
+      "id": "49d00034-1add-40ed-99b3-f08fbd32aee3",
+      "createdAt": "2026-07-28T03:25:01.000Z",
+      "updatedAt": "2026-07-28T03:25:01.000Z",
+      "uid": "35240-49d00034-1add-40ed-99b3-f08fbd32aee3"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

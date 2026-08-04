@@ -1,0 +1,1021 @@
+{
+  "info": {
+    "_postman_id": "6e00261e-e8c3-4192-a6ff-52b21645342c",
+    "name": "Upvest Investment Account Transfers Savings Plans API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:57.000Z",
+    "updatedAt": "2026-07-28T03:24:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6e00261e-e8c3-4192-a6ff-52b21645342c"
+  },
+  "item": [
+    {
+      "name": "savings_plans",
+      "item": [
+        {
+          "name": "{savings_plan_id}",
+          "item": [
+            {
+              "name": "Upvest Retrieve a savings plan",
+              "id": "b1cfc92e-02ff-4385-9ca6-c2439c41a66c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "savings_plans",
+                    ":savings_plan_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d28d910f-0f16-4816-a34a-bdddb044faf1",
+                      "key": "savings_plan_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the savings plan."
+                    }
+                  ]
+                },
+                "description": "Retrieve details for a specific savings plan."
+              },
+              "response": [
+                {
+                  "id": "d95ca773-13c0-462d-b609-8881991a190e",
+                  "name": "Savings plan details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"portfolio_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"WPK\",\n  \"frequency\": \"QUARTERLY\",\n  \"status\": \"ACTIVE\",\n  \"next_execution_date\": \"<date>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-d95ca773-13c0-462d-b609-8881991a190e"
+                },
+                {
+                  "id": "14ffb239-9405-4359-9925-3a63765756c2",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-14ffb239-9405-4359-9925-3a63765756c2"
+                },
+                {
+                  "id": "c8561bbb-859e-46df-b00b-4fab301cde4f",
+                  "name": "Savings plan not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-c8561bbb-859e-46df-b00b-4fab301cde4f"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:58.000Z",
+              "updatedAt": "2026-07-28T03:24:58.000Z",
+              "uid": "35240-b1cfc92e-02ff-4385-9ca6-c2439c41a66c"
+            },
+            {
+              "name": "Upvest Update a savings plan",
+              "id": "698fa655-a516-4e33-8ea8-95de975e7f71",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cash_amount\": \"<string>\",\n  \"frequency\": \"WEEKLY\",\n  \"status\": \"PAUSED\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "savings_plans",
+                    ":savings_plan_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "f42620c3-1936-46a7-9355-f0c16a06f35e",
+                      "key": "savings_plan_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the savings plan."
+                    }
+                  ]
+                },
+                "description": "Update the configuration of an existing savings plan."
+              },
+              "response": [
+                {
+                  "id": "3484f00a-f27f-4900-8895-8fc2020627fe",
+                  "name": "Savings plan updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"cash_amount\": \"<string>\",\n  \"frequency\": \"WEEKLY\",\n  \"status\": \"PAUSED\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"portfolio_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"WPK\",\n  \"frequency\": \"QUARTERLY\",\n  \"status\": \"ACTIVE\",\n  \"next_execution_date\": \"<date>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-3484f00a-f27f-4900-8895-8fc2020627fe"
+                },
+                {
+                  "id": "e94c0f64-c1c6-42c9-b71c-c5b4e21d072f",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"cash_amount\": \"<string>\",\n  \"frequency\": \"WEEKLY\",\n  \"status\": \"PAUSED\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-e94c0f64-c1c6-42c9-b71c-c5b4e21d072f"
+                },
+                {
+                  "id": "033320bc-e207-41ed-adbc-e6c5c91d3889",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"cash_amount\": \"<string>\",\n  \"frequency\": \"WEEKLY\",\n  \"status\": \"PAUSED\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-033320bc-e207-41ed-adbc-e6c5c91d3889"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:58.000Z",
+              "updatedAt": "2026-07-28T03:24:58.000Z",
+              "uid": "35240-698fa655-a516-4e33-8ea8-95de975e7f71"
+            },
+            {
+              "name": "Upvest Delete a savings plan",
+              "id": "573fc911-084c-4704-bca1-57d43ddcce5f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "savings_plans",
+                    ":savings_plan_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "700721f8-c318-4bd1-9203-103d52d22cc1",
+                      "key": "savings_plan_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the savings plan."
+                    }
+                  ]
+                },
+                "description": "Cancel and remove an automated savings plan."
+              },
+              "response": [
+                {
+                  "id": "3feb0f92-ab45-4be1-8d7d-f7242e983696",
+                  "name": "Savings plan deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-3feb0f92-ab45-4be1-8d7d-f7242e983696"
+                },
+                {
+                  "id": "1949bee7-6207-480d-9e9b-860b08e5df3f",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-1949bee7-6207-480d-9e9b-860b08e5df3f"
+                },
+                {
+                  "id": "51cdd1ea-81eb-4569-91f0-d0ff6ab18669",
+                  "name": "Savings plan not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/savings_plans/:savings_plan_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "savings_plans",
+                        ":savings_plan_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "savings_plan_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:58.000Z",
+                  "updatedAt": "2026-07-28T03:24:58.000Z",
+                  "uid": "35240-51cdd1ea-81eb-4569-91f0-d0ff6ab18669"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:58.000Z",
+              "updatedAt": "2026-07-28T03:24:58.000Z",
+              "uid": "35240-573fc911-084c-4704-bca1-57d43ddcce5f"
+            }
+          ],
+          "id": "e021d431-fa31-4b3c-b0e3-e8001af0a711",
+          "createdAt": "2026-07-28T03:24:58.000Z",
+          "updatedAt": "2026-07-28T03:24:58.000Z",
+          "uid": "35240-e021d431-fa31-4b3c-b0e3-e8001af0a711"
+        },
+        {
+          "name": "Upvest List savings plans",
+          "id": "8347f6da-2ff1-4ce5-82f0-ebd6fd9146fd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/savings_plans?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "savings_plans"
+              ],
+              "query": [
+                {
+                  "description": "The number of items to skip for pagination.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "The maximum number of items to return per page.",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of automated savings plans."
+          },
+          "response": [
+            {
+              "id": "4af8893e-3bb8-4d5b-bf21-dea4018be658",
+              "name": "A paginated list of savings plans",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/savings_plans?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "savings_plans"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"portfolio_id\": \"<uuid>\",\n      \"instrument_id\": \"<uuid>\",\n      \"cash_amount\": \"<string>\",\n      \"currency\": \"ADJ\",\n      \"frequency\": \"MONTHLY\",\n      \"status\": \"CANCELLED\",\n      \"next_execution_date\": \"<date>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"portfolio_id\": \"<uuid>\",\n      \"instrument_id\": \"<uuid>\",\n      \"cash_amount\": \"<string>\",\n      \"currency\": \"QRB\",\n      \"frequency\": \"QUARTERLY\",\n      \"status\": \"ACTIVE\",\n      \"next_execution_date\": \"<date>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:24:58.000Z",
+              "updatedAt": "2026-07-28T03:24:58.000Z",
+              "uid": "35240-4af8893e-3bb8-4d5b-bf21-dea4018be658"
+            },
+            {
+              "id": "8d216a5c-2c8d-4c01-a12f-63cc5a2e8c62",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/savings_plans?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "savings_plans"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:58.000Z",
+              "updatedAt": "2026-07-28T03:24:58.000Z",
+              "uid": "35240-8d216a5c-2c8d-4c01-a12f-63cc5a2e8c62"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:58.000Z",
+          "updatedAt": "2026-07-28T03:24:58.000Z",
+          "uid": "35240-8347f6da-2ff1-4ce5-82f0-ebd6fd9146fd"
+        },
+        {
+          "name": "Upvest Create a savings plan",
+          "id": "471aa74d-f810-44a8-878a-8a87bf79f609",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"PUJ\",\n  \"frequency\": \"WEEKLY\",\n  \"portfolio_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/savings_plans",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "savings_plans"
+              ]
+            },
+            "description": "Create an automated recurring investment plan. Savings plans execute on a defined schedule, investing a specified amount into an instrument or portfolio."
+          },
+          "response": [
+            {
+              "id": "828fe3fd-739b-4821-ad11-e2f8e28ec01d",
+              "name": "Savings plan created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"PUJ\",\n  \"frequency\": \"WEEKLY\",\n  \"portfolio_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/savings_plans",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "savings_plans"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"portfolio_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"WPK\",\n  \"frequency\": \"QUARTERLY\",\n  \"status\": \"ACTIVE\",\n  \"next_execution_date\": \"<date>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:24:58.000Z",
+              "updatedAt": "2026-07-28T03:24:58.000Z",
+              "uid": "35240-828fe3fd-739b-4821-ad11-e2f8e28ec01d"
+            },
+            {
+              "id": "482c0224-4b1f-4ab2-84c5-51c3ce03c093",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"PUJ\",\n  \"frequency\": \"WEEKLY\",\n  \"portfolio_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/savings_plans",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "savings_plans"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:58.000Z",
+              "updatedAt": "2026-07-28T03:24:58.000Z",
+              "uid": "35240-482c0224-4b1f-4ab2-84c5-51c3ce03c093"
+            },
+            {
+              "id": "6b34b820-7b8f-40ce-8748-697032c02b73",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"PUJ\",\n  \"frequency\": \"WEEKLY\",\n  \"portfolio_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/savings_plans",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "savings_plans"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:58.000Z",
+              "updatedAt": "2026-07-28T03:24:58.000Z",
+              "uid": "35240-6b34b820-7b8f-40ce-8748-697032c02b73"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:58.000Z",
+          "updatedAt": "2026-07-28T03:24:58.000Z",
+          "uid": "35240-471aa74d-f810-44a8-878a-8a87bf79f609"
+        }
+      ],
+      "id": "ceabde66-3cf0-4d13-bb22-a3f25c0f27f2",
+      "createdAt": "2026-07-28T03:24:58.000Z",
+      "updatedAt": "2026-07-28T03:24:58.000Z",
+      "uid": "35240-ceabde66-3cf0-4d13-bb22-a3f25c0f27f2"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

@@ -1,0 +1,985 @@
+{
+  "info": {
+    "_postman_id": "52935ac4-5416-4cb8-8f8e-d3f57c5a86f4",
+    "name": "Upvest Investment Account Transfers Webhook Subscriptions API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:25:07.000Z",
+    "updatedAt": "2026-07-28T03:25:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-52935ac4-5416-4cb8-8f8e-d3f57c5a86f4"
+  },
+  "item": [
+    {
+      "name": "webhooks",
+      "item": [
+        {
+          "name": "{webhook_id}",
+          "item": [
+            {
+              "name": "Upvest Retrieve a webhook subscription",
+              "id": "b2ecaf06-bccb-4f28-a50a-97abbdd077a0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "f0cd9fdb-34aa-4aee-9d66-e8fb84dd0d04",
+                      "key": "webhook_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the webhook subscription."
+                    }
+                  ]
+                },
+                "description": "Retrieve details for a specific webhook subscription."
+              },
+              "response": [
+                {
+                  "id": "772535db-edee-430a-b041-4b698f11d600",
+                  "name": "Webhook subscription details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"CORPORATE_ACTION\",\n    \"DIRECT_DEBIT\"\n  ],\n  \"status\": \"ACTIVE\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-772535db-edee-430a-b041-4b698f11d600"
+                },
+                {
+                  "id": "bc2a51d7-7aa3-40ac-9233-e8d964a8d3f2",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-bc2a51d7-7aa3-40ac-9233-e8d964a8d3f2"
+                },
+                {
+                  "id": "eff1629e-e60e-47a6-8f14-636ba29c6491",
+                  "name": "Webhook subscription not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-eff1629e-e60e-47a6-8f14-636ba29c6491"
+                }
+              ],
+              "createdAt": "2026-07-28T03:25:08.000Z",
+              "updatedAt": "2026-07-28T03:25:08.000Z",
+              "uid": "35240-b2ecaf06-bccb-4f28-a50a-97abbdd077a0"
+            },
+            {
+              "name": "Upvest Update a webhook subscription",
+              "id": "a172c9b6-0df9-45d3-b644-c00b61f25ee5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"ACTIVE\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "fa237659-4303-4803-8362-a4563803853f",
+                      "key": "webhook_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the webhook subscription."
+                    }
+                  ]
+                },
+                "description": "Update the configuration of an existing webhook subscription."
+              },
+              "response": [
+                {
+                  "id": "dea83cae-55cb-42ad-8aa6-d0d28c5a58fd",
+                  "name": "Webhook subscription updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"ACTIVE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"CORPORATE_ACTION\",\n    \"DIRECT_DEBIT\"\n  ],\n  \"status\": \"ACTIVE\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-dea83cae-55cb-42ad-8aa6-d0d28c5a58fd"
+                },
+                {
+                  "id": "8fe780b7-2465-4b85-9bd8-645de67becf7",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"ACTIVE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-8fe780b7-2465-4b85-9bd8-645de67becf7"
+                },
+                {
+                  "id": "d167b864-9214-4726-b773-ae02116ffdc4",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"ACTIVE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-d167b864-9214-4726-b773-ae02116ffdc4"
+                }
+              ],
+              "createdAt": "2026-07-28T03:25:08.000Z",
+              "updatedAt": "2026-07-28T03:25:08.000Z",
+              "uid": "35240-a172c9b6-0df9-45d3-b644-c00b61f25ee5"
+            },
+            {
+              "name": "Upvest Delete a webhook subscription",
+              "id": "3c693bc7-ebb6-4f98-814c-fea13168d7ff",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "53d5933c-150a-4f35-9deb-d353a1a49998",
+                      "key": "webhook_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the webhook subscription."
+                    }
+                  ]
+                },
+                "description": "Remove a webhook subscription. Events will no longer be delivered to this endpoint."
+              },
+              "response": [
+                {
+                  "id": "fb2789af-e486-4ad6-952a-4a90f81ca1f0",
+                  "name": "Webhook subscription deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-fb2789af-e486-4ad6-952a-4a90f81ca1f0"
+                },
+                {
+                  "id": "0245fc03-3e34-48a9-91c9-d4a11626f9e6",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-0245fc03-3e34-48a9-91c9-d4a11626f9e6"
+                },
+                {
+                  "id": "0306e0e2-c7ce-4841-9a17-6443c6186142",
+                  "name": "Webhook subscription not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:25:08.000Z",
+                  "updatedAt": "2026-07-28T03:25:08.000Z",
+                  "uid": "35240-0306e0e2-c7ce-4841-9a17-6443c6186142"
+                }
+              ],
+              "createdAt": "2026-07-28T03:25:08.000Z",
+              "updatedAt": "2026-07-28T03:25:08.000Z",
+              "uid": "35240-3c693bc7-ebb6-4f98-814c-fea13168d7ff"
+            }
+          ],
+          "id": "92289c77-b5ca-4648-879f-9d7e6dafba6e",
+          "createdAt": "2026-07-28T03:25:08.000Z",
+          "updatedAt": "2026-07-28T03:25:08.000Z",
+          "uid": "35240-92289c77-b5ca-4648-879f-9d7e6dafba6e"
+        },
+        {
+          "name": "Upvest List webhook subscriptions",
+          "id": "fcfa6b19-11f5-4e86-9997-5ff6f1167019",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks"
+              ]
+            },
+            "description": "Retrieve all registered webhook subscriptions."
+          },
+          "response": [
+            {
+              "id": "020b7787-4693-423e-b074-1a54e8f8c436",
+              "name": "List of webhook subscriptions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"url\": \"<uri>\",\n      \"event_categories\": [\n        \"SECURITIES_TRANSFER\",\n        \"ALL\"\n      ],\n      \"status\": \"INACTIVE\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"url\": \"<uri>\",\n      \"event_categories\": [\n        \"PORTFOLIO\",\n        \"ALL\"\n      ],\n      \"status\": \"ACTIVE\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:25:08.000Z",
+              "updatedAt": "2026-07-28T03:25:08.000Z",
+              "uid": "35240-020b7787-4693-423e-b074-1a54e8f8c436"
+            },
+            {
+              "id": "98169828-a4b6-4050-a75f-4290958c9ce2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:25:08.000Z",
+              "updatedAt": "2026-07-28T03:25:08.000Z",
+              "uid": "35240-98169828-a4b6-4050-a75f-4290958c9ce2"
+            }
+          ],
+          "createdAt": "2026-07-28T03:25:08.000Z",
+          "updatedAt": "2026-07-28T03:25:08.000Z",
+          "uid": "35240-fcfa6b19-11f5-4e86-9997-5ff6f1167019"
+        },
+        {
+          "name": "Upvest Create a webhook subscription",
+          "id": "30780d5c-057f-4a2a-8de9-55d11d884a90",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks"
+              ]
+            },
+            "description": "Register a new webhook endpoint to receive event notifications. The URL must use HTTPS and support TLS 1.2 or higher."
+          },
+          "response": [
+            {
+              "id": "8981a6ad-b46a-4abb-a6be-f8ac6fd117a4",
+              "name": "Webhook subscription created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"CORPORATE_ACTION\",\n    \"DIRECT_DEBIT\"\n  ],\n  \"status\": \"ACTIVE\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:25:08.000Z",
+              "updatedAt": "2026-07-28T03:25:08.000Z",
+              "uid": "35240-8981a6ad-b46a-4abb-a6be-f8ac6fd117a4"
+            },
+            {
+              "id": "164b142b-908b-4c43-85f6-a0928a5c67a3",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:25:08.000Z",
+              "updatedAt": "2026-07-28T03:25:08.000Z",
+              "uid": "35240-164b142b-908b-4c43-85f6-a0928a5c67a3"
+            },
+            {
+              "id": "1f6eabe4-3cc9-4b8e-8a53-61ab85240d66",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"event_categories\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:25:08.000Z",
+              "updatedAt": "2026-07-28T03:25:08.000Z",
+              "uid": "35240-1f6eabe4-3cc9-4b8e-8a53-61ab85240d66"
+            }
+          ],
+          "createdAt": "2026-07-28T03:25:08.000Z",
+          "updatedAt": "2026-07-28T03:25:08.000Z",
+          "uid": "35240-30780d5c-057f-4a2a-8de9-55d11d884a90"
+        }
+      ],
+      "id": "d2a54ef0-900f-4fa2-a5ef-54ee543940b0",
+      "createdAt": "2026-07-28T03:25:08.000Z",
+      "updatedAt": "2026-07-28T03:25:08.000Z",
+      "uid": "35240-d2a54ef0-900f-4fa2-a5ef-54ee543940b0"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

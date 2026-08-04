@@ -1,0 +1,636 @@
+{
+  "info": {
+    "_postman_id": "9535a438-f919-4340-b84b-2e0a8eddaf71",
+    "name": "Upvest Investment Account Transfers Orders API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:33.000Z",
+    "updatedAt": "2026-07-28T03:24:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9535a438-f919-4340-b84b-2e0a8eddaf71"
+  },
+  "item": [
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "{order_id}",
+          "item": [
+            {
+              "name": "Upvest Retrieve an order",
+              "id": "7b14bcf6-9048-4c6b-b3f8-cb9d585a62a5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:order_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":order_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a25d7bc6-90e8-4b85-b133-6d346f77f3f5",
+                      "key": "order_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the order."
+                    }
+                  ]
+                },
+                "description": "Retrieve details for a specific order including current status and execution information."
+              },
+              "response": [
+                {
+                  "id": "bb7ec269-333a-46ad-b941-034cc308e042",
+                  "name": "Order details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "order_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"user_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"side\": \"SELL\",\n  \"type\": \"MARKET\",\n  \"status\": \"FILLED\",\n  \"quantity\": \"<string>\",\n  \"cash_amount\": \"<string>\",\n  \"limit_price\": \"<string>\",\n  \"stop_price\": \"<string>\",\n  \"currency\": \"CLH\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:24:34.000Z",
+                  "updatedAt": "2026-07-28T03:24:34.000Z",
+                  "uid": "35240-bb7ec269-333a-46ad-b941-034cc308e042"
+                },
+                {
+                  "id": "6445db83-776f-4c1f-8d1f-740a03e2d603",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "order_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:34.000Z",
+                  "updatedAt": "2026-07-28T03:24:34.000Z",
+                  "uid": "35240-6445db83-776f-4c1f-8d1f-740a03e2d603"
+                },
+                {
+                  "id": "9ebf75fd-bc69-4c77-b5f1-b686b79a5b64",
+                  "name": "Order not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:order_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":order_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "order_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:34.000Z",
+                  "updatedAt": "2026-07-28T03:24:34.000Z",
+                  "uid": "35240-9ebf75fd-bc69-4c77-b5f1-b686b79a5b64"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:34.000Z",
+              "updatedAt": "2026-07-28T03:24:34.000Z",
+              "uid": "35240-7b14bcf6-9048-4c6b-b3f8-cb9d585a62a5"
+            }
+          ],
+          "id": "076c9ee5-2243-48eb-8789-e0281f103ee0",
+          "createdAt": "2026-07-28T03:24:34.000Z",
+          "updatedAt": "2026-07-28T03:24:34.000Z",
+          "uid": "35240-076c9ee5-2243-48eb-8789-e0281f103ee0"
+        },
+        {
+          "name": "Upvest List orders",
+          "id": "271d7296-4400-44be-b4f6-3724eaacc0c5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders?offset=0&limit=20&account_id=<uuid>&status=PROCESSING",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ],
+              "query": [
+                {
+                  "description": "The number of items to skip for pagination.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "The maximum number of items to return per page.",
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "description": "Filter orders by account identifier.",
+                  "key": "account_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "description": "Filter orders by status.",
+                  "key": "status",
+                  "value": "PROCESSING"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of orders. Supports filtering by account, status, and other criteria."
+          },
+          "response": [
+            {
+              "id": "fd72e194-abb3-45e5-b1a0-b90db342b063",
+              "name": "A paginated list of orders",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders?offset=0&limit=20&account_id=<uuid>&status=PROCESSING",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Filter orders by account identifier.",
+                      "key": "account_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "description": "Filter orders by status.",
+                      "key": "status",
+                      "value": "PROCESSING"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"user_id\": \"<uuid>\",\n      \"instrument_id\": \"<uuid>\",\n      \"side\": \"SELL\",\n      \"type\": \"MARKET\",\n      \"status\": \"NEW\",\n      \"quantity\": \"<string>\",\n      \"cash_amount\": \"<string>\",\n      \"limit_price\": \"<string>\",\n      \"stop_price\": \"<string>\",\n      \"currency\": \"LFS\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"user_id\": \"<uuid>\",\n      \"instrument_id\": \"<uuid>\",\n      \"side\": \"BUY\",\n      \"type\": \"STOP\",\n      \"status\": \"PROCESSING\",\n      \"quantity\": \"<string>\",\n      \"cash_amount\": \"<string>\",\n      \"limit_price\": \"<string>\",\n      \"stop_price\": \"<string>\",\n      \"currency\": \"WVD\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:24:34.000Z",
+              "updatedAt": "2026-07-28T03:24:34.000Z",
+              "uid": "35240-fd72e194-abb3-45e5-b1a0-b90db342b063"
+            },
+            {
+              "id": "55628814-36e1-4fe4-ab7b-9b6c3e4bf01a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders?offset=0&limit=20&account_id=<uuid>&status=PROCESSING",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "description": "Filter orders by account identifier.",
+                      "key": "account_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "description": "Filter orders by status.",
+                      "key": "status",
+                      "value": "PROCESSING"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:34.000Z",
+              "updatedAt": "2026-07-28T03:24:34.000Z",
+              "uid": "35240-55628814-36e1-4fe4-ab7b-9b6c3e4bf01a"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:34.000Z",
+          "updatedAt": "2026-07-28T03:24:34.000Z",
+          "uid": "35240-271d7296-4400-44be-b4f6-3724eaacc0c5"
+        },
+        {
+          "name": "Upvest Place an order",
+          "id": "55c8bcd3-c6a8-4421-a445-609438d9ea64",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"side\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"quantity\": \"<string>\",\n  \"cash_amount\": \"<string>\",\n  \"limit_price\": \"<string>\",\n  \"stop_price\": \"<string>\",\n  \"currency\": \"DTO\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Place a new buy or sell order for a financial instrument. Orders are processed asynchronously and their status can be tracked via webhooks or polling."
+          },
+          "response": [
+            {
+              "id": "65d6ca38-95e8-4227-b989-e9ac0b7961e7",
+              "name": "Order successfully placed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"side\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"quantity\": \"<string>\",\n  \"cash_amount\": \"<string>\",\n  \"limit_price\": \"<string>\",\n  \"stop_price\": \"<string>\",\n  \"currency\": \"DTO\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"user_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"side\": \"SELL\",\n  \"type\": \"MARKET\",\n  \"status\": \"FILLED\",\n  \"quantity\": \"<string>\",\n  \"cash_amount\": \"<string>\",\n  \"limit_price\": \"<string>\",\n  \"stop_price\": \"<string>\",\n  \"currency\": \"CLH\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:24:34.000Z",
+              "updatedAt": "2026-07-28T03:24:34.000Z",
+              "uid": "35240-65d6ca38-95e8-4227-b989-e9ac0b7961e7"
+            },
+            {
+              "id": "e130cb33-d1b8-43e3-af61-3cb00287f201",
+              "name": "Invalid order request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"side\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"quantity\": \"<string>\",\n  \"cash_amount\": \"<string>\",\n  \"limit_price\": \"<string>\",\n  \"stop_price\": \"<string>\",\n  \"currency\": \"DTO\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:34.000Z",
+              "updatedAt": "2026-07-28T03:24:34.000Z",
+              "uid": "35240-e130cb33-d1b8-43e3-af61-3cb00287f201"
+            },
+            {
+              "id": "13b9e6ce-9028-43b7-9f7a-9a6f7a5f9cef",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"instrument_id\": \"<uuid>\",\n  \"side\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"quantity\": \"<string>\",\n  \"cash_amount\": \"<string>\",\n  \"limit_price\": \"<string>\",\n  \"stop_price\": \"<string>\",\n  \"currency\": \"DTO\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:34.000Z",
+              "updatedAt": "2026-07-28T03:24:34.000Z",
+              "uid": "35240-13b9e6ce-9028-43b7-9f7a-9a6f7a5f9cef"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:34.000Z",
+          "updatedAt": "2026-07-28T03:24:34.000Z",
+          "uid": "35240-55c8bcd3-c6a8-4421-a445-609438d9ea64"
+        }
+      ],
+      "id": "99bbee26-c963-48e0-acc5-868642795a6a",
+      "createdAt": "2026-07-28T03:24:34.000Z",
+      "updatedAt": "2026-07-28T03:24:34.000Z",
+      "uid": "35240-99bbee26-c963-48e0-acc5-868642795a6a"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

@@ -1,0 +1,978 @@
+{
+  "info": {
+    "_postman_id": "f808828d-f6e2-4956-9e9e-8749ac981f21",
+    "name": "Upvest Investment Account Transfers User Identifiers API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:25:03.000Z",
+    "updatedAt": "2026-07-28T03:25:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f808828d-f6e2-4956-9e9e-8749ac981f21"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "{user_id}",
+          "item": [
+            {
+              "name": "identifiers",
+              "item": [
+                {
+                  "name": "{identifier_id}",
+                  "item": [
+                    {
+                      "name": "Upvest Retrieve a user identifier",
+                      "id": "d9602fa3-df4a-4723-964e-d3334cf0fc91",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/identifiers/:identifier_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "identifiers",
+                            ":identifier_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c3755e0a-d405-4281-90a1-968fd22177c5",
+                              "key": "user_id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the user."
+                            },
+                            {
+                              "id": "e7ad17d3-68bc-492d-9f7d-d90965e74a70",
+                              "key": "identifier_id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the user identifier."
+                            }
+                          ]
+                        },
+                        "description": "Retrieve a specific external identifier for a user."
+                      },
+                      "response": [
+                        {
+                          "id": "171feb7b-b3aa-453c-b3ee-d0f59e7c2688",
+                          "name": "User identifier details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/users/:user_id/identifiers/:identifier_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "users",
+                                ":user_id",
+                                "identifiers",
+                                ":identifier_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                },
+                                {
+                                  "key": "identifier_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T03:25:04.000Z",
+                          "updatedAt": "2026-07-28T03:25:04.000Z",
+                          "uid": "35240-171feb7b-b3aa-453c-b3ee-d0f59e7c2688"
+                        },
+                        {
+                          "id": "e18abc02-80f9-4c7a-9747-7511b6edafae",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/users/:user_id/identifiers/:identifier_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "users",
+                                ":user_id",
+                                "identifiers",
+                                ":identifier_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                },
+                                {
+                                  "key": "identifier_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:25:04.000Z",
+                          "updatedAt": "2026-07-28T03:25:04.000Z",
+                          "uid": "35240-e18abc02-80f9-4c7a-9747-7511b6edafae"
+                        },
+                        {
+                          "id": "177746f3-635a-4e2c-8686-9d6a8b7b23ed",
+                          "name": "Identifier not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/users/:user_id/identifiers/:identifier_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "users",
+                                ":user_id",
+                                "identifiers",
+                                ":identifier_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                },
+                                {
+                                  "key": "identifier_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:25:04.000Z",
+                          "updatedAt": "2026-07-28T03:25:04.000Z",
+                          "uid": "35240-177746f3-635a-4e2c-8686-9d6a8b7b23ed"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:25:04.000Z",
+                      "updatedAt": "2026-07-28T03:25:04.000Z",
+                      "uid": "35240-d9602fa3-df4a-4723-964e-d3334cf0fc91"
+                    },
+                    {
+                      "name": "Upvest Update a user identifier",
+                      "id": "0f057df4-20e0-4284-a47b-0f3fbf9348e9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/identifiers/:identifier_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "identifiers",
+                            ":identifier_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b2b926dc-98a2-4103-bf98-85d17375ae23",
+                              "key": "user_id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the user."
+                            },
+                            {
+                              "id": "edae7b52-c1d7-4071-b661-5ebaef5a1b8d",
+                              "key": "identifier_id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the user identifier."
+                            }
+                          ]
+                        },
+                        "description": "Update an existing external identifier for a user."
+                      },
+                      "response": [
+                        {
+                          "id": "bd1af92c-adfb-4733-8639-9b6cec19c1ae",
+                          "name": "Identifier updated",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"value\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/users/:user_id/identifiers/:identifier_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "users",
+                                ":user_id",
+                                "identifiers",
+                                ":identifier_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                },
+                                {
+                                  "key": "identifier_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<uuid>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T03:25:04.000Z",
+                          "updatedAt": "2026-07-28T03:25:04.000Z",
+                          "uid": "35240-bd1af92c-adfb-4733-8639-9b6cec19c1ae"
+                        },
+                        {
+                          "id": "d6ebfcb3-5874-4ef1-83c2-e9d53b608141",
+                          "name": "Invalid request",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"value\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/users/:user_id/identifiers/:identifier_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "users",
+                                ":user_id",
+                                "identifiers",
+                                ":identifier_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                },
+                                {
+                                  "key": "identifier_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:25:04.000Z",
+                          "updatedAt": "2026-07-28T03:25:04.000Z",
+                          "uid": "35240-d6ebfcb3-5874-4ef1-83c2-e9d53b608141"
+                        },
+                        {
+                          "id": "0b629209-f707-4017-9ded-d61fb11a0a97",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"value\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/users/:user_id/identifiers/:identifier_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "users",
+                                ":user_id",
+                                "identifiers",
+                                ":identifier_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "user_id"
+                                },
+                                {
+                                  "key": "identifier_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:25:04.000Z",
+                          "updatedAt": "2026-07-28T03:25:04.000Z",
+                          "uid": "35240-0b629209-f707-4017-9ded-d61fb11a0a97"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:25:04.000Z",
+                      "updatedAt": "2026-07-28T03:25:04.000Z",
+                      "uid": "35240-0f057df4-20e0-4284-a47b-0f3fbf9348e9"
+                    }
+                  ],
+                  "id": "7f1adcd4-2c67-4189-9695-1fb1f26d2650",
+                  "createdAt": "2026-07-28T03:25:03.000Z",
+                  "updatedAt": "2026-07-28T03:25:03.000Z",
+                  "uid": "35240-7f1adcd4-2c67-4189-9695-1fb1f26d2650"
+                },
+                {
+                  "name": "Upvest List user identifiers",
+                  "id": "8ffe3e5c-1f13-4203-b5c4-e5ea2e3ef688",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:user_id/identifiers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":user_id",
+                        "identifiers"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b998d2c9-3e4b-4eca-87ed-ce8a1509f928",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the user."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve all external identifiers associated with a user."
+                  },
+                  "response": [
+                    {
+                      "id": "d2469767-c50f-445b-8040-efad084dc1a7",
+                      "name": "List of user identifiers",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/identifiers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "identifiers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"value\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"value\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:25:04.000Z",
+                      "updatedAt": "2026-07-28T03:25:04.000Z",
+                      "uid": "35240-d2469767-c50f-445b-8040-efad084dc1a7"
+                    },
+                    {
+                      "id": "a0f8642d-5e45-48da-81ff-4a296a857abd",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/identifiers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "identifiers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:04.000Z",
+                      "updatedAt": "2026-07-28T03:25:04.000Z",
+                      "uid": "35240-a0f8642d-5e45-48da-81ff-4a296a857abd"
+                    },
+                    {
+                      "id": "7ce178be-e5ee-45c8-ae50-677786e3360f",
+                      "name": "User not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/identifiers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "identifiers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:04.000Z",
+                      "updatedAt": "2026-07-28T03:25:04.000Z",
+                      "uid": "35240-7ce178be-e5ee-45c8-ae50-677786e3360f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:25:04.000Z",
+                  "updatedAt": "2026-07-28T03:25:04.000Z",
+                  "uid": "35240-8ffe3e5c-1f13-4203-b5c4-e5ea2e3ef688"
+                },
+                {
+                  "name": "Upvest Create a user identifier",
+                  "id": "6498b3b8-70da-4621-88f1-09caa23b6c87",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:user_id/identifiers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":user_id",
+                        "identifiers"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b9d5b029-8dbd-423b-a108-7706a92fd354",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the user."
+                        }
+                      ]
+                    },
+                    "description": "Add an external identifier to a user record."
+                  },
+                  "response": [
+                    {
+                      "id": "c80f038f-53ee-426c-aa89-876c5bd6fda8",
+                      "name": "Identifier created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/identifiers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "identifiers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:25:04.000Z",
+                      "updatedAt": "2026-07-28T03:25:04.000Z",
+                      "uid": "35240-c80f038f-53ee-426c-aa89-876c5bd6fda8"
+                    },
+                    {
+                      "id": "165ee0f0-61e8-4670-a218-ce4fda6f61a0",
+                      "name": "Invalid request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/identifiers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "identifiers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:04.000Z",
+                      "updatedAt": "2026-07-28T03:25:04.000Z",
+                      "uid": "35240-165ee0f0-61e8-4670-a218-ce4fda6f61a0"
+                    },
+                    {
+                      "id": "c1096f74-6ec3-4430-8dc4-94f8e0982956",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/identifiers",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "identifiers"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:04.000Z",
+                      "updatedAt": "2026-07-28T03:25:04.000Z",
+                      "uid": "35240-c1096f74-6ec3-4430-8dc4-94f8e0982956"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:25:04.000Z",
+                  "updatedAt": "2026-07-28T03:25:04.000Z",
+                  "uid": "35240-6498b3b8-70da-4621-88f1-09caa23b6c87"
+                }
+              ],
+              "id": "38896cf4-df29-4fd9-9d0d-e7f8c8f3e969",
+              "createdAt": "2026-07-28T03:25:03.000Z",
+              "updatedAt": "2026-07-28T03:25:03.000Z",
+              "uid": "35240-38896cf4-df29-4fd9-9d0d-e7f8c8f3e969"
+            }
+          ],
+          "id": "b0b53d20-0cd3-4877-bef9-747d588a02d8",
+          "createdAt": "2026-07-28T03:25:03.000Z",
+          "updatedAt": "2026-07-28T03:25:03.000Z",
+          "uid": "35240-b0b53d20-0cd3-4877-bef9-747d588a02d8"
+        }
+      ],
+      "id": "9c17c5d5-de15-42e5-863e-cd7ab62321f3",
+      "createdAt": "2026-07-28T03:25:03.000Z",
+      "updatedAt": "2026-07-28T03:25:03.000Z",
+      "uid": "35240-9c17c5d5-de15-42e5-863e-cd7ab62321f3"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

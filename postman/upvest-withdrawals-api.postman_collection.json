@@ -1,0 +1,413 @@
+{
+  "info": {
+    "_postman_id": "bc24a64f-4185-44e6-9a77-ae5c5254ab7a",
+    "name": "Upvest Investment Account Transfers Withdrawals API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:25:08.000Z",
+    "updatedAt": "2026-07-28T03:25:09.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bc24a64f-4185-44e6-9a77-ae5c5254ab7a"
+  },
+  "item": [
+    {
+      "name": "withdrawals",
+      "item": [
+        {
+          "name": "Upvest Create a withdrawal",
+          "id": "4cfdd936-35b6-4fea-8280-cec9af7c8b9e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"ULK\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/withdrawals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "withdrawals"
+              ]
+            },
+            "description": "Process a cash withdrawal from an investment account to a linked reference account."
+          },
+          "response": [
+            {
+              "id": "f0e690e9-d4c6-4630-a860-1f1d19b38347",
+              "name": "Withdrawal created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"ULK\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/withdrawals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "withdrawals"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"JGN\",\n  \"status\": \"NEW\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:25:09.000Z",
+              "updatedAt": "2026-07-28T03:25:09.000Z",
+              "uid": "35240-f0e690e9-d4c6-4630-a860-1f1d19b38347"
+            },
+            {
+              "id": "50c4f431-cfe4-4b14-a917-cf64fe18e51e",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"ULK\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/withdrawals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "withdrawals"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:25:09.000Z",
+              "updatedAt": "2026-07-28T03:25:09.000Z",
+              "uid": "35240-50c4f431-cfe4-4b14-a917-cf64fe18e51e"
+            },
+            {
+              "id": "12a247e9-fff0-474e-8937-16db47a756f0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"cash_amount\": \"<string>\",\n  \"currency\": \"ULK\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/withdrawals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "withdrawals"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:25:09.000Z",
+              "updatedAt": "2026-07-28T03:25:09.000Z",
+              "uid": "35240-12a247e9-fff0-474e-8937-16db47a756f0"
+            }
+          ],
+          "createdAt": "2026-07-28T03:25:09.000Z",
+          "updatedAt": "2026-07-28T03:25:09.000Z",
+          "uid": "35240-4cfdd936-35b6-4fea-8280-cec9af7c8b9e"
+        },
+        {
+          "name": "Upvest List withdrawals",
+          "id": "b665fb9f-a4f9-4513-bb7c-ab4c199a8085",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/withdrawals?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "withdrawals"
+              ],
+              "query": [
+                {
+                  "description": "The number of items to skip for pagination.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "The maximum number of items to return per page.",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieve a list of cash withdrawals."
+          },
+          "response": [
+            {
+              "id": "da076126-b3e0-4e61-9951-ad6123a5829d",
+              "name": "A list of withdrawals",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/withdrawals?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "withdrawals"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"cash_amount\": \"<string>\",\n      \"currency\": \"JOU\",\n      \"status\": \"PROCESSING\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"cash_amount\": \"<string>\",\n      \"currency\": \"JDX\",\n      \"status\": \"NEW\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:25:09.000Z",
+              "updatedAt": "2026-07-28T03:25:09.000Z",
+              "uid": "35240-da076126-b3e0-4e61-9951-ad6123a5829d"
+            },
+            {
+              "id": "1c1c003c-1218-4789-aa41-c9534aff30ff",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/withdrawals?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "withdrawals"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:25:09.000Z",
+              "updatedAt": "2026-07-28T03:25:09.000Z",
+              "uid": "35240-1c1c003c-1218-4789-aa41-c9534aff30ff"
+            }
+          ],
+          "createdAt": "2026-07-28T03:25:09.000Z",
+          "updatedAt": "2026-07-28T03:25:09.000Z",
+          "uid": "35240-b665fb9f-a4f9-4513-bb7c-ab4c199a8085"
+        }
+      ],
+      "id": "cd3c23ff-976f-49d1-bf51-6543b984be0d",
+      "createdAt": "2026-07-28T03:25:09.000Z",
+      "updatedAt": "2026-07-28T03:25:09.000Z",
+      "uid": "35240-cd3c23ff-976f-49d1-bf51-6543b984be0d"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

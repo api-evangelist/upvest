@@ -1,0 +1,450 @@
+{
+  "info": {
+    "_postman_id": "6d2b94b2-6524-4131-907a-135046482898",
+    "name": "Upvest Investment Account Transfers Liquidations API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:13.000Z",
+    "updatedAt": "2026-07-28T03:24:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6d2b94b2-6524-4131-907a-135046482898"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "{account_id}",
+          "item": [
+            {
+              "name": "liquidations",
+              "item": [
+                {
+                  "name": "Upvest Create a liquidation",
+                  "id": "2a3350c0-ed78-4614-b5d6-9ab278c862cd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"PARTIAL\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/liquidations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "liquidations"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b3afb59d-cd60-43bb-9a22-eb16af06a21f",
+                          "key": "account_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the account."
+                        }
+                      ]
+                    },
+                    "description": "Initiate a full or partial liquidation of an account's holdings."
+                  },
+                  "response": [
+                    {
+                      "id": "e387505e-3119-4b8a-9fd7-0ec26308f0a2",
+                      "name": "Liquidation initiated",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"PARTIAL\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/liquidations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "liquidations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"type\": \"FULL\",\n  \"status\": \"COMPLETED\",\n  \"created_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:24:14.000Z",
+                      "updatedAt": "2026-07-28T03:24:14.000Z",
+                      "uid": "35240-e387505e-3119-4b8a-9fd7-0ec26308f0a2"
+                    },
+                    {
+                      "id": "a5e8a637-e71e-4aa1-940b-711c1b5c4769",
+                      "name": "Invalid request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"PARTIAL\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/liquidations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "liquidations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:14.000Z",
+                      "updatedAt": "2026-07-28T03:24:14.000Z",
+                      "uid": "35240-a5e8a637-e71e-4aa1-940b-711c1b5c4769"
+                    },
+                    {
+                      "id": "a88b57ea-ed2c-4e9e-a24d-7358603372c6",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"PARTIAL\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/liquidations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "liquidations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:14.000Z",
+                      "updatedAt": "2026-07-28T03:24:14.000Z",
+                      "uid": "35240-a88b57ea-ed2c-4e9e-a24d-7358603372c6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:14.000Z",
+                  "updatedAt": "2026-07-28T03:24:14.000Z",
+                  "uid": "35240-2a3350c0-ed78-4614-b5d6-9ab278c862cd"
+                },
+                {
+                  "name": "Upvest List liquidations",
+                  "id": "8f9bee3d-cff5-4ec4-90aa-56cf909d6920",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/liquidations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "liquidations"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c2599a4c-424a-41c2-b0ea-ea380712cd06",
+                          "key": "account_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the account."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve liquidation operations for an account."
+                  },
+                  "response": [
+                    {
+                      "id": "0c8e0485-29d8-4d94-8d27-1855e3cd2d73",
+                      "name": "List of liquidations",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/liquidations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "liquidations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"type\": \"PARTIAL\",\n      \"status\": \"FAILED\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"type\": \"PARTIAL\",\n      \"status\": \"NEW\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:24:14.000Z",
+                      "updatedAt": "2026-07-28T03:24:14.000Z",
+                      "uid": "35240-0c8e0485-29d8-4d94-8d27-1855e3cd2d73"
+                    },
+                    {
+                      "id": "2f169142-f698-41a8-b651-a6cfac124ec6",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/liquidations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "liquidations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:14.000Z",
+                      "updatedAt": "2026-07-28T03:24:14.000Z",
+                      "uid": "35240-2f169142-f698-41a8-b651-a6cfac124ec6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:14.000Z",
+                  "updatedAt": "2026-07-28T03:24:14.000Z",
+                  "uid": "35240-8f9bee3d-cff5-4ec4-90aa-56cf909d6920"
+                }
+              ],
+              "id": "1841461f-956c-414d-9ce9-397e9a0dffa6",
+              "createdAt": "2026-07-28T03:24:14.000Z",
+              "updatedAt": "2026-07-28T03:24:14.000Z",
+              "uid": "35240-1841461f-956c-414d-9ce9-397e9a0dffa6"
+            }
+          ],
+          "id": "320c18cf-cefe-4fdc-bfda-9acddbb65c9d",
+          "createdAt": "2026-07-28T03:24:14.000Z",
+          "updatedAt": "2026-07-28T03:24:14.000Z",
+          "uid": "35240-320c18cf-cefe-4fdc-bfda-9acddbb65c9d"
+        }
+      ],
+      "id": "fbcf23aa-f6c1-401d-8022-85e710d466d1",
+      "createdAt": "2026-07-28T03:24:14.000Z",
+      "updatedAt": "2026-07-28T03:24:14.000Z",
+      "uid": "35240-fbcf23aa-f6c1-401d-8022-85e710d466d1"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

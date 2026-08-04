@@ -1,0 +1,846 @@
+{
+  "info": {
+    "_postman_id": "55435579-5fbf-4246-a637-38f70ad7227d",
+    "name": "Upvest Investment Account Transfers Portfolios API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:45.000Z",
+    "updatedAt": "2026-07-28T03:24:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-55435579-5fbf-4246-a637-38f70ad7227d"
+  },
+  "item": [
+    {
+      "name": "portfolios",
+      "item": [
+        {
+          "name": "{portfolio_id}",
+          "item": [
+            {
+              "name": "Upvest Retrieve a portfolio",
+              "id": "e75c383c-8051-4a56-b58d-70578bf50921",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/portfolios/:portfolio_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "portfolios",
+                    ":portfolio_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "8343f040-773f-4c28-a9a0-cfaf8268b9e4",
+                      "key": "portfolio_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the portfolio."
+                    }
+                  ]
+                },
+                "description": "Retrieve details for a specific portfolio including its allocations and current state."
+              },
+              "response": [
+                {
+                  "id": "be66b4ba-3d42-4dad-a3e9-4098e049c97b",
+                  "name": "Portfolio details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/portfolios/:portfolio_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "portfolios",
+                        ":portfolio_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "portfolio_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"status\": \"CLOSED\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:24:46.000Z",
+                  "updatedAt": "2026-07-28T03:24:46.000Z",
+                  "uid": "35240-be66b4ba-3d42-4dad-a3e9-4098e049c97b"
+                },
+                {
+                  "id": "ab4b5973-bc69-4d0b-bce2-bcc4deb5fd84",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/portfolios/:portfolio_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "portfolios",
+                        ":portfolio_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "portfolio_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:46.000Z",
+                  "updatedAt": "2026-07-28T03:24:46.000Z",
+                  "uid": "35240-ab4b5973-bc69-4d0b-bce2-bcc4deb5fd84"
+                },
+                {
+                  "id": "197522a3-c6d3-4aa6-ac26-ea8e905d4563",
+                  "name": "Portfolio not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/portfolios/:portfolio_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "portfolios",
+                        ":portfolio_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "portfolio_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:46.000Z",
+                  "updatedAt": "2026-07-28T03:24:46.000Z",
+                  "uid": "35240-197522a3-c6d3-4aa6-ac26-ea8e905d4563"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:46.000Z",
+              "updatedAt": "2026-07-28T03:24:46.000Z",
+              "uid": "35240-e75c383c-8051-4a56-b58d-70578bf50921"
+            },
+            {
+              "name": "Upvest Update a portfolio",
+              "id": "975bce9c-b928-453b-92cc-c701ed5a0117",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/portfolios/:portfolio_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "portfolios",
+                    ":portfolio_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a3ffa533-e6bc-4d27-ac05-bb2de0aeafd0",
+                      "key": "portfolio_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the portfolio."
+                    }
+                  ]
+                },
+                "description": "Update portfolio settings or metadata."
+              },
+              "response": [
+                {
+                  "id": "414ea2d1-6f16-4f9a-ad22-7df7156884cd",
+                  "name": "Portfolio updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/portfolios/:portfolio_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "portfolios",
+                        ":portfolio_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "portfolio_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"status\": \"CLOSED\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:24:46.000Z",
+                  "updatedAt": "2026-07-28T03:24:46.000Z",
+                  "uid": "35240-414ea2d1-6f16-4f9a-ad22-7df7156884cd"
+                },
+                {
+                  "id": "0dcbc64a-e9ce-4ae3-8f60-888198b6670a",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/portfolios/:portfolio_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "portfolios",
+                        ":portfolio_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "portfolio_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:46.000Z",
+                  "updatedAt": "2026-07-28T03:24:46.000Z",
+                  "uid": "35240-0dcbc64a-e9ce-4ae3-8f60-888198b6670a"
+                },
+                {
+                  "id": "8e511f50-1936-47a9-bf66-3b62dd73da40",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/portfolios/:portfolio_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "portfolios",
+                        ":portfolio_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "portfolio_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:46.000Z",
+                  "updatedAt": "2026-07-28T03:24:46.000Z",
+                  "uid": "35240-8e511f50-1936-47a9-bf66-3b62dd73da40"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:46.000Z",
+              "updatedAt": "2026-07-28T03:24:46.000Z",
+              "uid": "35240-975bce9c-b928-453b-92cc-c701ed5a0117"
+            }
+          ],
+          "id": "11e0477d-9169-4fd9-ad2d-1bae56ab3c91",
+          "createdAt": "2026-07-28T03:24:46.000Z",
+          "updatedAt": "2026-07-28T03:24:46.000Z",
+          "uid": "35240-11e0477d-9169-4fd9-ad2d-1bae56ab3c91"
+        },
+        {
+          "name": "Upvest List portfolios",
+          "id": "89bb9356-604d-4510-a103-2b8144b210d3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/portfolios?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "portfolios"
+              ],
+              "query": [
+                {
+                  "description": "The number of items to skip for pagination.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "The maximum number of items to return per page.",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of portfolios."
+          },
+          "response": [
+            {
+              "id": "cfd324e4-c343-411c-9b91-873012006785",
+              "name": "A paginated list of portfolios",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/portfolios?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "portfolios"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"status\": \"ACTIVE\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"status\": \"CLOSED\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:24:46.000Z",
+              "updatedAt": "2026-07-28T03:24:46.000Z",
+              "uid": "35240-cfd324e4-c343-411c-9b91-873012006785"
+            },
+            {
+              "id": "283f0937-c6b1-42d9-a43b-57288a59e99c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/portfolios?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "portfolios"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:46.000Z",
+              "updatedAt": "2026-07-28T03:24:46.000Z",
+              "uid": "35240-283f0937-c6b1-42d9-a43b-57288a59e99c"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:46.000Z",
+          "updatedAt": "2026-07-28T03:24:46.000Z",
+          "uid": "35240-89bb9356-604d-4510-a103-2b8144b210d3"
+        },
+        {
+          "name": "Upvest Create a portfolio",
+          "id": "0d88e0c5-a216-44a8-9e80-9d0f9989a1c4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"allocations\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/portfolios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "portfolios"
+              ]
+            },
+            "description": "Create a new portfolio with a defined set of target allocations across instruments."
+          },
+          "response": [
+            {
+              "id": "bc06816c-8ec5-4700-b800-b4a46141c6ea",
+              "name": "Portfolio created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"allocations\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/portfolios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "portfolios"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"account_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"status\": \"CLOSED\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:24:46.000Z",
+              "updatedAt": "2026-07-28T03:24:46.000Z",
+              "uid": "35240-bc06816c-8ec5-4700-b800-b4a46141c6ea"
+            },
+            {
+              "id": "3263347f-4a19-4080-b67b-a0a73f303984",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"allocations\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/portfolios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "portfolios"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:46.000Z",
+              "updatedAt": "2026-07-28T03:24:46.000Z",
+              "uid": "35240-3263347f-4a19-4080-b67b-a0a73f303984"
+            },
+            {
+              "id": "98d95174-a391-4e57-98fc-fd49b9b20e49",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"allocations\": [\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    },\n    {\n      \"instrument_id\": \"<uuid>\",\n      \"weight\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/portfolios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "portfolios"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:46.000Z",
+              "updatedAt": "2026-07-28T03:24:46.000Z",
+              "uid": "35240-98d95174-a391-4e57-98fc-fd49b9b20e49"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:46.000Z",
+          "updatedAt": "2026-07-28T03:24:46.000Z",
+          "uid": "35240-0d88e0c5-a216-44a8-9e80-9d0f9989a1c4"
+        }
+      ],
+      "id": "c9f92e68-02fc-4f89-9883-4ce756702d80",
+      "createdAt": "2026-07-28T03:24:46.000Z",
+      "updatedAt": "2026-07-28T03:24:46.000Z",
+      "uid": "35240-c9f92e68-02fc-4f89-9883-4ce756702d80"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

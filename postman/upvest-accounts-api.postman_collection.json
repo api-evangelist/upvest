@@ -1,0 +1,1249 @@
+{
+  "info": {
+    "_postman_id": "4526a746-0814-4058-a571-9fed3d5d51ae",
+    "name": "Upvest Investment Account Transfers Accounts API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:01.000Z",
+    "updatedAt": "2026-07-28T03:24:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4526a746-0814-4058-a571-9fed3d5d51ae"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "{user_id}",
+          "item": [
+            {
+              "name": "accounts",
+              "item": [
+                {
+                  "name": "Upvest List accounts for a user",
+                  "id": "c52b4211-b0b1-42eb-9ec9-fd1120e22d84",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:user_id/accounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":user_id",
+                        "accounts"
+                      ],
+                      "variable": [
+                        {
+                          "id": "40963225-b657-4639-8ec8-5d5d9a386fb8",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the user."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve all investment accounts belonging to a specific user."
+                  },
+                  "response": [
+                    {
+                      "id": "adbbc2cd-6ba0-46ff-bda3-13b89f0ba7ae",
+                      "name": "List of user accounts",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/accounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "accounts"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"user_id\": \"<uuid>\",\n      \"account_group_id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"status\": \"CLOSED\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"user_id\": \"<uuid>\",\n      \"account_group_id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"status\": \"OPEN\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:24:01.000Z",
+                      "updatedAt": "2026-07-28T03:24:01.000Z",
+                      "uid": "35240-adbbc2cd-6ba0-46ff-bda3-13b89f0ba7ae"
+                    },
+                    {
+                      "id": "67a986d7-c3a6-47c1-93b5-6b2d2ef9895c",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/accounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "accounts"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:01.000Z",
+                      "updatedAt": "2026-07-28T03:24:01.000Z",
+                      "uid": "35240-67a986d7-c3a6-47c1-93b5-6b2d2ef9895c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-c52b4211-b0b1-42eb-9ec9-fd1120e22d84"
+                }
+              ],
+              "id": "94d58661-aada-489b-8f1b-6b89f67bd467",
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-94d58661-aada-489b-8f1b-6b89f67bd467"
+            }
+          ],
+          "id": "003b8115-2ffc-43ae-8dbb-d20ef2b647ec",
+          "createdAt": "2026-07-28T03:24:01.000Z",
+          "updatedAt": "2026-07-28T03:24:01.000Z",
+          "uid": "35240-003b8115-2ffc-43ae-8dbb-d20ef2b647ec"
+        }
+      ],
+      "id": "1b92a20d-c863-4dde-9d8e-30491c33e494",
+      "createdAt": "2026-07-28T03:24:01.000Z",
+      "updatedAt": "2026-07-28T03:24:01.000Z",
+      "uid": "35240-1b92a20d-c863-4dde-9d8e-30491c33e494"
+    },
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "{account_id}",
+          "item": [
+            {
+              "name": "Upvest Retrieve an account",
+              "id": "2085fbf2-41ae-4090-a333-fd9d8bee7c23",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/:account_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "38227f1c-8f2b-4d6a-ac4c-3db4a38b949c",
+                      "key": "account_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the account."
+                    }
+                  ]
+                },
+                "description": "Retrieve details for a specific investment account."
+              },
+              "response": [
+                {
+                  "id": "da256fa5-4910-4d60-97d1-ed6821ebd938",
+                  "name": "Account details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"user_id\": \"<uuid>\",\n  \"account_group_id\": \"<uuid>\",\n  \"type\": \"<string>\",\n  \"status\": \"OPEN\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-da256fa5-4910-4d60-97d1-ed6821ebd938"
+                },
+                {
+                  "id": "67566586-74e4-4840-b371-da5fff6f7add",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-67566586-74e4-4840-b371-da5fff6f7add"
+                },
+                {
+                  "id": "3cf967b8-744e-4257-898e-035f3a0136d4",
+                  "name": "Account not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-3cf967b8-744e-4257-898e-035f3a0136d4"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-2085fbf2-41ae-4090-a333-fd9d8bee7c23"
+            },
+            {
+              "name": "Upvest Update an account",
+              "id": "4c69199a-22b3-48b0-a5f8-6fa55ff3330c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/:account_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "3e952b18-1b46-45ed-96d8-5566020d6d5d",
+                      "key": "account_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the account."
+                    }
+                  ]
+                },
+                "description": "Update metadata or settings for an existing investment account."
+              },
+              "response": [
+                {
+                  "id": "ee278c4b-c1bb-4e2b-bbb7-8692bb6ebf35",
+                  "name": "Account updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"user_id\": \"<uuid>\",\n  \"account_group_id\": \"<uuid>\",\n  \"type\": \"<string>\",\n  \"status\": \"OPEN\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-ee278c4b-c1bb-4e2b-bbb7-8692bb6ebf35"
+                },
+                {
+                  "id": "fcf15e24-6fe6-4cec-89dc-cf243e380df5",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-fcf15e24-6fe6-4cec-89dc-cf243e380df5"
+                },
+                {
+                  "id": "4b6b80a7-e90f-425e-b3b3-b5f9e04b41d9",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-4b6b80a7-e90f-425e-b3b3-b5f9e04b41d9"
+                },
+                {
+                  "id": "a9b39c2f-0abc-4211-b322-7169416bc2f3",
+                  "name": "Account not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-a9b39c2f-0abc-4211-b322-7169416bc2f3"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-4c69199a-22b3-48b0-a5f8-6fa55ff3330c"
+            },
+            {
+              "name": "Upvest Close an account",
+              "id": "0756dce4-f7f0-4af8-bdf1-30eb1aa5a3ca",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/:account_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    ":account_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a2de95e3-62d7-47fd-bb95-3a150b40ee0d",
+                      "key": "account_id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the account."
+                    }
+                  ]
+                },
+                "description": "Close an investment account. The account must have no open positions or pending orders."
+              },
+              "response": [
+                {
+                  "id": "a4617ca1-93ba-4852-95f0-e8432d08e4c0",
+                  "name": "Account successfully closed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-a4617ca1-93ba-4852-95f0-e8432d08e4c0"
+                },
+                {
+                  "id": "12b26f26-3a24-4121-8d33-b7ced023614d",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-12b26f26-3a24-4121-8d33-b7ced023614d"
+                },
+                {
+                  "id": "144e7495-d00a-4029-8e65-f24fc4dad729",
+                  "name": "Account not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "account_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:24:01.000Z",
+                  "updatedAt": "2026-07-28T03:24:01.000Z",
+                  "uid": "35240-144e7495-d00a-4029-8e65-f24fc4dad729"
+                }
+              ],
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-0756dce4-f7f0-4af8-bdf1-30eb1aa5a3ca"
+            }
+          ],
+          "id": "5d3ae834-80db-4d91-a1a8-052775428315",
+          "createdAt": "2026-07-28T03:24:01.000Z",
+          "updatedAt": "2026-07-28T03:24:01.000Z",
+          "uid": "35240-5d3ae834-80db-4d91-a1a8-052775428315"
+        },
+        {
+          "name": "Upvest List accounts",
+          "id": "f9339cfe-6bf3-45dc-a80b-ccf33cc05f23",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/accounts?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "accounts"
+              ],
+              "query": [
+                {
+                  "description": "The number of items to skip for pagination.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "The maximum number of items to return per page.",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of all investment accounts."
+          },
+          "response": [
+            {
+              "id": "05326613-5dbf-44a3-b5dd-7500f4abf39a",
+              "name": "A paginated list of accounts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"user_id\": \"<uuid>\",\n      \"account_group_id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"status\": \"CLOSED\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"user_id\": \"<uuid>\",\n      \"account_group_id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"status\": \"OPEN\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-05326613-5dbf-44a3-b5dd-7500f4abf39a"
+            },
+            {
+              "id": "66138393-7c41-4c22-9b9d-c884101ab5af",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-66138393-7c41-4c22-9b9d-c884101ab5af"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:01.000Z",
+          "updatedAt": "2026-07-28T03:24:01.000Z",
+          "uid": "35240-f9339cfe-6bf3-45dc-a80b-ccf33cc05f23"
+        },
+        {
+          "name": "Upvest Create an account",
+          "id": "8c488e0e-e7db-4710-91a6-e771a2a568d9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"<uuid>\",\n  \"account_group_id\": \"<uuid>\",\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            },
+            "description": "Open a new investment account for a user."
+          },
+          "response": [
+            {
+              "id": "d9b8bdf1-b088-4706-82c0-03e28f155b7b",
+              "name": "Account successfully created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"<uuid>\",\n  \"account_group_id\": \"<uuid>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"user_id\": \"<uuid>\",\n  \"account_group_id\": \"<uuid>\",\n  \"type\": \"<string>\",\n  \"status\": \"OPEN\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-d9b8bdf1-b088-4706-82c0-03e28f155b7b"
+            },
+            {
+              "id": "3e9b1c5a-1a06-4e99-995e-83c27550ac46",
+              "name": "Invalid request body",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"<uuid>\",\n  \"account_group_id\": \"<uuid>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-3e9b1c5a-1a06-4e99-995e-83c27550ac46"
+            },
+            {
+              "id": "2358b825-a97e-4b67-8f4c-bc351238b56c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"<uuid>\",\n  \"account_group_id\": \"<uuid>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/accounts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:01.000Z",
+              "updatedAt": "2026-07-28T03:24:01.000Z",
+              "uid": "35240-2358b825-a97e-4b67-8f4c-bc351238b56c"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:01.000Z",
+          "updatedAt": "2026-07-28T03:24:01.000Z",
+          "uid": "35240-8c488e0e-e7db-4710-91a6-e771a2a568d9"
+        }
+      ],
+      "id": "3ce639d7-0fdd-4a19-8d18-f7b97e73eb1e",
+      "createdAt": "2026-07-28T03:24:01.000Z",
+      "updatedAt": "2026-07-28T03:24:01.000Z",
+      "uid": "35240-3ce639d7-0fdd-4a19-8d18-f7b97e73eb1e"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

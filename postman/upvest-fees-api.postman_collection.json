@@ -1,0 +1,206 @@
+{
+  "info": {
+    "_postman_id": "f6a12665-0659-4502-9be3-b53da9f7c440",
+    "name": "Upvest Investment Account Transfers Fees API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:09.000Z",
+    "updatedAt": "2026-07-28T03:24:10.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f6a12665-0659-4502-9be3-b53da9f7c440"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "{account_id}",
+          "item": [
+            {
+              "name": "fees",
+              "item": [
+                {
+                  "name": "Upvest List fees",
+                  "id": "262727e0-7bc7-4658-81ce-3c34a673938c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/fees",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "fees"
+                      ],
+                      "variable": [
+                        {
+                          "id": "04442507-073e-4c10-9329-86cbb2671f90",
+                          "key": "account_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the account."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve fees charged on an account."
+                  },
+                  "response": [
+                    {
+                      "id": "582887a4-4aa4-45b6-947c-eb75f8f9f81a",
+                      "name": "List of fees",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/fees",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "fees"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"currency\": \"FNK\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"account_id\": \"<uuid>\",\n      \"type\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"currency\": \"FQT\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:24:10.000Z",
+                      "updatedAt": "2026-07-28T03:24:10.000Z",
+                      "uid": "35240-582887a4-4aa4-45b6-947c-eb75f8f9f81a"
+                    },
+                    {
+                      "id": "9ecf91e0-9847-41c7-abd4-1580d5d43baa",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/fees",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "fees"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:10.000Z",
+                      "updatedAt": "2026-07-28T03:24:10.000Z",
+                      "uid": "35240-9ecf91e0-9847-41c7-abd4-1580d5d43baa"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:10.000Z",
+                  "updatedAt": "2026-07-28T03:24:10.000Z",
+                  "uid": "35240-262727e0-7bc7-4658-81ce-3c34a673938c"
+                }
+              ],
+              "id": "22a3c5cb-24f6-43f8-a7f9-2b3290003849",
+              "createdAt": "2026-07-28T03:24:10.000Z",
+              "updatedAt": "2026-07-28T03:24:10.000Z",
+              "uid": "35240-22a3c5cb-24f6-43f8-a7f9-2b3290003849"
+            }
+          ],
+          "id": "7234988a-0b91-4298-acbc-c47942c65477",
+          "createdAt": "2026-07-28T03:24:10.000Z",
+          "updatedAt": "2026-07-28T03:24:10.000Z",
+          "uid": "35240-7234988a-0b91-4298-acbc-c47942c65477"
+        }
+      ],
+      "id": "9b4e95e2-180f-4e1e-8849-04f17fe232bf",
+      "createdAt": "2026-07-28T03:24:10.000Z",
+      "updatedAt": "2026-07-28T03:24:10.000Z",
+      "uid": "35240-9b4e95e2-180f-4e1e-8849-04f17fe232bf"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

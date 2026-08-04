@@ -1,0 +1,200 @@
+{
+  "info": {
+    "_postman_id": "cec0c569-5d45-48e4-840c-1835d85914a8",
+    "name": "Upvest Investment Account Transfers Corporate Actions API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:06.000Z",
+    "updatedAt": "2026-07-28T03:24:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cec0c569-5d45-48e4-840c-1835d85914a8"
+  },
+  "item": [
+    {
+      "name": "corporate_actions",
+      "item": [
+        {
+          "name": "Upvest List corporate actions",
+          "id": "136d689f-67ec-43c9-a103-f16357368995",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/corporate_actions?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "corporate_actions"
+              ],
+              "query": [
+                {
+                  "description": "The number of items to skip for pagination.",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "The maximum number of items to return per page.",
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieve corporate action events affecting held securities such as dividends, splits, and mergers."
+          },
+          "response": [
+            {
+              "id": "ba7137fa-2a0a-44e2-8dd0-84f6d1f8be3b",
+              "name": "List of corporate actions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/corporate_actions?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "corporate_actions"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"instrument_id\": \"<uuid>\",\n      \"type\": \"MERGER\",\n      \"status\": \"PROCESSED\",\n      \"record_date\": \"<date>\",\n      \"ex_date\": \"<date>\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"instrument_id\": \"<uuid>\",\n      \"type\": \"DIVIDEND\",\n      \"status\": \"PROCESSED\",\n      \"record_date\": \"<date>\",\n      \"ex_date\": \"<date>\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ],\n  \"meta\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:24:06.000Z",
+              "updatedAt": "2026-07-28T03:24:06.000Z",
+              "uid": "35240-ba7137fa-2a0a-44e2-8dd0-84f6d1f8be3b"
+            },
+            {
+              "id": "d37c1c03-4996-4670-b67e-b514a88dde55",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/corporate_actions?offset=0&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "corporate_actions"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of items to skip for pagination.",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The maximum number of items to return per page.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:24:06.000Z",
+              "updatedAt": "2026-07-28T03:24:06.000Z",
+              "uid": "35240-d37c1c03-4996-4670-b67e-b514a88dde55"
+            }
+          ],
+          "createdAt": "2026-07-28T03:24:06.000Z",
+          "updatedAt": "2026-07-28T03:24:06.000Z",
+          "uid": "35240-136d689f-67ec-43c9-a103-f16357368995"
+        }
+      ],
+      "id": "f0ace925-e5a3-442f-9884-3caff743f3c2",
+      "createdAt": "2026-07-28T03:24:06.000Z",
+      "updatedAt": "2026-07-28T03:24:06.000Z",
+      "uid": "35240-f0ace925-e5a3-442f-9884-3caff743f3c2"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

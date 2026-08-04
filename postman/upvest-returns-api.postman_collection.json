@@ -1,0 +1,206 @@
+{
+  "info": {
+    "_postman_id": "c3c9fcbd-1cb3-48be-9048-348451d9d012",
+    "name": "Upvest Investment Account Transfers Returns API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:56.000Z",
+    "updatedAt": "2026-07-28T03:24:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c3c9fcbd-1cb3-48be-9048-348451d9d012"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "{account_id}",
+          "item": [
+            {
+              "name": "returns",
+              "item": [
+                {
+                  "name": "Upvest List account returns",
+                  "id": "c6de2fc5-3805-4893-b94d-6001dfe7d397",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/returns",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "returns"
+                      ],
+                      "variable": [
+                        {
+                          "id": "820af201-e8ee-4c4b-b1c9-a8999ff6df98",
+                          "key": "account_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the account."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve investment return calculations for an account."
+                  },
+                  "response": [
+                    {
+                      "id": "8ede892e-f429-40a3-9950-f5b647e646da",
+                      "name": "Account returns data",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/returns",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "returns"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"account_id\": \"<uuid>\",\n      \"total_return\": \"<string>\",\n      \"total_return_percentage\": \"<string>\",\n      \"period_start\": \"<date>\",\n      \"period_end\": \"<date>\",\n      \"currency\": \"LVJ\"\n    },\n    {\n      \"account_id\": \"<uuid>\",\n      \"total_return\": \"<string>\",\n      \"total_return_percentage\": \"<string>\",\n      \"period_start\": \"<date>\",\n      \"period_end\": \"<date>\",\n      \"currency\": \"ZOP\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:24:57.000Z",
+                      "updatedAt": "2026-07-28T03:24:57.000Z",
+                      "uid": "35240-8ede892e-f429-40a3-9950-f5b647e646da"
+                    },
+                    {
+                      "id": "93cc20e8-b5cd-41b4-9088-a85d087535ee",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/returns",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "returns"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:24:57.000Z",
+                      "updatedAt": "2026-07-28T03:24:57.000Z",
+                      "uid": "35240-93cc20e8-b5cd-41b4-9088-a85d087535ee"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:24:57.000Z",
+                  "updatedAt": "2026-07-28T03:24:57.000Z",
+                  "uid": "35240-c6de2fc5-3805-4893-b94d-6001dfe7d397"
+                }
+              ],
+              "id": "da38a603-f848-4e2d-826b-01e5b9ee0879",
+              "createdAt": "2026-07-28T03:24:57.000Z",
+              "updatedAt": "2026-07-28T03:24:57.000Z",
+              "uid": "35240-da38a603-f848-4e2d-826b-01e5b9ee0879"
+            }
+          ],
+          "id": "584449a8-d913-41c2-9f73-dd109d5d0ddc",
+          "createdAt": "2026-07-28T03:24:57.000Z",
+          "updatedAt": "2026-07-28T03:24:57.000Z",
+          "uid": "35240-584449a8-d913-41c2-9f73-dd109d5d0ddc"
+        }
+      ],
+      "id": "8ac8c41d-853c-4d0d-8ebe-2fb3043f3083",
+      "createdAt": "2026-07-28T03:24:57.000Z",
+      "updatedAt": "2026-07-28T03:24:57.000Z",
+      "uid": "35240-8ac8c41d-853c-4d0d-8ebe-2fb3043f3083"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}

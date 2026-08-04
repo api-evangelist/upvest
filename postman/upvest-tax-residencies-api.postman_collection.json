@@ -1,0 +1,450 @@
+{
+  "info": {
+    "_postman_id": "a049d4ef-21bd-4006-a3a3-2cb184e483fd",
+    "name": "Upvest Investment Account Transfers Tax Residencies API",
+    "description": "The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.\n\nContact Support:\n Name: Upvest Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:24:59.000Z",
+    "updatedAt": "2026-07-28T03:24:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a049d4ef-21bd-4006-a3a3-2cb184e483fd"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "{user_id}",
+          "item": [
+            {
+              "name": "tax_residencies",
+              "item": [
+                {
+                  "name": "Upvest List tax residencies",
+                  "id": "ddaaf783-92f8-4579-89d8-112959844107",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:user_id/tax_residencies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":user_id",
+                        "tax_residencies"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f0573626-c933-42e5-a506-748bb71957e5",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the user."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve tax residency information for a user."
+                  },
+                  "response": [
+                    {
+                      "id": "566e1e35-2576-49a8-b2fd-30f73906e7f7",
+                      "name": "List of tax residencies",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/tax_residencies",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "tax_residencies"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"country\": \"LC\",\n      \"tax_identification_number\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"country\": \"PT\",\n      \"tax_identification_number\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:25:00.000Z",
+                      "updatedAt": "2026-07-28T03:25:00.000Z",
+                      "uid": "35240-566e1e35-2576-49a8-b2fd-30f73906e7f7"
+                    },
+                    {
+                      "id": "84a1d4e7-07d5-45c9-95dc-6954ce96201b",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/tax_residencies",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "tax_residencies"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:00.000Z",
+                      "updatedAt": "2026-07-28T03:25:00.000Z",
+                      "uid": "35240-84a1d4e7-07d5-45c9-95dc-6954ce96201b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:25:00.000Z",
+                  "updatedAt": "2026-07-28T03:25:00.000Z",
+                  "uid": "35240-ddaaf783-92f8-4579-89d8-112959844107"
+                },
+                {
+                  "name": "Upvest Create a tax residency",
+                  "id": "d009bf91-e9c7-4671-87d7-c5211675de69",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"country\": \"QO\",\n  \"tax_identification_number\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:user_id/tax_residencies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":user_id",
+                        "tax_residencies"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c6c14402-35e5-42ee-9d51-fae3a6929f67",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the user."
+                        }
+                      ]
+                    },
+                    "description": "Add a tax residency record for a user."
+                  },
+                  "response": [
+                    {
+                      "id": "0cff9db2-3380-40c8-a89e-4f380be78948",
+                      "name": "Tax residency created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"country\": \"QO\",\n  \"tax_identification_number\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/tax_residencies",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "tax_residencies"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"country\": \"SP\",\n  \"tax_identification_number\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:25:00.000Z",
+                      "updatedAt": "2026-07-28T03:25:00.000Z",
+                      "uid": "35240-0cff9db2-3380-40c8-a89e-4f380be78948"
+                    },
+                    {
+                      "id": "23c0a0b2-e4ed-464d-9f02-ad4f4fdd9e14",
+                      "name": "Invalid request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"country\": \"QO\",\n  \"tax_identification_number\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/tax_residencies",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "tax_residencies"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:00.000Z",
+                      "updatedAt": "2026-07-28T03:25:00.000Z",
+                      "uid": "35240-23c0a0b2-e4ed-464d-9f02-ad4f4fdd9e14"
+                    },
+                    {
+                      "id": "78c7cb33-6702-4c0a-a594-9b9638d47644",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"country\": \"QO\",\n  \"tax_identification_number\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/users/:user_id/tax_residencies",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "users",
+                            ":user_id",
+                            "tax_residencies"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:25:00.000Z",
+                      "updatedAt": "2026-07-28T03:25:00.000Z",
+                      "uid": "35240-78c7cb33-6702-4c0a-a594-9b9638d47644"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:25:00.000Z",
+                  "updatedAt": "2026-07-28T03:25:00.000Z",
+                  "uid": "35240-d009bf91-e9c7-4671-87d7-c5211675de69"
+                }
+              ],
+              "id": "fd2c940d-794e-4d56-8c5b-5aa920c8dc93",
+              "createdAt": "2026-07-28T03:25:00.000Z",
+              "updatedAt": "2026-07-28T03:25:00.000Z",
+              "uid": "35240-fd2c940d-794e-4d56-8c5b-5aa920c8dc93"
+            }
+          ],
+          "id": "b0760b13-8028-401f-afc3-cf49cacb4af7",
+          "createdAt": "2026-07-28T03:25:00.000Z",
+          "updatedAt": "2026-07-28T03:25:00.000Z",
+          "uid": "35240-b0760b13-8028-401f-afc3-cf49cacb4af7"
+        }
+      ],
+      "id": "4f730f4b-87b2-4fb7-811e-93a9d5fc4f23",
+      "createdAt": "2026-07-28T03:25:00.000Z",
+      "updatedAt": "2026-07-28T03:25:00.000Z",
+      "uid": "35240-4f730f4b-87b2-4fb7-811e-93a9d5fc4f23"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "users:read users:admin accounts:read accounts:admin orders:read orders:admin instruments:read portfolios:read portfolios:admin positions:read payments:read payments:admin reports:read webhooks:read webhooks:admin transactions:read fees:read fees:admin",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/auth/token",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upvest.co"
+    }
+  ]
+}
