@@ -1225,6 +1225,9 @@ apis:
   - type: JSONSchema
     url: json-schema/investment-api-position-schema.json
 common:
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/upvestco/httpsignature-proxy/blob/main/LICENSE
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/upvest/overview
   - type: AgenticAccess
