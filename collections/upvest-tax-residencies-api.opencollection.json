@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upvest Investment Account Transfers Tax Residencies API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/auth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tax Residencies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List tax residencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/users/:user_id/tax_residencies",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ]
+          },
+          "docs": "Retrieve tax residency information for a user."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a tax residency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/users/:user_id/tax_residencies",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a tax residency record for a user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upvest Investment Account Transfers Savings Plans API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/auth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Savings Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List savings plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/savings_plans",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return per page."
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of automated savings plans."
+        },
+        {
+          "info": {
+            "name": "Upvest Create a savings plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/savings_plans",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an automated recurring investment plan. Savings plans execute on a defined schedule, investing a specified amount into an instrument or portfolio."
+        },
+        {
+          "info": {
+            "name": "Upvest Retrieve a savings plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/savings_plans/:savings_plan_id",
+            "params": [
+              {
+                "name": "savings_plan_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the savings plan."
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific savings plan."
+        },
+        {
+          "info": {
+            "name": "Upvest Update a savings plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.upvest.co/savings_plans/:savings_plan_id",
+            "params": [
+              {
+                "name": "savings_plan_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the savings plan."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the configuration of an existing savings plan."
+        },
+        {
+          "info": {
+            "name": "Upvest Delete a savings plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.upvest.co/savings_plans/:savings_plan_id",
+            "params": [
+              {
+                "name": "savings_plan_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the savings plan."
+              }
+            ]
+          },
+          "docs": "Cancel and remove an automated savings plan."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

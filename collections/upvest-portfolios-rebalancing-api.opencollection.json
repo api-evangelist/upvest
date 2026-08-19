@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upvest Investment Account Transfers Portfolios Rebalancing API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/auth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolios Rebalancing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List rebalancing executions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/rebalancing",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of rebalancing executions for a portfolio."
+        },
+        {
+          "info": {
+            "name": "Upvest Trigger portfolio rebalancing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/rebalancing",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ]
+          },
+          "docs": "Initiate a rebalancing operation to realign current holdings with target allocations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

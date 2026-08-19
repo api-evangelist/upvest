@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upvest Investment Account Transfers Instrument Prices API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/auth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instrument Prices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List instrument prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/instruments/:instrument_id/prices",
+            "params": [
+              {
+                "name": "instrument_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the instrument."
+              }
+            ]
+          },
+          "docs": "Retrieve price data for a specific instrument. Prices are linked to exchanges so you can track where prices are available."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

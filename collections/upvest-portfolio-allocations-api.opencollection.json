@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upvest Investment Account Transfers Portfolio Allocations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/auth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolio Allocations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upvest List portfolio allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/allocations",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ]
+          },
+          "docs": "Retrieve target allocations for a specific portfolio."
+        },
+        {
+          "info": {
+            "name": "Upvest Update portfolio allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.upvest.co/portfolios/:portfolio_id/allocations",
+            "params": [
+              {
+                "name": "portfolio_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the portfolio."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace the target allocation set for a portfolio."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
