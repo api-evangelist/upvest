@@ -74,6 +74,8 @@ apis:
   humanURL: https://docs.upvest.co/
   baseURL: https://api.upvest.co
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -244,6 +246,8 @@ apis:
   humanURL: https://docs.upvest.co/
   baseURL: https://api.upvest.co
   tags:
+  - Execution
+  tags_raw:
   - Executions
   properties:
   - type: OpenAPI
@@ -346,6 +350,8 @@ apis:
   humanURL: https://docs.upvest.co/
   baseURL: https://api.upvest.co
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -550,6 +556,8 @@ apis:
   humanURL: https://docs.upvest.co/
   baseURL: https://api.upvest.co
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -652,6 +660,8 @@ apis:
   humanURL: https://docs.upvest.co/
   baseURL: https://api.upvest.co
   tags:
+  - Portfolio
+  tags_raw:
   - Portfolios
   properties:
   - type: OpenAPI
@@ -958,6 +968,8 @@ apis:
   humanURL: https://docs.upvest.co/
   baseURL: https://api.upvest.co
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -1094,6 +1106,8 @@ apis:
   humanURL: https://docs.upvest.co/
   baseURL: https://api.upvest.co
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
