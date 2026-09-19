@@ -33,6 +33,14 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/upvest.png
 tags:
   - Banking Infrastructure
   - Fintech
+  - Investment
+  - Securities
+  - Fractional Investing
+  - Custody
+  - Wealth Management
+tags_raw:
+  - Banking Infrastructure
+  - Fintech
   - Investments
   - Securities
   - Fractional Investing
@@ -1156,6 +1164,8 @@ apis:
   humanURL: https://docs.upvest.co/
   baseURL: https://api.upvest.co
   tags:
+  - Valuation
+  tags_raw:
   - Valuations
   properties:
   - type: OpenAPI
