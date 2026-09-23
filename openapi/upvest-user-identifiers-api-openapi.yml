@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Upvest Investment Account Transfers User Identifiers API
-  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  title: Upvest Investment User Identifiers API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences.
   version: 1.0.0
   contact:
     name: Upvest Support
@@ -283,14 +283,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UserIdentifierUpdate:
-      type: object
-      description: Request body for updating a user identifier.
-      properties:
-        value:
-          type: string
-          description: The updated identifier value.
-          example: example-value
     UserIdentifierCreate:
       type: object
       description: Request body for creating a user identifier.
@@ -305,6 +297,14 @@ components:
         value:
           type: string
           description: The identifier value.
+          example: example-value
+    UserIdentifierUpdate:
+      type: object
+      description: Request body for updating a user identifier.
+      properties:
+        value:
+          type: string
+          description: The updated identifier value.
           example: example-value
     UserIdentifier:
       type: object
@@ -349,19 +349,19 @@ components:
           description: A detailed human-readable explanation of the error.
           example: example-value
   parameters:
-    UserId:
-      name: user_id
-      in: path
-      required: true
-      description: The unique identifier of the user.
-      schema:
-        type: string
-        format: uuid
     IdentifierId:
       name: identifier_id
       in: path
       required: true
       description: The unique identifier of the user identifier.
+      schema:
+        type: string
+        format: uuid
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The unique identifier of the user.
       schema:
         type: string
         format: uuid

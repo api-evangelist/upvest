@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Upvest Investment Account Transfers Users API
-  description: The Upvest Investment API provides a unified interface for building embedded investment experiences. It supports placing and managing orders, creating portfolios, configuring savings plans, handling securities transfers, and managing user accounts and positions. The API covers the full order lifecycle with asynchronous processing and webhook notifications for real-time event handling. Financial institutions can use the API to offer fractional investing, automated portfolio management, and localized investment products across European and UK markets.
+  title: Upvest Investment Users API
+  description: The Upvest Investment API provides a unified interface for building embedded investment experiences.
   version: 1.0.0
   contact:
     name: Upvest Support
@@ -347,7 +347,162 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: string
+        format: uuid
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   schemas:
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    Address:
+      type: object
+      description: A postal address.
+      required:
+      - street
+      - city
+      - postal_code
+      - country
+      properties:
+        street:
+          type: string
+          description: The street name and number.
+          example: Example Street 1
+        additional_line:
+          type: string
+          description: Additional address line.
+          example: example-value
+        city:
+          type: string
+          description: The city name.
+          example: Berlin
+        postal_code:
+          type: string
+          description: The postal or ZIP code.
+          example: '10115'
+        state:
+          type: string
+          description: The state or province.
+          example: BE
+        country:
+          type: string
+          description: The country as an ISO 3166-1 alpha-2 code.
+          pattern: ^[A-Z]{2}$
+          example: DE
+    UserUpdate:
+      type: object
+      description: Request body for updating user information.
+      properties:
+        first_name:
+          type: string
+          description: The user's first name.
+          example: Example Name
+        last_name:
+          type: string
+          description: The user's last name.
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: The user's email address.
+          example: user@example.com
+        address:
+          $ref: '#/components/schemas/Address'
+    UserCreate:
+      type: object
+      description: Request body for creating a new user.
+      required:
+      - first_name
+      - last_name
+      - email
+      - date_of_birth
+      - nationality
+      - address
+      properties:
+        first_name:
+          type: string
+          description: The user's first name.
+          example: Example Name
+        last_name:
+          type: string
+          description: The user's last name.
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: The user's email address.
+          example: user@example.com
+        date_of_birth:
+          type: string
+          format: date
+          description: The user's date of birth.
+          example: '2025-03-15'
+        nationality:
+          type: string
+          description: The user's nationality as an ISO 3166-1 alpha-2 country code.
+          pattern: ^[A-Z]{2}$
+          example: DE
+        address:
+          $ref: '#/components/schemas/Address'
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
     User:
       type: object
       description: An end user on the investment platform.
@@ -401,161 +556,6 @@ components:
           format: date-time
           description: The date and time when the user was last updated.
           example: '2025-03-15T14:30:00Z'
-    PaginationMeta:
-      type: object
-      description: Pagination metadata for list responses.
-      properties:
-        offset:
-          type: integer
-          description: The current offset.
-          example: 0
-        limit:
-          type: integer
-          description: The page size.
-          example: 20
-        count:
-          type: integer
-          description: The total number of items in the current page.
-          example: 100
-        total:
-          type: integer
-          description: The total number of items available.
-          example: 100
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
-    UserUpdate:
-      type: object
-      description: Request body for updating user information.
-      properties:
-        first_name:
-          type: string
-          description: The user's first name.
-          example: Example Name
-        last_name:
-          type: string
-          description: The user's last name.
-          example: Example Name
-        email:
-          type: string
-          format: email
-          description: The user's email address.
-          example: user@example.com
-        address:
-          $ref: '#/components/schemas/Address'
-    Address:
-      type: object
-      description: A postal address.
-      required:
-      - street
-      - city
-      - postal_code
-      - country
-      properties:
-        street:
-          type: string
-          description: The street name and number.
-          example: Example Street 1
-        additional_line:
-          type: string
-          description: Additional address line.
-          example: example-value
-        city:
-          type: string
-          description: The city name.
-          example: Berlin
-        postal_code:
-          type: string
-          description: The postal or ZIP code.
-          example: '10115'
-        state:
-          type: string
-          description: The state or province.
-          example: BE
-        country:
-          type: string
-          description: The country as an ISO 3166-1 alpha-2 code.
-          pattern: ^[A-Z]{2}$
-          example: DE
-    UserCreate:
-      type: object
-      description: Request body for creating a new user.
-      required:
-      - first_name
-      - last_name
-      - email
-      - date_of_birth
-      - nationality
-      - address
-      properties:
-        first_name:
-          type: string
-          description: The user's first name.
-          example: Example Name
-        last_name:
-          type: string
-          description: The user's last name.
-          example: Example Name
-        email:
-          type: string
-          format: email
-          description: The user's email address.
-          example: user@example.com
-        date_of_birth:
-          type: string
-          format: date
-          description: The user's date of birth.
-          example: '2025-03-15'
-        nationality:
-          type: string
-          description: The user's nationality as an ISO 3166-1 alpha-2 country code.
-          pattern: ^[A-Z]{2}$
-          example: DE
-        address:
-          $ref: '#/components/schemas/Address'
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    UserId:
-      name: user_id
-      in: path
-      required: true
-      description: The unique identifier of the user.
-      schema:
-        type: string
-        format: uuid
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2
