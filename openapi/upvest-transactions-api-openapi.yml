@@ -80,26 +80,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PaginationMeta:
-      type: object
-      description: Pagination metadata for list responses.
-      properties:
-        offset:
-          type: integer
-          description: The current offset.
-          example: 0
-        limit:
-          type: integer
-          description: The page size.
-          example: 20
-        count:
-          type: integer
-          description: The total number of items in the current page.
-          example: 100
-        total:
-          type: integer
-          description: The total number of items available.
-          example: 100
     Transaction:
       type: object
       description: A transaction record within an account.
@@ -159,7 +139,35 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
   parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     Limit:
       name: limit
       in: query
@@ -177,14 +185,6 @@ components:
       schema:
         type: string
         format: uuid
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

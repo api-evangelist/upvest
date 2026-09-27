@@ -317,6 +317,26 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
     WebhookSubscriptionUpdate:
       type: object
       description: Request body for updating a webhook subscription.
@@ -340,25 +360,6 @@ components:
           - INACTIVE
           description: Activate or deactivate the subscription.
           example: ACTIVE
-    WebhookSubscriptionCreate:
-      type: object
-      description: Request body for creating a webhook subscription.
-      required:
-      - url
-      - event_categories
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The HTTPS endpoint URL. Must use TLS 1.2 or higher.
-          example: https://example.com
-        event_categories:
-          type: array
-          items:
-            type: string
-          description: The event categories to subscribe to.
-          example:
-          - example-value
     WebhookSubscription:
       type: object
       description: A webhook subscription for receiving event notifications.
@@ -415,26 +416,25 @@ components:
           format: date-time
           description: When the subscription was created.
           example: '2025-03-15T14:30:00Z'
-    Error:
+    WebhookSubscriptionCreate:
       type: object
-      description: An API error response.
+      description: Request body for creating a webhook subscription.
+      required:
+      - url
+      - event_categories
       properties:
-        type:
+        url:
           type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
+          format: uri
+          description: The HTTPS endpoint URL. Must use TLS 1.2 or higher.
+          example: https://example.com
+        event_categories:
+          type: array
+          items:
+            type: string
+          description: The event categories to subscribe to.
+          example:
+          - example-value
   parameters:
     WebhookId:
       name: webhook_id

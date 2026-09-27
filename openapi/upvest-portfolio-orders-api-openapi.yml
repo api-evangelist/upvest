@@ -102,6 +102,22 @@ components:
         type: string
         format: uuid
   schemas:
+    PortfolioOrderCreate:
+      type: object
+      description: Request body for placing a portfolio order.
+      required:
+      - cash_amount
+      - currency
+      properties:
+        cash_amount:
+          type: string
+          description: The total cash amount to invest, distributed across allocations.
+          example: example-value
+        currency:
+          type: string
+          description: The order currency as an ISO 4217 code.
+          pattern: ^[A-Z]{3}$
+          example: EUR
     PortfolioOrder:
       type: object
       description: An order placed against a portfolio's allocations.
@@ -158,22 +174,6 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
-    PortfolioOrderCreate:
-      type: object
-      description: Request body for placing a portfolio order.
-      required:
-      - cash_amount
-      - currency
-      properties:
-        cash_amount:
-          type: string
-          description: The total cash amount to invest, distributed across allocations.
-          example: example-value
-        currency:
-          type: string
-          description: The order currency as an ISO 4217 code.
-          pattern: ^[A-Z]{3}$
-          example: EUR
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

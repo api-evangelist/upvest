@@ -85,6 +85,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    OrderId:
+      name: order_id
+      in: path
+      required: true
+      description: The unique identifier of the order.
+      schema:
+        type: string
+        format: uuid
   schemas:
     Execution:
       type: object
@@ -141,15 +150,6 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
-  parameters:
-    OrderId:
-      name: order_id
-      in: path
-      required: true
-      description: The unique identifier of the order.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

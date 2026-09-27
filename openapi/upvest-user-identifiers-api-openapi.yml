@@ -282,21 +282,43 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: string
+        format: uuid
+    IdentifierId:
+      name: identifier_id
+      in: path
+      required: true
+      description: The unique identifier of the user identifier.
+      schema:
+        type: string
+        format: uuid
   schemas:
-    UserIdentifierCreate:
+    Error:
       type: object
-      description: Request body for creating a user identifier.
-      required:
-      - type
-      - value
+      description: An API error response.
       properties:
         type:
           type: string
-          description: The type of external identifier.
+          description: The error type identifier.
           example: standard
-        value:
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
           type: string
-          description: The identifier value.
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
           example: example-value
     UserIdentifierUpdate:
       type: object
@@ -328,43 +350,21 @@ components:
           format: date-time
           description: When the identifier was created.
           example: '2025-03-15T14:30:00Z'
-    Error:
+    UserIdentifierCreate:
       type: object
-      description: An API error response.
+      description: Request body for creating a user identifier.
+      required:
+      - type
+      - value
       properties:
         type:
           type: string
-          description: The error type identifier.
+          description: The type of external identifier.
           example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
+        value:
           type: string
-          description: A short human-readable summary of the error.
+          description: The identifier value.
           example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
-  parameters:
-    IdentifierId:
-      name: identifier_id
-      in: path
-      required: true
-      description: The unique identifier of the user identifier.
-      schema:
-        type: string
-        format: uuid
-    UserId:
-      name: user_id
-      in: path
-      required: true
-      description: The unique identifier of the user.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

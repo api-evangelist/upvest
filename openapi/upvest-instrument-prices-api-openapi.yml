@@ -84,6 +84,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    InstrumentId:
+      name: instrument_id
+      in: path
+      required: true
+      description: The unique identifier of the instrument.
+      schema:
+        type: string
+        format: uuid
   schemas:
     InstrumentPrice:
       type: object
@@ -132,15 +141,6 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
-  parameters:
-    InstrumentId:
-      name: instrument_id
-      in: path
-      required: true
-      description: The unique identifier of the instrument.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

@@ -135,26 +135,6 @@ components:
         type: string
         format: uuid
   schemas:
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
     RebalancingExecution:
       type: object
       description: A portfolio rebalancing operation.
@@ -183,6 +163,26 @@ components:
           format: date-time
           description: When the rebalancing was initiated.
           example: '2025-03-15T14:30:00Z'
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

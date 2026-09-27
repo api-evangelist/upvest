@@ -348,15 +348,6 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
     UserId:
       name: user_id
       in: path
@@ -373,6 +364,15 @@ components:
         type: integer
         minimum: 0
         default: 0
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
   schemas:
     Error:
       type: object
@@ -447,62 +447,6 @@ components:
           example: user@example.com
         address:
           $ref: '#/components/schemas/Address'
-    UserCreate:
-      type: object
-      description: Request body for creating a new user.
-      required:
-      - first_name
-      - last_name
-      - email
-      - date_of_birth
-      - nationality
-      - address
-      properties:
-        first_name:
-          type: string
-          description: The user's first name.
-          example: Example Name
-        last_name:
-          type: string
-          description: The user's last name.
-          example: Example Name
-        email:
-          type: string
-          format: email
-          description: The user's email address.
-          example: user@example.com
-        date_of_birth:
-          type: string
-          format: date
-          description: The user's date of birth.
-          example: '2025-03-15'
-        nationality:
-          type: string
-          description: The user's nationality as an ISO 3166-1 alpha-2 country code.
-          pattern: ^[A-Z]{2}$
-          example: DE
-        address:
-          $ref: '#/components/schemas/Address'
-    PaginationMeta:
-      type: object
-      description: Pagination metadata for list responses.
-      properties:
-        offset:
-          type: integer
-          description: The current offset.
-          example: 0
-        limit:
-          type: integer
-          description: The page size.
-          example: 20
-        count:
-          type: integer
-          description: The total number of items in the current page.
-          example: 100
-        total:
-          type: integer
-          description: The total number of items available.
-          example: 100
     User:
       type: object
       description: An end user on the investment platform.
@@ -556,6 +500,62 @@ components:
           format: date-time
           description: The date and time when the user was last updated.
           example: '2025-03-15T14:30:00Z'
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
+    UserCreate:
+      type: object
+      description: Request body for creating a new user.
+      required:
+      - first_name
+      - last_name
+      - email
+      - date_of_birth
+      - nationality
+      - address
+      properties:
+        first_name:
+          type: string
+          description: The user's first name.
+          example: Example Name
+        last_name:
+          type: string
+          description: The user's last name.
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: The user's email address.
+          example: user@example.com
+        date_of_birth:
+          type: string
+          format: date
+          description: The user's date of birth.
+          example: '2025-03-15'
+        nationality:
+          type: string
+          description: The user's nationality as an ISO 3166-1 alpha-2 country code.
+          pattern: ^[A-Z]{2}$
+          example: DE
+        address:
+          $ref: '#/components/schemas/Address'
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

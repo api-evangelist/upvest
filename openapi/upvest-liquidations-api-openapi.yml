@@ -139,6 +139,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: string
+        format: uuid
   schemas:
     LiquidationCreate:
       type: object
@@ -208,15 +217,6 @@ components:
           format: date-time
           description: When the liquidation was initiated.
           example: '2025-03-15T14:30:00Z'
-  parameters:
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      description: The unique identifier of the account.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

@@ -93,26 +93,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
     OrderCancellation:
       type: object
       description: A cancellation request for an order.
@@ -140,6 +120,26 @@ components:
           format: date-time
           description: When the cancellation was requested.
           example: '2025-03-15T14:30:00Z'
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
   parameters:
     OrderId:
       name: order_id

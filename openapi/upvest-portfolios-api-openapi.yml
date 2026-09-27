@@ -282,50 +282,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PortfolioAllocationCreate:
-      type: object
-      description: Request body for defining a portfolio allocation.
-      required:
-      - instrument_id
-      - weight
-      properties:
-        instrument_id:
-          type: string
-          format: uuid
-          description: The instrument to allocate to.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        weight:
-          type: string
-          description: The target weight as a decimal string between 0 and 1.
-          example: example-value
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
-    PortfolioUpdate:
-      type: object
-      description: Request body for updating a portfolio.
-      properties:
-        name:
-          type: string
-          description: The updated portfolio name.
-          example: Example Name
     Portfolio:
       type: object
       description: A portfolio with defined target allocations across instruments.
@@ -386,6 +342,34 @@ components:
           example:
           - instrument_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             weight: example-value
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    PortfolioUpdate:
+      type: object
+      description: Request body for updating a portfolio.
+      properties:
+        name:
+          type: string
+          description: The updated portfolio name.
+          example: Example Name
     PaginationMeta:
       type: object
       description: Pagination metadata for list responses.
@@ -406,7 +390,39 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
+    PortfolioAllocationCreate:
+      type: object
+      description: Request body for defining a portfolio allocation.
+      required:
+      - instrument_id
+      - weight
+      properties:
+        instrument_id:
+          type: string
+          format: uuid
+          description: The instrument to allocate to.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        weight:
+          type: string
+          description: The target weight as a decimal string between 0 and 1.
+          example: example-value
   parameters:
+    PortfolioId:
+      name: portfolio_id
+      in: path
+      required: true
+      description: The unique identifier of the portfolio.
+      schema:
+        type: string
+        format: uuid
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     Limit:
       name: limit
       in: query
@@ -416,22 +432,6 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    PortfolioId:
-      name: portfolio_id
-      in: path
-      required: true
-      description: The unique identifier of the portfolio.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2
