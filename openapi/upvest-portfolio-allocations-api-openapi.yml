@@ -148,15 +148,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    PortfolioId:
-      name: portfolio_id
-      in: path
-      required: true
-      description: The unique identifier of the portfolio.
-      schema:
-        type: string
-        format: uuid
   schemas:
     PortfolioAllocationCreate:
       type: object
@@ -169,6 +160,19 @@ components:
           type: string
           format: uuid
           description: The instrument to allocate to.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        weight:
+          type: string
+          description: The target weight as a decimal string between 0 and 1.
+          example: example-value
+    PortfolioAllocation:
+      type: object
+      description: A target allocation within a portfolio.
+      properties:
+        instrument_id:
+          type: string
+          format: uuid
+          description: The instrument identifier.
           example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         weight:
           type: string
@@ -194,19 +198,15 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
-    PortfolioAllocation:
-      type: object
-      description: A target allocation within a portfolio.
-      properties:
-        instrument_id:
-          type: string
-          format: uuid
-          description: The instrument identifier.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        weight:
-          type: string
-          description: The target weight as a decimal string between 0 and 1.
-          example: example-value
+  parameters:
+    PortfolioId:
+      name: portfolio_id
+      in: path
+      required: true
+      description: The unique identifier of the portfolio.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

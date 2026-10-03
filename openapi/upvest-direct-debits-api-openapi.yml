@@ -158,7 +158,103 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   schemas:
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
+    DirectDebitCreate:
+      type: object
+      description: Request body for creating a direct debit.
+      required:
+      - user_id
+      - account_group_id
+      - mandate_id
+      - cash_amount
+      - currency
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          description: The user initiating the debit.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        account_group_id:
+          type: string
+          format: uuid
+          description: The account group to fund.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        mandate_id:
+          type: string
+          format: uuid
+          description: The mandate authorizing the debit.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        cash_amount:
+          type: string
+          description: The debit amount.
+          example: example-value
+        currency:
+          type: string
+          description: The currency as an ISO 4217 code.
+          pattern: ^[A-Z]{3}$
+          example: EUR
+        remittance_information:
+          type: string
+          description: Optional remittance information.
+          example: example-value
     DirectDebit:
       type: object
       description: A direct debit funding request.
@@ -211,102 +307,6 @@ components:
           format: date-time
           description: When the direct debit was created.
           example: '2025-03-15T14:30:00Z'
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
-    DirectDebitCreate:
-      type: object
-      description: Request body for creating a direct debit.
-      required:
-      - user_id
-      - account_group_id
-      - mandate_id
-      - cash_amount
-      - currency
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          description: The user initiating the debit.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        account_group_id:
-          type: string
-          format: uuid
-          description: The account group to fund.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        mandate_id:
-          type: string
-          format: uuid
-          description: The mandate authorizing the debit.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        cash_amount:
-          type: string
-          description: The debit amount.
-          example: example-value
-        currency:
-          type: string
-          description: The currency as an ISO 4217 code.
-          pattern: ^[A-Z]{3}$
-          example: EUR
-        remittance_information:
-          type: string
-          description: Optional remittance information.
-          example: example-value
-    PaginationMeta:
-      type: object
-      description: Pagination metadata for list responses.
-      properties:
-        offset:
-          type: integer
-          description: The current offset.
-          example: 0
-        limit:
-          type: integer
-          description: The page size.
-          example: 20
-        count:
-          type: integer
-          description: The total number of items in the current page.
-          example: 100
-        total:
-          type: integer
-          description: The total number of items available.
-          example: 100
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

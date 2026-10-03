@@ -92,15 +92,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    PortfolioId:
-      name: portfolio_id
-      in: path
-      required: true
-      description: The unique identifier of the portfolio.
-      schema:
-        type: string
-        format: uuid
   schemas:
     PortfolioOrderCreate:
       type: object
@@ -118,6 +109,26 @@ components:
           description: The order currency as an ISO 4217 code.
           pattern: ^[A-Z]{3}$
           example: EUR
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
     PortfolioOrder:
       type: object
       description: An order placed against a portfolio's allocations.
@@ -154,26 +165,15 @@ components:
           format: date-time
           description: When the order was created.
           example: '2025-03-15T14:30:00Z'
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
+  parameters:
+    PortfolioId:
+      name: portfolio_id
+      in: path
+      required: true
+      description: The unique identifier of the portfolio.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

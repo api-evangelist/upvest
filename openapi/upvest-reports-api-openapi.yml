@@ -77,7 +77,56 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   schemas:
+    Report:
+      type: object
+      description: A generated user-facing report or statement.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The report identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        type:
+          type: string
+          description: The report type.
+          example: standard
+        status:
+          type: string
+          enum:
+          - PENDING
+          - READY
+          - FAILED
+          description: The report generation status.
+          example: PENDING
+        file_id:
+          type: string
+          format: uuid
+          description: The file identifier for downloading the report.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        created_at:
+          type: string
+          format: date-time
+          description: When the report was generated.
+          example: '2025-03-15T14:30:00Z'
     Error:
       type: object
       description: An API error response.
@@ -118,55 +167,6 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
-    Report:
-      type: object
-      description: A generated user-facing report or statement.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The report identifier.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        type:
-          type: string
-          description: The report type.
-          example: standard
-        status:
-          type: string
-          enum:
-          - PENDING
-          - READY
-          - FAILED
-          description: The report generation status.
-          example: PENDING
-        file_id:
-          type: string
-          format: uuid
-          description: The file identifier for downloading the report.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        created_at:
-          type: string
-          format: date-time
-          description: When the report was generated.
-          example: '2025-03-15T14:30:00Z'
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

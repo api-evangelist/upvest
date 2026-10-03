@@ -283,19 +283,19 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    UserId:
-      name: user_id
-      in: path
-      required: true
-      description: The unique identifier of the user.
-      schema:
-        type: string
-        format: uuid
     IdentifierId:
       name: identifier_id
       in: path
       required: true
       description: The unique identifier of the user identifier.
+      schema:
+        type: string
+        format: uuid
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The unique identifier of the user.
       schema:
         type: string
         format: uuid
@@ -328,6 +328,21 @@ components:
           type: string
           description: The updated identifier value.
           example: example-value
+    UserIdentifierCreate:
+      type: object
+      description: Request body for creating a user identifier.
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          description: The type of external identifier.
+          example: standard
+        value:
+          type: string
+          description: The identifier value.
+          example: example-value
     UserIdentifier:
       type: object
       description: An external identifier associated with a user.
@@ -350,21 +365,6 @@ components:
           format: date-time
           description: When the identifier was created.
           example: '2025-03-15T14:30:00Z'
-    UserIdentifierCreate:
-      type: object
-      description: Request body for creating a user identifier.
-      required:
-      - type
-      - value
-      properties:
-        type:
-          type: string
-          description: The type of external identifier.
-          example: standard
-        value:
-          type: string
-          description: The identifier value.
-          example: example-value
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

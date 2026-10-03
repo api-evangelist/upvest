@@ -69,15 +69,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      description: The unique identifier of the account.
-      schema:
-        type: string
-        format: uuid
   schemas:
     Valuation:
       type: object
@@ -127,6 +118,15 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
+  parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

@@ -138,22 +138,16 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: string
+        format: uuid
   schemas:
-    TaxResidencyCreate:
-      type: object
-      description: Request body for creating a tax residency record.
-      required:
-      - country
-      properties:
-        country:
-          type: string
-          description: The country of tax residency as an ISO 3166-1 alpha-2 code.
-          pattern: ^[A-Z]{2}$
-          example: DE
-        tax_identification_number:
-          type: string
-          description: The tax identification number in the given country.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     Error:
       type: object
       description: An API error response.
@@ -174,6 +168,21 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
+    TaxResidencyCreate:
+      type: object
+      description: Request body for creating a tax residency record.
+      required:
+      - country
+      properties:
+        country:
+          type: string
+          description: The country of tax residency as an ISO 3166-1 alpha-2 code.
+          pattern: ^[A-Z]{2}$
+          example: DE
+        tax_identification_number:
+          type: string
+          description: The tax identification number in the given country.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     TaxResidency:
       type: object
       description: A tax residency record for a user.
@@ -197,15 +206,6 @@ components:
           format: date-time
           description: When the record was created.
           example: '2025-03-15T14:30:00Z'
-  parameters:
-    UserId:
-      name: user_id
-      in: path
-      required: true
-      description: The unique identifier of the user.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

@@ -350,50 +350,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
-    SavingsPlanUpdate:
-      type: object
-      description: Request body for updating a savings plan.
-      properties:
-        cash_amount:
-          type: string
-          description: The updated investment amount.
-          example: example-value
-        frequency:
-          type: string
-          enum:
-          - WEEKLY
-          - BIWEEKLY
-          - MONTHLY
-          - QUARTERLY
-          description: The updated execution frequency.
-          example: WEEKLY
-        status:
-          type: string
-          enum:
-          - ACTIVE
-          - PAUSED
-          description: Activate or pause the savings plan.
-          example: ACTIVE
     SavingsPlan:
       type: object
       description: An automated recurring investment plan.
@@ -459,6 +415,26 @@ components:
           format: date-time
           description: When the savings plan was last updated.
           example: '2025-03-15T14:30:00Z'
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
     PaginationMeta:
       type: object
       description: Pagination metadata for list responses.
@@ -479,6 +455,30 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
+    SavingsPlanUpdate:
+      type: object
+      description: Request body for updating a savings plan.
+      properties:
+        cash_amount:
+          type: string
+          description: The updated investment amount.
+          example: example-value
+        frequency:
+          type: string
+          enum:
+          - WEEKLY
+          - BIWEEKLY
+          - MONTHLY
+          - QUARTERLY
+          description: The updated execution frequency.
+          example: WEEKLY
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - PAUSED
+          description: Activate or pause the savings plan.
+          example: ACTIVE
     SavingsPlanCreate:
       type: object
       description: Request body for creating a savings plan.
@@ -522,14 +522,6 @@ components:
           description: The execution frequency.
           example: WEEKLY
   parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     Limit:
       name: limit
       in: query
@@ -547,6 +539,14 @@ components:
       schema:
         type: string
         format: uuid
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

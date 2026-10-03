@@ -139,29 +139,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      description: The unique identifier of the account.
-      schema:
-        type: string
-        format: uuid
   schemas:
-    LiquidationCreate:
-      type: object
-      description: Request body for creating a liquidation.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - FULL
-          - PARTIAL
-          description: Whether to fully or partially liquidate.
-          example: FULL
     Error:
       type: object
       description: An API error response.
@@ -217,6 +195,28 @@ components:
           format: date-time
           description: When the liquidation was initiated.
           example: '2025-03-15T14:30:00Z'
+    LiquidationCreate:
+      type: object
+      description: Request body for creating a liquidation.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - FULL
+          - PARTIAL
+          description: Whether to fully or partially liquidate.
+          example: FULL
+  parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

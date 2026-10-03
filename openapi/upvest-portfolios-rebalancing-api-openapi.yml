@@ -125,15 +125,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    PortfolioId:
-      name: portfolio_id
-      in: path
-      required: true
-      description: The unique identifier of the portfolio.
-      schema:
-        type: string
-        format: uuid
   schemas:
     RebalancingExecution:
       type: object
@@ -183,6 +174,15 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
+  parameters:
+    PortfolioId:
+      name: portfolio_id
+      in: path
+      required: true
+      description: The unique identifier of the portfolio.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2
