@@ -139,27 +139,29 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      description: The unique identifier of the account.
+      schema:
+        type: string
+        format: uuid
   schemas:
-    Error:
+    LiquidationCreate:
       type: object
-      description: An API error response.
+      description: Request body for creating a liquidation.
+      required:
+      - type
       properties:
         type:
           type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
+          enum:
+          - FULL
+          - PARTIAL
+          description: Whether to fully or partially liquidate.
+          example: FULL
     Liquidation:
       type: object
       description: A liquidation of account holdings.
@@ -195,28 +197,26 @@ components:
           format: date-time
           description: When the liquidation was initiated.
           example: '2025-03-15T14:30:00Z'
-    LiquidationCreate:
+    Error:
       type: object
-      description: Request body for creating a liquidation.
-      required:
-      - type
+      description: An API error response.
       properties:
         type:
           type: string
-          enum:
-          - FULL
-          - PARTIAL
-          description: Whether to fully or partially liquidate.
-          example: FULL
-  parameters:
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      description: The unique identifier of the account.
-      schema:
-        type: string
-        format: uuid
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

@@ -138,15 +138,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    UserId:
-      name: user_id
-      in: path
-      required: true
-      description: The unique identifier of the user.
-      schema:
-        type: string
-        format: uuid
   schemas:
     Error:
       type: object
@@ -206,6 +197,15 @@ components:
           format: date-time
           description: When the record was created.
           example: '2025-03-15T14:30:00Z'
+  parameters:
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The unique identifier of the user.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

@@ -80,6 +80,14 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     Limit:
       name: limit
       in: query
@@ -89,14 +97,6 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     AccountId:
       name: account_id
       in: path
@@ -106,6 +106,45 @@ components:
         type: string
         format: uuid
   schemas:
+    Transaction:
+      type: object
+      description: A transaction record within an account.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The transaction identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        account_id:
+          type: string
+          format: uuid
+          description: The account the transaction belongs to.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        type:
+          type: string
+          enum:
+          - ORDER_EXECUTION
+          - FEE
+          - DIVIDEND
+          - TRANSFER
+          - DIRECT_DEBIT
+          - WITHDRAWAL
+          description: The transaction type.
+          example: ORDER_EXECUTION
+        amount:
+          type: string
+          description: The transaction amount as a decimal string.
+          example: example-value
+        currency:
+          type: string
+          description: The transaction currency.
+          pattern: ^[A-Z]{3}$
+          example: EUR
+        created_at:
+          type: string
+          format: date-time
+          description: When the transaction occurred.
+          example: '2025-03-15T14:30:00Z'
     Error:
       type: object
       description: An API error response.
@@ -146,45 +185,6 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
-    Transaction:
-      type: object
-      description: A transaction record within an account.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The transaction identifier.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        account_id:
-          type: string
-          format: uuid
-          description: The account the transaction belongs to.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        type:
-          type: string
-          enum:
-          - ORDER_EXECUTION
-          - FEE
-          - DIVIDEND
-          - TRANSFER
-          - DIRECT_DEBIT
-          - WITHDRAWAL
-          description: The transaction type.
-          example: ORDER_EXECUTION
-        amount:
-          type: string
-          description: The transaction amount as a decimal string.
-          example: example-value
-        currency:
-          type: string
-          description: The transaction currency.
-          pattern: ^[A-Z]{3}$
-          example: EUR
-        created_at:
-          type: string
-          format: date-time
-          description: When the transaction occurred.
-          example: '2025-03-15T14:30:00Z'
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

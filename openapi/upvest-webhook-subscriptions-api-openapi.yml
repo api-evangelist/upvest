@@ -316,27 +316,58 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    WebhookId:
+      name: webhook_id
+      in: path
+      required: true
+      description: The unique identifier of the webhook subscription.
+      schema:
+        type: string
+        format: uuid
   schemas:
-    Error:
+    WebhookSubscriptionCreate:
       type: object
-      description: An API error response.
+      description: Request body for creating a webhook subscription.
+      required:
+      - url
+      - event_categories
       properties:
-        type:
+        url:
           type: string
-          description: The error type identifier.
-          example: standard
+          format: uri
+          description: The HTTPS endpoint URL. Must use TLS 1.2 or higher.
+          example: https://example.com
+        event_categories:
+          type: array
+          items:
+            type: string
+          description: The event categories to subscribe to.
+          example:
+          - example-value
+    WebhookSubscriptionUpdate:
+      type: object
+      description: Request body for updating a webhook subscription.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The updated endpoint URL.
+          example: https://example.com
+        event_categories:
+          type: array
+          items:
+            type: string
+          description: The updated event categories.
+          example:
+          - example-value
         status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
           type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
+          enum:
+          - ACTIVE
+          - INACTIVE
+          description: Activate or deactivate the subscription.
+          example: ACTIVE
     WebhookSubscription:
       type: object
       description: A webhook subscription for receiving event notifications.
@@ -393,57 +424,26 @@ components:
           format: date-time
           description: When the subscription was created.
           example: '2025-03-15T14:30:00Z'
-    WebhookSubscriptionUpdate:
+    Error:
       type: object
-      description: Request body for updating a webhook subscription.
+      description: An API error response.
       properties:
-        url:
+        type:
           type: string
-          format: uri
-          description: The updated endpoint URL.
-          example: https://example.com
-        event_categories:
-          type: array
-          items:
-            type: string
-          description: The updated event categories.
-          example:
-          - example-value
+          description: The error type identifier.
+          example: standard
         status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
           type: string
-          enum:
-          - ACTIVE
-          - INACTIVE
-          description: Activate or deactivate the subscription.
-          example: ACTIVE
-    WebhookSubscriptionCreate:
-      type: object
-      description: Request body for creating a webhook subscription.
-      required:
-      - url
-      - event_categories
-      properties:
-        url:
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
           type: string
-          format: uri
-          description: The HTTPS endpoint URL. Must use TLS 1.2 or higher.
-          example: https://example.com
-        event_categories:
-          type: array
-          items:
-            type: string
-          description: The event categories to subscribe to.
-          example:
-          - example-value
-  parameters:
-    WebhookId:
-      name: webhook_id
-      in: path
-      required: true
-      description: The unique identifier of the webhook subscription.
-      schema:
-        type: string
-        format: uuid
+          description: A detailed human-readable explanation of the error.
+          example: example-value
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

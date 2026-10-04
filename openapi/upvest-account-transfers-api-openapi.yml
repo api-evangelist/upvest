@@ -143,6 +143,14 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     Limit:
       name: limit
       in: query
@@ -152,29 +160,7 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   schemas:
-    AccountTransferCreate:
-      type: object
-      description: Request body for creating an account transfer.
-      properties:
-        source_account_id:
-          type: string
-          format: uuid
-          description: The source account.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        target_account_id:
-          type: string
-          format: uuid
-          description: The target account.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     AccountTransfer:
       type: object
       description: An account transfer between entities.
@@ -238,6 +224,20 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
+    AccountTransferCreate:
+      type: object
+      description: Request body for creating an account transfer.
+      properties:
+        source_account_id:
+          type: string
+          format: uuid
+          description: The source account.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        target_account_id:
+          type: string
+          format: uuid
+          description: The target account.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

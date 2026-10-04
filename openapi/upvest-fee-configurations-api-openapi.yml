@@ -77,25 +77,33 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   schemas:
+    FeeConfiguration:
+      type: object
+      description: A fee configuration template defining fee structures.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The fee configuration identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          type: string
+          description: The name of the fee configuration.
+          example: Example Name
+        type:
+          type: string
+          description: The fee type this configuration applies to.
+          example: standard
+        rate:
+          type: string
+          description: The fee rate as a decimal string.
+          example: example-value
+        currency:
+          type: string
+          description: The fee currency.
+          pattern: ^[A-Z]{3}$
+          example: EUR
     Error:
       type: object
       description: An API error response.
@@ -136,32 +144,24 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
-    FeeConfiguration:
-      type: object
-      description: A fee configuration template defining fee structures.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The fee configuration identifier.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        name:
-          type: string
-          description: The name of the fee configuration.
-          example: Example Name
-        type:
-          type: string
-          description: The fee type this configuration applies to.
-          example: standard
-        rate:
-          type: string
-          description: The fee rate as a decimal string.
-          example: example-value
-        currency:
-          type: string
-          description: The fee currency.
-          pattern: ^[A-Z]{3}$
-          example: EUR
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

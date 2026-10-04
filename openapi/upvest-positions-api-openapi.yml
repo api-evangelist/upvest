@@ -214,19 +214,19 @@ components:
           description: A detailed human-readable explanation of the error.
           example: example-value
   parameters:
-    PositionId:
-      name: position_id
-      in: path
-      required: true
-      description: The unique identifier of the position.
-      schema:
-        type: string
-        format: uuid
     AccountId:
       name: account_id
       in: path
       required: true
       description: The unique identifier of the account.
+      schema:
+        type: string
+        format: uuid
+    PositionId:
+      name: position_id
+      in: path
+      required: true
+      description: The unique identifier of the position.
       schema:
         type: string
         format: uuid

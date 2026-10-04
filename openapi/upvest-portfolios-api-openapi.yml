@@ -282,6 +282,14 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     Limit:
       name: limit
       in: query
@@ -291,14 +299,6 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     PortfolioId:
       name: portfolio_id
       in: path
@@ -324,6 +324,74 @@ components:
           type: string
           description: The target weight as a decimal string between 0 and 1.
           example: example-value
+    PortfolioUpdate:
+      type: object
+      description: Request body for updating a portfolio.
+      properties:
+        name:
+          type: string
+          description: The updated portfolio name.
+          example: Example Name
+    PortfolioCreate:
+      type: object
+      description: Request body for creating a portfolio.
+      required:
+      - account_id
+      - name
+      - allocations
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          description: The account to create the portfolio for.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          type: string
+          description: The portfolio name.
+          example: Example Name
+        allocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioAllocationCreate'
+          description: The initial target allocations.
+          example:
+          - instrument_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            weight: example-value
+    Portfolio:
+      type: object
+      description: A portfolio with defined target allocations across instruments.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the portfolio.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        account_id:
+          type: string
+          format: uuid
+          description: The account this portfolio belongs to.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          type: string
+          description: The portfolio name.
+          example: Example Name
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - CLOSED
+          description: The portfolio status.
+          example: ACTIVE
+        created_at:
+          type: string
+          format: date-time
+          description: When the portfolio was created.
+          example: '2025-03-15T14:30:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: When the portfolio was last updated.
+          example: '2025-03-15T14:30:00Z'
     Error:
       type: object
       description: An API error response.
@@ -364,74 +432,6 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
-    Portfolio:
-      type: object
-      description: A portfolio with defined target allocations across instruments.
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the portfolio.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        account_id:
-          type: string
-          format: uuid
-          description: The account this portfolio belongs to.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        name:
-          type: string
-          description: The portfolio name.
-          example: Example Name
-        status:
-          type: string
-          enum:
-          - ACTIVE
-          - CLOSED
-          description: The portfolio status.
-          example: ACTIVE
-        created_at:
-          type: string
-          format: date-time
-          description: When the portfolio was created.
-          example: '2025-03-15T14:30:00Z'
-        updated_at:
-          type: string
-          format: date-time
-          description: When the portfolio was last updated.
-          example: '2025-03-15T14:30:00Z'
-    PortfolioUpdate:
-      type: object
-      description: Request body for updating a portfolio.
-      properties:
-        name:
-          type: string
-          description: The updated portfolio name.
-          example: Example Name
-    PortfolioCreate:
-      type: object
-      description: Request body for creating a portfolio.
-      required:
-      - account_id
-      - name
-      - allocations
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          description: The account to create the portfolio for.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        name:
-          type: string
-          description: The portfolio name.
-          example: Example Name
-        allocations:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioAllocationCreate'
-          description: The initial target allocations.
-          example:
-          - instrument_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-            weight: example-value
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2
