@@ -423,6 +423,27 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
+    AccountCreate:
+      type: object
+      description: Request body for creating an investment account.
+      required:
+      - user_id
+      - account_group_id
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          description: The user to create the account for.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        account_group_id:
+          type: string
+          format: uuid
+          description: The account group to assign the account to.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        type:
+          type: string
+          description: The type of investment account.
+          example: standard
     AccountUpdate:
       type: object
       description: Request body for updating an investment account.
@@ -431,6 +452,26 @@ components:
           type: string
           description: The type of investment account.
           example: standard
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
     Account:
       type: object
       description: An investment account that holds positions and tracks balances.
@@ -473,56 +514,15 @@ components:
           format: date-time
           description: When the account was last updated.
           example: '2025-03-15T14:30:00Z'
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
-    AccountCreate:
-      type: object
-      description: Request body for creating an investment account.
-      required:
-      - user_id
-      - account_group_id
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          description: The user to create the account for.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        account_group_id:
-          type: string
-          format: uuid
-          description: The account group to assign the account to.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        type:
-          type: string
-          description: The type of investment account.
-          example: standard
   parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The unique identifier of the user.
       schema:
-        type: integer
-        minimum: 0
-        default: 0
+        type: string
+        format: uuid
     Limit:
       name: limit
       in: query
@@ -532,14 +532,6 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    UserId:
-      name: user_id
-      in: path
-      required: true
-      description: The unique identifier of the user.
-      schema:
-        type: string
-        format: uuid
     AccountId:
       name: account_id
       in: path
@@ -548,6 +540,14 @@ components:
       schema:
         type: string
         format: uuid
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

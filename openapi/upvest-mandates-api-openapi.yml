@@ -157,26 +157,6 @@ components:
           type: integer
           description: The total number of items available.
           example: 100
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
     Mandate:
       type: object
       description: A direct debit mandate authorizing fund collection.
@@ -207,15 +187,35 @@ components:
           format: date-time
           description: When the mandate was created.
           example: '2025-03-15T14:30:00Z'
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
   parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
+    MandateId:
+      name: mandate_id
+      in: path
+      required: true
+      description: The unique identifier of the mandate.
       schema:
-        type: integer
-        minimum: 0
-        default: 0
+        type: string
+        format: uuid
     Limit:
       name: limit
       in: query
@@ -225,14 +225,14 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    MandateId:
-      name: mandate_id
-      in: path
-      required: true
-      description: The unique identifier of the mandate.
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
       schema:
-        type: string
-        format: uuid
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

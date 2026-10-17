@@ -349,57 +349,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-    SavingsPlanId:
-      name: savings_plan_id
-      in: path
-      required: true
-      description: The unique identifier of the savings plan.
-      schema:
-        type: string
-        format: uuid
   schemas:
-    SavingsPlanUpdate:
-      type: object
-      description: Request body for updating a savings plan.
-      properties:
-        cash_amount:
-          type: string
-          description: The updated investment amount.
-          example: example-value
-        frequency:
-          type: string
-          enum:
-          - WEEKLY
-          - BIWEEKLY
-          - MONTHLY
-          - QUARTERLY
-          description: The updated execution frequency.
-          example: WEEKLY
-        status:
-          type: string
-          enum:
-          - ACTIVE
-          - PAUSED
-          description: Activate or pause the savings plan.
-          example: ACTIVE
     SavingsPlanCreate:
       type: object
       description: Request body for creating a savings plan.
@@ -442,6 +392,50 @@ components:
           - QUARTERLY
           description: The execution frequency.
           example: WEEKLY
+    SavingsPlanUpdate:
+      type: object
+      description: Request body for updating a savings plan.
+      properties:
+        cash_amount:
+          type: string
+          description: The updated investment amount.
+          example: example-value
+        frequency:
+          type: string
+          enum:
+          - WEEKLY
+          - BIWEEKLY
+          - MONTHLY
+          - QUARTERLY
+          description: The updated execution frequency.
+          example: WEEKLY
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - PAUSED
+          description: Activate or pause the savings plan.
+          example: ACTIVE
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
     SavingsPlan:
       type: object
       description: An automated recurring investment plan.
@@ -527,26 +521,32 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
-    PaginationMeta:
-      type: object
-      description: Pagination metadata for list responses.
-      properties:
-        offset:
-          type: integer
-          description: The current offset.
-          example: 0
-        limit:
-          type: integer
-          description: The page size.
-          example: 20
-        count:
-          type: integer
-          description: The total number of items in the current page.
-          example: 100
-        total:
-          type: integer
-          description: The total number of items available.
-          example: 100
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    SavingsPlanId:
+      name: savings_plan_id
+      in: path
+      required: true
+      description: The unique identifier of the savings plan.
+      schema:
+        type: string
+        format: uuid
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

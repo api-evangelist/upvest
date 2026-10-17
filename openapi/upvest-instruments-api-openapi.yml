@@ -163,14 +163,14 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
+    InstrumentId:
+      name: instrument_id
+      in: path
+      required: true
+      description: The unique identifier of the instrument.
       schema:
-        type: integer
-        minimum: 0
-        default: 0
+        type: string
+        format: uuid
     Limit:
       name: limit
       in: query
@@ -180,15 +180,71 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    InstrumentId:
-      name: instrument_id
-      in: path
-      required: true
-      description: The unique identifier of the instrument.
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
       schema:
-        type: string
-        format: uuid
+        type: integer
+        minimum: 0
+        default: 0
   schemas:
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses.
+      properties:
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
+    Error:
+      type: object
+      description: An API error response.
+      properties:
+        type:
+          type: string
+          description: The error type identifier.
+          example: standard
+        status:
+          type: integer
+          description: The HTTP status code.
+          example: 100
+        title:
+          type: string
+          description: A short human-readable summary of the error.
+          example: example-value
+        detail:
+          type: string
+          description: A detailed human-readable explanation of the error.
+          example: example-value
+    Exchange:
+      type: object
+      description: A securities exchange where instruments are traded.
+      properties:
+        id:
+          type: string
+          description: The exchange identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          type: string
+          description: The exchange name.
+          example: Example Name
+        mic:
+          type: string
+          description: The Market Identifier Code (ISO 10383).
+          example: example-value
     Instrument:
       type: object
       description: A tradeable financial instrument such as a stock, ETF, or bond.
@@ -242,62 +298,6 @@ components:
           type: boolean
           description: Whether fractional shares are supported for this instrument.
           example: true
-    Exchange:
-      type: object
-      description: A securities exchange where instruments are traded.
-      properties:
-        id:
-          type: string
-          description: The exchange identifier.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        name:
-          type: string
-          description: The exchange name.
-          example: Example Name
-        mic:
-          type: string
-          description: The Market Identifier Code (ISO 10383).
-          example: example-value
-    Error:
-      type: object
-      description: An API error response.
-      properties:
-        type:
-          type: string
-          description: The error type identifier.
-          example: standard
-        status:
-          type: integer
-          description: The HTTP status code.
-          example: 100
-        title:
-          type: string
-          description: A short human-readable summary of the error.
-          example: example-value
-        detail:
-          type: string
-          description: A detailed human-readable explanation of the error.
-          example: example-value
-    PaginationMeta:
-      type: object
-      description: Pagination metadata for list responses.
-      properties:
-        offset:
-          type: integer
-          description: The current offset.
-          example: 0
-        limit:
-          type: integer
-          description: The page size.
-          example: 20
-        count:
-          type: integer
-          description: The total number of items in the current page.
-          example: 100
-        total:
-          type: integer
-          description: The total number of items available.
-          example: 100
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2

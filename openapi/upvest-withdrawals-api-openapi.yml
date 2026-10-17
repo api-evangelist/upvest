@@ -149,62 +149,27 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    Offset:
-      name: offset
-      in: query
-      description: The number of items to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of items to return per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
   schemas:
-    Withdrawal:
+    PaginationMeta:
       type: object
-      description: A cash withdrawal from an investment account.
+      description: Pagination metadata for list responses.
       properties:
-        id:
-          type: string
-          format: uuid
-          description: The withdrawal identifier.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        account_id:
-          type: string
-          format: uuid
-          description: The account to withdraw from.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        cash_amount:
-          type: string
-          description: The withdrawal amount.
-          example: example-value
-        currency:
-          type: string
-          description: The currency of the withdrawal.
-          pattern: ^[A-Z]{3}$
-          example: EUR
-        status:
-          type: string
-          enum:
-          - NEW
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-          description: The withdrawal status.
-          example: NEW
-        created_at:
-          type: string
-          format: date-time
-          description: When the withdrawal was created.
-          example: '2025-03-15T14:30:00Z'
+        offset:
+          type: integer
+          description: The current offset.
+          example: 0
+        limit:
+          type: integer
+          description: The page size.
+          example: 20
+        count:
+          type: integer
+          description: The total number of items in the current page.
+          example: 100
+        total:
+          type: integer
+          description: The total number of items available.
+          example: 100
     WithdrawalCreate:
       type: object
       description: Request body for creating a withdrawal.
@@ -247,26 +212,61 @@ components:
           type: string
           description: A detailed human-readable explanation of the error.
           example: example-value
-    PaginationMeta:
+    Withdrawal:
       type: object
-      description: Pagination metadata for list responses.
+      description: A cash withdrawal from an investment account.
       properties:
-        offset:
-          type: integer
-          description: The current offset.
-          example: 0
-        limit:
-          type: integer
-          description: The page size.
-          example: 20
-        count:
-          type: integer
-          description: The total number of items in the current page.
-          example: 100
-        total:
-          type: integer
-          description: The total number of items available.
-          example: 100
+        id:
+          type: string
+          format: uuid
+          description: The withdrawal identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        account_id:
+          type: string
+          format: uuid
+          description: The account to withdraw from.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        cash_amount:
+          type: string
+          description: The withdrawal amount.
+          example: example-value
+        currency:
+          type: string
+          description: The currency of the withdrawal.
+          pattern: ^[A-Z]{3}$
+          example: EUR
+        status:
+          type: string
+          enum:
+          - NEW
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          description: The withdrawal status.
+          example: NEW
+        created_at:
+          type: string
+          format: date-time
+          description: When the withdrawal was created.
+          example: '2025-03-15T14:30:00Z'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of items to return per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    Offset:
+      name: offset
+      in: query
+      description: The number of items to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     oauth2ClientCredentials:
       type: oauth2
